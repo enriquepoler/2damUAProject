@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import * 
 from PyQt5.QtCore import * 
 import sys 
+import decimal
   
 class Window(QMainWindow): 
   
@@ -12,7 +13,11 @@ class Window(QMainWindow):
   
         # setting title 
         self.setWindowTitle("Cronòmetre") 
-  
+        self.lap = 0
+        self.lap1 = 0
+        self.lap2 = 0
+        self.lap3 = 0
+        self.totalLap = 0
         # setting geometry 
         self.setGeometry(100, 100, 600, 600) 
   
@@ -52,22 +57,22 @@ class Window(QMainWindow):
         self.label.setAlignment(Qt.AlignCenter) 
   
         # creating start button 
-        start = QPushButton("Start", self) 
+        self.startStopSwitch = QPushButton("Start", self) 
   
         # setting geometry to the button 
-        start.setGeometry(75, 250, 150, 40) 
+        self.startStopSwitch.setGeometry(75, 250, 150, 40) 
   
         # add action to the method 
-        start.pressed.connect(self.Start) 
+        self.startStopSwitch.pressed.connect(self.StartStopSwitch) 
   
         # creating pause button 
-        pause = QPushButton("Pause", self) 
+        #pause = QPushButton("Pause", self) 
   
         # setting geometry to the button 
-        pause.setGeometry(225, 250, 150, 40) 
+        #pause.setGeometry(225, 250, 150, 40) 
   
         # add action to the method 
-        pause.pressed.connect(self.Pause) 
+        #pause.pressed.connect(self.Pause) 
   
         # creating reset button 
         reset = QPushButton("Reset", self) 
@@ -121,15 +126,50 @@ class Window(QMainWindow):
         # showing text 
         self.label.setText(self.text) 
   
-    def Start(self): 
-  
+    def StartStopSwitch(self): 
+        if(self.lap == 0):
+            self.textLaps = ""
+            self.labelLap.setText(self.textLaps)
+            self.flag = True
+            self.lap = 1
+            self.startStopSwitch.setText("Lap 1")
+        elif(self.lap == 1):
+            self.startStopSwitch.setText("Lap 2")
+            self.lap = 2
+            self.lap1 = self.text
+            self.textLaps += "Lap 1: {} \n".format(self.lap1)
+            self.labelLap.setText(self.textLaps)  
+        elif(self.lap == 2):
+            self.startStopSwitch.setText("Lap 3/Stop")
+            self.lap = 3
+            self.lap2 = float(self.text) - float(self.lap1)
+            self.textLaps += "Lap 2: {} \n".format(round(self.lap2, 1)) 
+            self.labelLap.setText(self.textLaps)
+        elif(self.lap == 3):
+            self.flag = False
+            self.startStopSwitch.setText("Start")
+            self.lap3 = float(self.text) - float(self.lap2) - float(self.lap1)
+            self.textLaps += "Lap 3: {} \n".format(round(self.lap3, 1))
+            self.labelLap.setText(self.textLaps)
+             # reseeting the count 
+            self.count = 0
+            self.lap = 0
+            self.totalLap = self.text
+            # setting text to label 
+            self.label.setText(str(self.count))
+            self.textLaps += "Total lap: {} \n".format(self.totalLap, 1)
+            
+            self.labelLap.setText(self.textLaps)
+
         # making flag to true 
-        self.flag = True
+        
+        
+
   
-    def Pause(self): 
+    #def Pause(self): 
   
         # making flag to False 
-        self.flag = False
+    #    self.flag = False
   
     def Reset(self): 
   
@@ -141,7 +181,7 @@ class Window(QMainWindow):
 
         # setting text to label 
         self.label.setText(str(self.count))
-        self.textLaps += self.text + "\n"
+        self.textLaps = ""
         
         self.labelLap.setText(self.textLaps)
             

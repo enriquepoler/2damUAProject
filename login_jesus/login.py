@@ -22,7 +22,7 @@ class Login(QDialog):
         print("Dni:",lineEditDni,"\n","Contraseña:",lineEditCon)
 
         connection = sqlite3.connect(usersdb)
-        result = connection.execute("SELECT * FROM users WHERE dni=?  AND password=?",(lineEditDni,lineEditCon))
+        result = connection.execute("SELECT dni FROM users WHERE dni=? AND password=?",(lineEditDni,lineEditCon))
 
         if(len(result.fetchall()) > 0):
             print("User found!")
