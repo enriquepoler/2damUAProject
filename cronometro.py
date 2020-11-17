@@ -182,8 +182,9 @@ class Window(QMainWindow):
         # setting text to label 
         self.label.setText(str(self.count))
         self.textLaps = ""
-        
+        self.lap = 0
         self.labelLap.setText(self.textLaps)
+        self.startStopSwitch.setText("Start")
             
         print(self.text)
   
