@@ -4,8 +4,10 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QWidget
 from PyQt5.uic import loadUi
 import hashlib
 import sqlite3
+import cronometro
 
 import os
+#Relative paths
 dirname = os.path.dirname(__file__)
 loginui = os.path.join(dirname, 'login.ui')
 usersdb = os.path.join(dirname, 'users.db')
@@ -33,6 +35,8 @@ class Login(QDialog):
         #Comprobem si existeix l´usuari
         if(len(result.fetchall()) > 0):
             print("User found!")
+            windowCron = cronometro.Window() 
+            window.close()
         else:
             print("User not found!")
             #self.showMessageBox('Warning','Invalid user and password')

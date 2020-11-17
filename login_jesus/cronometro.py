@@ -13,7 +13,9 @@ class Window(QMainWindow):
   
         # setting title 
         self.setWindowTitle("Cronòmetre") 
-        self.lap = 0
+        #status of the chronometer to swap between stages
+        self.status = 0
+        #Lap variables to count total time and fractions of the total lap
         self.lap1 = 0
         self.lap2 = 0
         self.lap3 = 0
@@ -127,25 +129,39 @@ class Window(QMainWindow):
         self.label.setText(self.text) 
   
     def StartStopSwitch(self): 
-        if(self.lap == 0):
+        #Switch with if/else
+        if(self.status == 0):
+            #If status is 0, then restart the text of laps, and variables
+            #start the timer with the flag
+            #and switch to lap1 with status 1 and change textbutton to "Lap 1"
             self.textLaps = ""
+            self.lap1 = 0.0
+            self.lap2 = 0.0
+            self.lap3 = 0.0
             self.labelLap.setText(self.textLaps)
             self.flag = True
-            self.lap = 1
+            self.status = 1
             self.startStopSwitch.setText("Lap 1")
-        elif(self.lap == 1):
+        elif(self.status == 1):
+            #If status is 1 and the button get pressed, swap the text of te button to next lap (Lap 2)
+            #update the label and show the lap1 (partitional time) and status is 2
             self.startStopSwitch.setText("Lap 2")
-            self.lap = 2
+            self.status = 2
             self.lap1 = self.text
             self.textLaps += "Lap 1: {} \n".format(self.lap1)
             self.labelLap.setText(self.textLaps)  
-        elif(self.lap == 2):
+        elif(self.status == 2):
+            #If status is 2 and the button get pressed, swap the text of te button to next lap (Lap 3/Stop)
+            #update the label and show the lap1 and 2 (partitional time) and status is 3
             self.startStopSwitch.setText("Lap 3/Stop")
-            self.lap = 3
+            self.status = 3
             self.lap2 = float(self.text) - float(self.lap1)
             self.textLaps += "Lap 2: {} \n".format(round(self.lap2, 1)) 
             self.labelLap.setText(self.textLaps)
-        elif(self.lap == 3):
+        elif(self.status == 3):
+            #If status is 3 and the button get pressed, swap the text of te button to next lap (Start)
+            #update the label and show the lap1, lap2 and lap3 (partitional times) and the final time of the laps
+            # reset the timer to 0, status is 0, the flag is false to stop the timer
             self.flag = False
             self.startStopSwitch.setText("Start")
             self.lap3 = float(self.text) - float(self.lap2) - float(self.lap1)
@@ -153,26 +169,17 @@ class Window(QMainWindow):
             self.labelLap.setText(self.textLaps)
              # reseeting the count 
             self.count = 0
-            self.lap = 0
+            self.status = 0
             self.totalLap = self.text
             # setting text to label 
             self.label.setText(str(self.count))
             self.textLaps += "Total lap: {} \n".format(self.totalLap, 1)
             
             self.labelLap.setText(self.textLaps)
-
-        # making flag to true 
-        
-        
-
-  
-    #def Pause(self): 
-  
-        # making flag to False 
-    #    self.flag = False
   
     def Reset(self): 
-  
+        #Resent and clear all
+        
         # making flag to false 
         self.flag = False
   
@@ -186,13 +193,13 @@ class Window(QMainWindow):
         self.labelLap.setText(self.textLaps)
         self.startStopSwitch.setText("Start")
             
-        print(self.text)
+        
   
 # create pyqt5 app 
-App = QApplication(sys.argv) 
+#App = QApplication(sys.argv) 
   
 # create the instance of our Window 
-window = Window() 
+#window = Window() 
   
 # start the app 
-sys.exit(App.exec())
+#sys.exit(App.exec())
