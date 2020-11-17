@@ -4,11 +4,16 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QWidget
 from PyQt5.uic import loadUi
 import sqlite3
 
+import os
+dirname = os.path.dirname(__file__)
+loginui = os.path.join(dirname, 'login.ui')
+usersdb = os.path.join(dirname, 'users.db')
+
 class Login(QDialog):
     def __init__(self):
         super(Login,self).__init__()
         #Carreguem el login.ui
-        loadUi("/Users/victorhuertasmancebo/Desktop/Disseny_Interficies/Python/login_jesus/login.ui",self)
+        loadUi(loginui, self)
         self.pushButtonLogin.clicked.connect(self.loginFunction)
 
     def loginFunction(self):
@@ -16,7 +21,7 @@ class Login(QDialog):
         lineEditCon=self.lineEditCon.text()
         print("Dni:",lineEditDni,"\n","Contraseña:",lineEditCon)
 
-        connection = sqlite3.connect("/Users/victorhuertasmancebo/Desktop/Disseny_Interficies/Python/login_jesus/users.db")
+        connection = sqlite3.connect(usersdb)
         result = connection.execute("SELECT * FROM users WHERE dni=?  AND password=?",(lineEditDni,lineEditCon))
 
         if(len(result.fetchall()) > 0):
