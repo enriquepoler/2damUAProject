@@ -59,13 +59,13 @@ class Window(QMainWindow):
         self.label.setAlignment(Qt.AlignCenter) 
   
         # creating start button 
-        self.startStopSwitch = QPushButton("Start", self) 
+        self.startStopSwitchBtn = QPushButton("Start", self) 
   
         # setting geometry to the button 
-        self.startStopSwitch.setGeometry(75, 250, 150, 40) 
+        self.startStopSwitchBtn.setGeometry(75, 250, 150, 40) 
   
         # add action to the method 
-        self.startStopSwitch.pressed.connect(self.StartStopSwitch) 
+        self.startStopSwitchBtn.pressed.connect(self.StartStopSwitch) 
   
         # creating pause button 
         #pause = QPushButton("Pause", self) 
@@ -141,11 +141,11 @@ class Window(QMainWindow):
             self.labelLap.setText(self.textLaps)
             self.flag = True
             self.status = 1
-            self.startStopSwitch.setText("Lap 1")
+            self.startStopSwitchBtn.setText("Lap 1")
         elif(self.status == 1):
             #If status is 1 and the button get pressed, swap the text of te button to next lap (Lap 2)
             #update the label and show the lap1 (partitional time) and status is 2
-            self.startStopSwitch.setText("Lap 2")
+            self.startStopSwitchBtn.setText("Lap 2")
             self.status = 2
             self.lap1 = self.text
             self.textLaps += "Lap 1: {} \n".format(self.lap1)
@@ -153,7 +153,7 @@ class Window(QMainWindow):
         elif(self.status == 2):
             #If status is 2 and the button get pressed, swap the text of te button to next lap (Lap 3/Stop)
             #update the label and show the lap1 and 2 (partitional time) and status is 3
-            self.startStopSwitch.setText("Lap 3/Stop")
+            self.startStopSwitchBtn.setText("Lap 3/Stop")
             self.status = 3
             self.lap2 = float(self.text) - float(self.lap1)
             self.textLaps += "Lap 2: {} \n".format(round(self.lap2, 1)) 
@@ -163,7 +163,7 @@ class Window(QMainWindow):
             #update the label and show the lap1, lap2 and lap3 (partitional times) and the final time of the laps
             # reset the timer to 0, status is 0, the flag is false to stop the timer
             self.flag = False
-            self.startStopSwitch.setText("Start")
+            self.startStopSwitchBtn.setText("Start")
             self.lap3 = float(self.text) - float(self.lap2) - float(self.lap1)
             self.textLaps += "Lap 3: {} \n".format(round(self.lap3, 1))
             self.labelLap.setText(self.textLaps)
@@ -191,7 +191,7 @@ class Window(QMainWindow):
         self.textLaps = ""
         self.lap = 0
         self.labelLap.setText(self.textLaps)
-        self.startStopSwitch.setText("Start")
+        self.startStopSwitchBtn.setText("Start")
             
         
   
