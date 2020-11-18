@@ -5,6 +5,12 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import * 
 import sys 
 import decimal
+import os
+import sqlite3
+
+#Relative paths
+dirname = os.path.dirname(__file__)
+usersdb = os.path.join(dirname, 'users.db')
   
 class Window(QMainWindow): 
   
@@ -25,7 +31,9 @@ class Window(QMainWindow):
   
         # calling method 
         self.UiComponents() 
-  
+        #Connecting to database
+        connection = sqlite3.connect(usersdb)
+        
         # showing all the widgets 
         self.show() 
   
@@ -77,13 +85,13 @@ class Window(QMainWindow):
         #pause.pressed.connect(self.Pause) 
   
         # creating reset button 
-        reset = QPushButton("Reset", self) 
+        saveLapBtn = QPushButton("Save lap", self) 
   
         # setting geometry to the button 
-        reset.setGeometry(375, 250, 150, 40) 
+        saveLapBtn.setGeometry(375, 250, 150, 40) 
   
         # add action to the method 
-        reset.pressed.connect(self.Reset) 
+        saveLapBtn.pressed.connect(self.saveLap) 
   
         # creating a timer object 
         timer = QTimer(self) 
@@ -173,25 +181,18 @@ class Window(QMainWindow):
             self.totalLap = self.text
             # setting text to label 
             self.label.setText(str(self.count))
-            self.textLaps += "Total lap: {} \n".format(self.totalLap, 1)
+            self.textLaps += "Total lap: {} \n".format(self.totalLap)
             
             self.labelLap.setText(self.textLaps)
   
-    def Reset(self): 
-        #Resent and clear all
+    def saveLap(self): 
+        connection = sqlite3.connect(usersdb)
+        connection.execute("INSERT INTO vueltas (paciente, nombre, totalTime, lap1, lap2, lap3, puntuacion, estado, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",("12345678A","Pepe", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", ""))
+        connection.commit()
+        print("Guardada vuelta")
+        connection.close()
         
-        # making flag to false 
-        self.flag = False
-  
-        # reseeting the count 
-        self.count = 0
-
-        # setting text to label 
-        self.label.setText(str(self.count))
-        self.textLaps = ""
-        self.lap = 0
-        self.labelLap.setText(self.textLaps)
-        self.startStopSwitchBtn.setText("Start")
+        
             
         
   
