@@ -18,6 +18,7 @@ class Login(QDialog):
         super(Login,self).__init__()
         #Carreguem el login.ui
         loadUi(loginui, self)
+        
         self.pushButtonLogin.clicked.connect(self.loginFunction)
         self.showMessageBox = QMessageBox()
 
@@ -38,8 +39,8 @@ class Login(QDialog):
         if(len(result.fetchall()) > 0):
             print("User found!")
             #Si troba l´usuari, canviarà a la finestra següent
-            self.windowCron = cronometro.Window()
-
+            self.windowCron = cronometro.Window(lineEditDni)
+            
             #Introduim un sleep per a que no pase tan rapid el validament
             time.sleep(1)
 

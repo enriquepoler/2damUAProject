@@ -14,7 +14,7 @@ usersdb = os.path.join(dirname, 'users.db')
   
 class Window(QMainWindow): 
   
-    def __init__(self): 
+    def __init__(self, user): 
         super().__init__() 
   
         # setting title 
@@ -28,7 +28,8 @@ class Window(QMainWindow):
         self.totalLap = 0
         # setting geometry 
         self.setGeometry(100, 100, 600, 600) 
-  
+        #Saving user information
+        self.user = user
         # calling method 
         self.UiComponents() 
         #Connecting to database
@@ -186,11 +187,14 @@ class Window(QMainWindow):
             self.labelLap.setText(self.textLaps)
   
     def saveLap(self): 
-        connection = sqlite3.connect(usersdb)
-        connection.execute("INSERT INTO vueltas (paciente, nombre, totalTime, lap1, lap2, lap3, puntuacion, estado, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",("12345678A","Pepe", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", ""))
-        connection.commit()
-        print("Guardada vuelta")
-        connection.close()
+        if(self.lap1 == 0.0 and self.lap2 == 0.0 and self.lap3 == 0.0):
+            self.labelLap.setText("No pots guardar una volta buida!")
+        else:    
+            connection = sqlite3.connect(usersdb)
+            connection.execute("INSERT INTO vueltas (paciente, nombre, totalTime, lap1, lap2, lap3, puntuacion, estado, anotations, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",("12345678A","Pepe", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user))
+            connection.commit()
+            print("Volta guardada")
+            connection.close()
         
         
             
