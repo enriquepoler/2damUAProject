@@ -203,7 +203,12 @@ class Window(QWidget):
             connection = sqlite3.connect(usersdb)
             connection.execute("INSERT INTO vueltas (paciente, nombre, totalTime, lap1, lap2, lap3, puntuacion, estado, anotations, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",("12345678A","Pepe", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user))
             connection.commit()
+            
             # FER MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
+
+            #TO-DO: Desactivar directament el boto de guardar volta quan no siga posible guardar-la!
+            # AFEGIR EDIT TEXT PER A LES ANOTACIONS!
+            
             self.labelLap.setText("Volta guardada!")
             time.sleep(3)
             self.labelLap.setText(self.textLaps)
