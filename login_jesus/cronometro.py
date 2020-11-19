@@ -12,7 +12,7 @@ import sqlite3
 dirname = os.path.dirname(__file__)
 usersdb = os.path.join(dirname, 'users.db')
   
-class Window(QMainWindow): 
+class Window(QWidget): 
   
     def __init__(self, user): 
         super().__init__() 
@@ -25,6 +25,7 @@ class Window(QMainWindow):
         self.lap1 = 0
         self.lap2 = 0
         self.lap3 = 0
+        self.savedLap = True
         self.totalLap = 0
         # setting geometry 
         self.setGeometry(100, 100, 600, 600) 
@@ -94,6 +95,9 @@ class Window(QMainWindow):
         # add action to the method 
         saveLapBtn.pressed.connect(self.saveLap) 
   
+        # creating a editable layout 
+        anotations = QLineEdit()
+        anotations.move(50, 50)
         # creating a timer object 
         timer = QTimer(self) 
   
@@ -140,9 +144,11 @@ class Window(QMainWindow):
     def StartStopSwitch(self): 
         #Switch with if/else
         if(self.status == 0):
+            
             #If status is 0, then restart the text of laps, and variables
             #start the timer with the flag
             #and switch to lap1 with status 1 and change textbutton to "Lap 1"
+            self.savedLap = True
             self.textLaps = ""
             self.lap1 = 0.0
             self.lap2 = 0.0
@@ -171,6 +177,7 @@ class Window(QMainWindow):
             #If status is 3 and the button get pressed, swap the text of te button to next lap (Start)
             #update the label and show the lap1, lap2 and lap3 (partitional times) and the final time of the laps
             # reset the timer to 0, status is 0, the flag is false to stop the timer
+            self.savedLap = False
             self.flag = False
             self.startStopSwitchBtn.setText("Start")
             self.lap3 = float(self.text) - float(self.lap2) - float(self.lap1)
@@ -188,11 +195,18 @@ class Window(QMainWindow):
   
     def saveLap(self): 
         if(self.lap1 == 0.0 and self.lap2 == 0.0 and self.lap3 == 0.0):
-            self.labelLap.setText("No pots guardar una volta buida!")
+            self.labelLap.setText("No pots guardar\n una volta buida!")
+        elif(self.savedLap == True):
+            self.labelLap.setText("No es port\nguardar la volta")
         else:    
+            self.savedLap = True
             connection = sqlite3.connect(usersdb)
             connection.execute("INSERT INTO vueltas (paciente, nombre, totalTime, lap1, lap2, lap3, puntuacion, estado, anotations, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",("12345678A","Pepe", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user))
             connection.commit()
+            # FER MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
+            self.labelLap.setText("Volta guardada!")
+            time.sleep(3)
+            self.labelLap.setText(self.textLaps)
             print("Volta guardada")
             connection.close()
         

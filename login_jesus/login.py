@@ -42,7 +42,7 @@ class Login(QDialog):
             self.windowCron = cronometro.Window(lineEditDni)
             
             #Introduim un sleep per a que no pase tan rapid el validament
-            time.sleep(1)
+            #time.sleep(1)
 
             #Mostrem una finestra de benvinguda al iniciar sesió
             self.showMessageBox.setIcon(QMessageBox.Information)
