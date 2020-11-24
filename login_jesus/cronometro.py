@@ -7,6 +7,7 @@ import sys
 import decimal
 import os
 import sqlite3
+import time
 
 #Relative paths
 dirname = os.path.dirname(__file__)
@@ -16,7 +17,7 @@ class Window(QWidget):
   
     def __init__(self, user): 
         super().__init__() 
-  
+        self.threadpool = QThreadPool()
         # setting title 
         self.setWindowTitle("Cronòmetre") 
         #status of the chronometer to swap between stages
@@ -87,13 +88,14 @@ class Window(QWidget):
         #pause.pressed.connect(self.Pause) 
   
         # creating reset button 
-        saveLapBtn = QPushButton("Save lap", self) 
+        self.saveLapBtn = QPushButton("Save lap", self) 
   
         # setting geometry to the button 
-        saveLapBtn.setGeometry(375, 250, 150, 40) 
+        self.saveLapBtn.setGeometry(375, 250, 150, 40) 
   
         # add action to the method 
-        saveLapBtn.pressed.connect(self.saveLap) 
+        self.saveLapBtn.pressed.connect(self.saveLap)
+        self.saveLapBtn.setEnabled(False) 
   
         # creating a editable layout 
         anotations = QLineEdit()
@@ -143,6 +145,7 @@ class Window(QWidget):
   
     def StartStopSwitch(self): 
         #Switch with if/else
+        self.chrono_stopper = Chrono_stopper(self.startStopSwitchBtn)
         if(self.status == 0):
             
             #If status is 0, then restart the text of laps, and variables
@@ -174,6 +177,8 @@ class Window(QWidget):
             self.textLaps += "Lap 2: {} \n".format(round(self.lap2, 1)) 
             self.labelLap.setText(self.textLaps)
         elif(self.status == 3):
+            #Disable start/stob button for 2 seconds to prevent start another lap without save the prev lap
+            self.threadpool.start(self.chrono_stopper)
             #If status is 3 and the button get pressed, swap the text of te button to next lap (Start)
             #update the label and show the lap1, lap2 and lap3 (partitional times) and the final time of the laps
             # reset the timer to 0, status is 0, the flag is false to stop the timer
@@ -190,6 +195,8 @@ class Window(QWidget):
             # setting text to label 
             self.label.setText(str(self.count))
             self.textLaps += "Total lap: {} \n".format(self.totalLap)
+            # setting save lap button enabled
+            self.saveLapBtn.setEnabled(True)
             
             self.labelLap.setText(self.textLaps)
   
@@ -205,20 +212,51 @@ class Window(QWidget):
             connection.commit()
             
             # FER MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
-
+            self.lap_saver_thread = Lap_saver_thread(self.labelLap, self.textLaps)
             #TO-DO: Desactivar directament el boto de guardar volta quan no siga posible guardar-la!
+            self.saveLapBtn.setEnabled(False)
             # AFEGIR EDIT TEXT PER A LES ANOTACIONS!
-            
-            self.labelLap.setText("Volta guardada!")
-            time.sleep(3)
-            self.labelLap.setText(self.textLaps)
+            self.threadpool.start(self.lap_saver_thread)
+                                    
             print("Volta guardada")
             connection.close()
+
+
+class Lap_saver_thread(QRunnable):
+    '''
+    Worker thread
+    '''
+    def __init__(self, textWidget, textLaps):
+        super(Lap_saver_thread, self).__init__()
+        self.textWidget = textWidget
+        self.textLaps = textLaps
+
+    @pyqtSlot()
+    def run(self):
+        '''
+        Your code goes in this function
+        '''
+        self.textWidget.setText("Volta guardada!")
+        time.sleep(2)
+        self.textWidget.setText(self.textLaps)
+
+class Chrono_stopper(QRunnable):
+    '''
+    Worker thread
+    '''
+    def __init__(self, startButton):
+        super(Chrono_stopper, self).__init__()
+        self.startButton = startButton
         
-        
-            
-        
-  
+
+    @pyqtSlot()
+    def run(self):
+        '''
+        Your code goes in this function
+        '''
+        self.startButton.setEnabled(False)
+        time.sleep(2)
+        self.startButton.setEnabled(True)
 # create pyqt5 app 
 #App = QApplication(sys.argv) 
   
