@@ -147,7 +147,7 @@ class Window(QWidget):
         #Switch with if/else
         self.chrono_stopper = Chrono_stopper(self.startStopSwitchBtn)
         if(self.status == 0):
-            
+            self.saveLapBtn.setEnabled(False)
             #If status is 0, then restart the text of laps, and variables
             #start the timer with the flag
             #and switch to lap1 with status 1 and change textbutton to "Lap 1"
