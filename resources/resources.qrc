@@ -1,6 +1,0 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-    <qresource prefix="icons">
-        <file alias="main.png">main.png</file>
-    </qresource>
-</RCC>
