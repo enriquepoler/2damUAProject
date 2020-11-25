@@ -78,15 +78,6 @@ class Window(QWidget):
         # add action to the method 
         self.startStopSwitchBtn.pressed.connect(self.StartStopSwitch) 
   
-        # creating pause button 
-        #pause = QPushButton("Pause", self) 
-  
-        # setting geometry to the button 
-        #pause.setGeometry(225, 250, 150, 40) 
-  
-        # add action to the method 
-        #pause.pressed.connect(self.Pause) 
-  
         # creating reset button 
         self.saveLapBtn = QPushButton("Save lap", self) 
   
@@ -113,14 +104,11 @@ class Window(QWidget):
         self.labelLap = QLabel(self) 
   
         # setting geometry of label 
-        self.labelLap.setGeometry(225, 400, 150, 200) 
-  
+        self.labelLap.setGeometry(225, 500, 150, 100) 
+        self.labelLap.setStyleSheet("border : 4px solid black;") 
         # adding border to the label 
         #self.labelLap.setStyleSheet("border : 4px solid black;") 
   
-        # setting text to the label 
-        #self.labelLap.setText(str(self.count))
-
         # setting font to the label
         self.labelLap.setFont(QFont('Arial', 15)) 
   
@@ -221,7 +209,6 @@ class Window(QWidget):
             print("Volta guardada")
             connection.close()
 
-
 class Lap_saver_thread(QRunnable):
     '''
     Worker thread
@@ -233,9 +220,7 @@ class Lap_saver_thread(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        '''
-        Your code goes in this function
-        '''
+        
         self.textWidget.setText("Volta guardada!")
         time.sleep(2)
         self.textWidget.setText(self.textLaps)
@@ -251,9 +236,7 @@ class Chrono_stopper(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        '''
-        Your code goes in this function
-        '''
+        
         self.startButton.setEnabled(False)
         time.sleep(2)
         self.startButton.setEnabled(True)
