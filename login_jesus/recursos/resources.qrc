@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="recursos">
+        <file alias="menu.png">menu.png</file>
+    </qresource>
+</RCC>
