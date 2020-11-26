@@ -18,6 +18,8 @@ lapIcon = os.path.join(dirname, 'recursos/lapTimer.png')
 pauseIcon = os.path.join(dirname, 'recursos/pause.png')
 saveIcon = os.path.join(dirname, 'recursos/save.png')
 usersdb = os.path.join(dirname, 'users.db')
+
+# TO-DO: arreplegar el text del anotations i posar-lo a la base de dades
   
 class Window(QWidget): 
   
