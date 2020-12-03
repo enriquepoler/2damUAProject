@@ -16,6 +16,7 @@ import time
 import recursos
 import os
 import cronometro
+import alta_usuaris
 import time
 import recursos
 
@@ -58,14 +59,21 @@ class MainWindow(QMainWindow):
         toolbar.addAction(button_action_cronometro)
         toolbar.addSeparator()
 
-        button_action2 = QAction("&Boto2", self)
-        button_action2.setStatusTip("Boto2")
-        button_action2.triggered.connect(self.button2)
-        toolbar.addAction(button_action2)
+
+        #Botó alta usuaris
+
+        button_action_altaUsuaris = QAction("&Alta usuaris", self)
+        button_action_altaUsuaris.setStatusTip("Alta usuaris")
+        button_action_altaUsuaris.triggered.connect(self.altaUsuarisFinestra)
+        toolbar.addAction(button_action_altaUsuaris)
 
 
-        self.buttonFunc2Check = button_action2     
+        self.buttonFunc2Check = button_action_altaUsuaris     
         self.buttonFunc2Check.setCheckable(True)
+
+
+
+
 
         button_action3 = QAction("&Boto3", self)
         button_action3.setStatusTip("Boto3")
@@ -83,7 +91,7 @@ class MainWindow(QMainWindow):
         file_menu = menu.addMenu("&Menu")
         button_action_cronometro.setIcon(icon)
         file_menu.addAction(button_action_cronometro)
-        file_menu.addAction(button_action2)
+        file_menu.addAction(button_action_altaUsuaris)
         file_menu.addAction(button_action3)
 
         
@@ -105,10 +113,10 @@ class MainWindow(QMainWindow):
         elif self.buttonFunc3Check.isChecked():
             self.buttonFunc3Check.setChecked(False)
 
-        self.windowCron = cronometro.Window()
+        self.windowCron = cronometro.Window("prova")
         time.sleep(1)
 
-    def button2(self, s):
+    def altaUsuarisFinestra(self, s):
         print("click", s)
 
         self.buttonFunc2Check.setChecked(True)
@@ -117,6 +125,9 @@ class MainWindow(QMainWindow):
             self.buttonCronometroCheck.setChecked(False)
         elif self.buttonFunc3Check.isChecked():
             self.buttonFunc3Check.setChecked(False)
+
+        self.altaUsuarisWindow = alta_usuaris.AltaUsuaris()
+        time.sleep(1)
 
     def button3(self, s):
         print("click", s)
