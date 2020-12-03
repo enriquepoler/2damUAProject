@@ -212,7 +212,7 @@ class Window(QWidget):
         else:    
             self.savedLap = True
             
-            self.sqlite.insert_lap_into_db("12345678A","Pepe", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user)
+            self.sqlite.insert_lap_into_db("12345678A","Pepe", "Agustino", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user)
                         
             # FER MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
             self.lap_saver_thread = Lap_saver_thread(self.labelLap, self.textLap)
