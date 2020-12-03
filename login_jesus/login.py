@@ -7,6 +7,7 @@ import sqlite3
 import cronometro
 import os
 import time
+from sqliteConsulter import *
 
 #Relative paths
 dirname = os.path.dirname(__file__)
@@ -22,32 +23,35 @@ class Login(QDialog):
         self.pushButtonLogin.clicked.connect(self.loginFunction)
         self.showMessageBox = QMessageBox()
 
+        #Clase per a fer les consultes Sqlite
+        self.sqlite = SQLite_consulter()
+
     def loginFunction(self):
-        lineEditDni=self.lineEditDni.text()
-        lineEditCon=self.lineEditCon.text()
+        line_edit_dni=self.lineEditDni.text()
+        line_edit_con=self.lineEditCon.text()
         #Encriptem el password introduit
-        h = hashlib.new("sha1",lineEditCon.encode("UTF-8"))
+        h = hashlib.new("sha1",line_edit_con.encode("UTF-8"))
         print("")
         print("Password encrypt:",h.digest())
 
-        print("Dni:",lineEditDni,"\n","Contraseña:",lineEditCon)
+        print("Dni:",line_edit_dni,"\n","Contraseña:",line_edit_con)
 
-        connection = sqlite3.connect(usersdb)
-        result = connection.execute("SELECT dni FROM users WHERE dni=? AND password=?",(lineEditDni,lineEditCon))
+        result = self.sqlite.ask_user_to_db(line_edit_dni, line_edit_con)
 
         #Comprobem si existeix l´usuari
         if(len(result.fetchall()) > 0):
             print("User found!")
             #Si troba l´usuari, canviarà a la finestra següent
-            self.windowCron = cronometro.Window(lineEditDni)
+            self.windowCron = cronometro.Window(line_edit_dni)
             
             #Introduim un sleep per a que no pase tan rapid el validament
             #time.sleep(1)
 
             #Mostrem una finestra de benvinguda al iniciar sesió
-            self.showMessageBox.setIcon(QMessageBox.Information)
-            self.showMessageBox.setText("\n\nBenvigut")
-            retval = self.showMessageBox.exec_()
+
+            #self.showMessageBox.setIcon(QMessageBox.Information)
+            #self.showMessageBox.setText("\n\nBenvigut")
+            #retval = self.showMessageBox.exec_()
 
             window.close()
         else:

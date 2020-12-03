@@ -80,19 +80,6 @@
     </size>
    </property>
   </widget>
-  <widget class="QListView" name="selectionPatient">
-   <property name="geometry">
-    <rect>
-     <x>660</x>
-     <y>30</y>
-     <width>221</width>
-     <height>131</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: #cfcfcf;</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="chrono">
    <property name="geometry">
     <rect>
@@ -179,6 +166,16 @@
    </property>
    <property name="text">
     <string>Anotaciones</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxPacientes">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>30</y>
+     <width>231</width>
+     <height>31</height>
+    </rect>
    </property>
   </widget>
  </widget>
