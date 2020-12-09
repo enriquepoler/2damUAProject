@@ -40,7 +40,10 @@ class Window(QWidget):
         
         # setting title 
         self.move(qtRectangle.topLeft())
-        self.setWindowTitle("Cronòmetre") 
+        self.setWindowTitle("Cronòmetre")
+
+        # creating a messageBox to show alerts
+        self.showMessageBox = QMessageBox() 
 
         #status of the chronometer to swap between stages
         self.status = 0
@@ -104,23 +107,23 @@ class Window(QWidget):
         timer.start(100)
 
         self.comboBoxPacientes.addItem("Selecciona un pacient")
-        for x in self.sqlite.ask_for_patients_to_fill_combo_box():
-            self.comboBoxPacientes.addItem(x)
+        for patient in self.sqlite.ask_for_patients_to_fill_combo_box():
+            patient_name_surname = patient[0] + " " + patient[1]
+            self.comboBoxPacientes.addItem(patient_name_surname)
             
         self.comboBoxPacientes.currentIndexChanged.connect(self.selection_change_patient)
         
 
     def selection_change_patient(self):
 		
-        self.selectedPatient = self.comboBoxPacientes.currentText()
-        getInfo = self.sqlite.get_patient_info(self.selectedPatient)
-        self.info = ""
-        self.infoEdit = ""
-        for i in getInfo:
-            self.info += str(i) + ": \n" 
-            self.infoEdit += str(getInfo[i]) + "\n"
-        self.labelInfo.setText(self.info)
-        self.textEdit.setText(self.infoEdit)
+        self.selected_patient = self.comboBoxPacientes.currentText()
+        if(self.selected_patient != "Selecciona un pacient"):
+
+            info_patient = self.sqlite.get_patient_info(self.selected_patient)
+            
+            self.patient_dni = info_patient[0][0]
+            self.patient_name = info_patient[0][1]
+            self.patient_surname = info_patient[0][2]
 
   
     # method called by timer 
@@ -207,23 +210,31 @@ class Window(QWidget):
             self.labelLap.setText(self.textLap)
   
     def saveLap(self): 
+        '''
         if(self.lap1 == 0.0 and self.lap2 == 0.0 and self.lap3 == 0.0):
             self.labelLap.setText("No pots guardar\n una volta buida!")
         elif(self.savedLap == True):
             self.labelLap.setText("No es port\nguardar la volta")
-        else:    
-            self.savedLap = True
-            
-            self.sqlite.insert_lap_into_db("12345678A","Pepe", "Agustino", self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user)
-                        
+        else:
+            '''    
+            #self.savedLap = True
+        if(self.comboBoxPacientes.currentText() != "Selecciona un pacient"):
+            self.sqlite.insert_lap_into_db(self.patient_dni, self.patient_name, self.patient_surname, self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user)
             # FER MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
             self.lap_saver_thread = Lap_saver_thread(self.labelLap, self.textLap)
             #TO-DO: Desactivar directament el boto de guardar volta quan no siga posible guardar-la!
             self.saveLapBtn.setEnabled(False)
             # AFEGIR EDIT TEXT PER A LES ANOTACIONS!
             self.threadpool.start(self.lap_saver_thread)
+
+        else:
+            self.showMessageBox.setIcon(QMessageBox.Critical)
+            self.showMessageBox.setText("\n\nSelecciona un pacient per a guardar la volta!")
+            retval = self.showMessageBox.exec_()
+
+            
                                                 
-            connection.close()
+            
 
 class Lap_saver_thread(QRunnable):
     '''

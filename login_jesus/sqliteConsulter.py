@@ -23,7 +23,7 @@ class SQLite_consulter:
 
         self.connection.execute("CREATE TABLE IF NOT EXISTS patients (dni VARCHAR (9) PRIMARY KEY NOT NULL, name VARCHAR (40) NOT NULL, surname VARCHAR (40), height DOUBLE DEFAULT (1.0), weight INTEGER DEFAULT (50))")
         self.connection.execute("CREATE TABLE IF NOT EXISTS 'users' ('dni' TEXT NOT NULL, 'password' TEXT NOT NULL, PRIMARY KEY('dni'))")
-        self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) REFERENCES patients (dni) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, name VARCHAR (40) REFERENCES patients (name) ON UPDATE CASCADE, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, score INTEGER, stauts VARCHAR (10), anotations VARCHAR (300), user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE)")
+        self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) REFERENCES patients (dni) ON DELETE SET NULL ON UPDATE CASCADE NOT NULL, name VARCHAR (40) REFERENCES patients (name) ON UPDATE CASCADE, surname VARCHAR REFERENCES patients (surname) ON DELETE SET NULL ON UPDATE CASCADE, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, score INTEGER, stauts VARCHAR (10), anotations VARCHAR (300), user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE)")
         
         self.user_count = self.connection.execute("SELECT count(dni) FROM users")
         
@@ -45,12 +45,20 @@ class SQLite_consulter:
 
     def ask_for_patients_to_fill_combo_box(self):
         
-        return self.connection.execute("SELECT name, surname FROM patients")
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT name, surname FROM patients")
+        rows = cursor.fetchall()
+        
+        return rows
 
     def insert_user(self):
 
         self.connection.execute("INSERT INTO users VALUES (?, ?)")
     
-    def get_patient_info(self, patient_name):
-
-        return self.connection.execute("Select dni, name, surname FROM patients WHERE name = ?", (patient_name))
+    def get_patient_info(self, patient_name_surname):
+        patient = patient_name_surname.split()
+        cursor = self.connection.cursor()
+        cursor.execute("Select dni, name, surname FROM patients WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        rows = cursor.fetchall()
+        
+        return rows
