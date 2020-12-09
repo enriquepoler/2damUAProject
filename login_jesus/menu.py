@@ -16,7 +16,7 @@ import time
 import recursos
 import os
 import cronometro
-import alta_usuaris
+import alta_pacients
 import time
 import recursos
 
@@ -59,22 +59,18 @@ class MainWindow(QMainWindow):
         toolbar.addAction(button_action_cronometro)
         toolbar.addSeparator()
 
+        #Botó Alta pacients
+        button_action_AltaPacients = QAction("&Alta pacients", self)
+        button_action_AltaPacients.setShortcut("CTRL+A")
+        button_action_AltaPacients.setStatusTip("Alta pacients")
+        button_action_AltaPacients.triggered.connect(self.AltaPacientsFinestra)
+        toolbar.addAction(button_action_AltaPacients)
 
-        #Botó alta usuaris
-
-        button_action_altaUsuaris = QAction("&Alta usuaris", self)
-        button_action_altaUsuaris.setStatusTip("Alta usuaris")
-        button_action_altaUsuaris.triggered.connect(self.altaUsuarisFinestra)
-        toolbar.addAction(button_action_altaUsuaris)
-
-
-        self.buttonFunc2Check = button_action_altaUsuaris     
+        self.buttonFunc2Check = button_action_AltaPacients     
         self.buttonFunc2Check.setCheckable(True)
 
 
-
-
-
+        #Botó 3
         button_action3 = QAction("&Boto3", self)
         button_action3.setStatusTip("Boto3")
         button_action3.triggered.connect(self.button3)
@@ -91,7 +87,7 @@ class MainWindow(QMainWindow):
         file_menu = menu.addMenu("&Menu")
         button_action_cronometro.setIcon(icon)
         file_menu.addAction(button_action_cronometro)
-        file_menu.addAction(button_action_altaUsuaris)
+        file_menu.addAction(button_action_AltaPacients)
         file_menu.addAction(button_action3)
 
         
@@ -113,12 +109,13 @@ class MainWindow(QMainWindow):
         elif self.buttonFunc3Check.isChecked():
             self.buttonFunc3Check.setChecked(False)
 
+        #Mostra la finestra del cronòmetre
         self.windowCron = cronometro.Window("prova")
         time.sleep(1)
 
-    def altaUsuarisFinestra(self, s):
+    def AltaPacientsFinestra(self, s):
         print("click", s)
-
+    
         self.buttonFunc2Check.setChecked(True)
 
         if self.buttonCronometroCheck.isChecked():
@@ -126,7 +123,8 @@ class MainWindow(QMainWindow):
         elif self.buttonFunc3Check.isChecked():
             self.buttonFunc3Check.setChecked(False)
 
-        self.altaUsuarisWindow = alta_usuaris.AltaUsuaris()
+        #Mostra la finestra de alta pacients
+        self.AltaPacientsWindow = alta_pacients.AltaPacients()
         time.sleep(1)
 
     def button3(self, s):
