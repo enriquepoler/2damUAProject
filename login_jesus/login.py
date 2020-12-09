@@ -62,7 +62,7 @@ class Login(QDialog):
             self.showMessageBox.setText("\n\nUsuari o contrasenya incorrectes")
             retval = self.showMessageBox.exec_()
 
-        connection.close()
+        
 
 app = QApplication(sys.argv)
 window = Login()

@@ -54,11 +54,12 @@ class Window(QWidget):
         
         #Saving user information
         self.user = user
-        # calling method 
-        self.UiComponents() 
-        
+
         #Connecting to class to connect to database
         self.sqlite = SQLite_consulter()
+
+        # calling method 
+        self.UiComponents() 
         
         # showing all the widgets 
         self.show() 
@@ -102,16 +103,17 @@ class Window(QWidget):
         # update the timer every tenth second 
         timer.start(100)
 
+        self.comboBoxPacientes.addItem("Selecciona un pacient")
         for x in self.sqlite.ask_for_patients_to_fill_combo_box():
-            self.cb.addItems(x)
+            self.comboBoxPacientes.addItem(x)
             
-        self.cb.currentIndexChanged.connect(self.selectionchange)
+        self.comboBoxPacientes.currentIndexChanged.connect(self.selection_change_patient)
         
 
-    def selectionchange(self):
+    def selection_change_patient(self):
 		
-        self.selected = self.cb.currentText()
-        getInfo = self.CovInfo.getDepartmentData(self.selected)
+        self.selectedPatient = self.comboBoxPacientes.currentText()
+        getInfo = self.sqlite.get_patient_info(self.selectedPatient)
         self.info = ""
         self.infoEdit = ""
         for i in getInfo:
