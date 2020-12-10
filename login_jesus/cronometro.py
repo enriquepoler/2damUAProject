@@ -148,7 +148,7 @@ class Window(QWidget):
             
             #Disabling sabe button
             self.saveLapBtn.setEnabled(False)
-            
+            self.anotationsText.setPlainText("")
             #If status is 0, then restart the text of laps, and variables
             #start the timer with the flag
             #and switch to lap1 with status 1 and change textbutton to "Lap 1"
@@ -210,21 +210,18 @@ class Window(QWidget):
             self.labelLap.setText(self.textLap)
   
     def saveLap(self): 
-        '''
-        if(self.lap1 == 0.0 and self.lap2 == 0.0 and self.lap3 == 0.0):
-            self.labelLap.setText("No pots guardar\n una volta buida!")
-        elif(self.savedLap == True):
-            self.labelLap.setText("No es port\nguardar la volta")
-        else:
-            '''    
-            #self.savedLap = True
+        
         if(self.comboBoxPacientes.currentText() != "Selecciona un pacient"):
-            self.sqlite.insert_lap_into_db(self.patient_dni, self.patient_name, self.patient_surname, self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", "Anotation", self.user)
-            # FER MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
+            
+            # Read the text from QPlainTextEdit and save it
+            self.patient_anotation = self.anotationsText.toPlainText()
+            # save the lap with patient info
+            self.sqlite.insert_lap_into_db(self.patient_dni, self.patient_name, self.patient_surname, self.totalLap, self.lap1, self.lap2, self.lap3, 83, "Moderat", self.patient_anotation, self.user)
+            # MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
             self.lap_saver_thread = Lap_saver_thread(self.labelLap, self.textLap)
-            #TO-DO: Desactivar directament el boto de guardar volta quan no siga posible guardar-la!
+            # Desactivar directament el boto de guardar volta quan no siga posible guardar-la!
             self.saveLapBtn.setEnabled(False)
-            # AFEGIR EDIT TEXT PER A LES ANOTACIONS!
+            # Start the thread
             self.threadpool.start(self.lap_saver_thread)
 
         else:
@@ -267,6 +264,7 @@ class Chrono_stopper(QRunnable):
         self.startButton.setEnabled(False)
         time.sleep(2)
         self.startButton.setEnabled(True)
+
 # create pyqt5 app 
 #App = QApplication(sys.argv) 
   
