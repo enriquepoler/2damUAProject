@@ -1,16 +1,9 @@
 import sys
-from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QIcon
-from PyQt5 import QtGui, QtWidgets
-from PyQt5.QtWidgets import (
-    QAction,
-    QApplication,
-    QCheckBox,
-    QLabel,
-    QMainWindow,
-    QStatusBar,
-    QToolBar
-)
+from PyQt5.QtWidgets import * 
+from PyQt5 import QtCore, QtGui 
+from PyQt5.QtGui import * 
+from PyQt5.QtCore import * 
+from PyQt5.uic import loadUi
 import cronometro
 import time
 import recursos
@@ -63,7 +56,7 @@ class MainWindow(QMainWindow):
         button_action_AltaPacients = QAction("&Alta pacients", self)
         button_action_AltaPacients.setShortcut("CTRL+A")
         button_action_AltaPacients.setStatusTip("Alta pacients")
-        button_action_AltaPacients.triggered.connect(self.AltaPacientsFinestra)
+        button_action_AltaPacients.triggered.connect(self.alta_pacients_finestra)
         toolbar.addAction(button_action_AltaPacients)
 
         self.buttonFunc2Check = button_action_AltaPacients     
@@ -111,9 +104,9 @@ class MainWindow(QMainWindow):
 
         #Mostra la finestra del cronòmetre
         self.windowCron = cronometro.Window("prova")
-        time.sleep(1)
+        
 
-    def AltaPacientsFinestra(self, s):
+    def alta_pacients_finestra(self, s):
         print("click", s)
     
         self.buttonFunc2Check.setChecked(True)
@@ -124,8 +117,8 @@ class MainWindow(QMainWindow):
             self.buttonFunc3Check.setChecked(False)
 
         #Mostra la finestra de alta pacients
-        self.AltaPacientsWindow = alta_pacients.AltaPacients()
-        time.sleep(1)
+        self.alta_pacients_window = alta_pacients.Alta_pacients()
+        
 
     def button3(self, s):
         print("click", s)
@@ -135,9 +128,7 @@ class MainWindow(QMainWindow):
         if self.buttonCronometroCheck.isChecked():
             self.buttonCronometroCheck.setChecked(False)
         elif self.buttonFunc2Check.isChecked():
-            self.buttonFunc2Check.setChecked(False)
-
-        
+            self.buttonFunc2Check.setChecked(False)  
 
 app = QApplication(sys.argv)
 

@@ -11,9 +11,9 @@ from sqliteConsulter import *
 
 #Relative paths
 dirname = os.path.dirname(__file__)
-loginui = os.path.join(dirname, 'alta_pacients.ui')
+loginui = os.path.join(dirname, 'modificar_pacients.ui')
 
-class Alta_pacients(QDialog):
+class Modifica_pacients(QDialog):
     def __init__(self):
         super(Alta_pacients,self).__init__()
         #Carreguem el login.ui
@@ -68,8 +68,3 @@ class Alta_pacients(QDialog):
 
     def modificar_pacient(self):
         pass
-
-'''app = QApplication(sys.argv)
-window = AltaUsuaris()
-window.show()
-sys.exit(app.exec_())'''
