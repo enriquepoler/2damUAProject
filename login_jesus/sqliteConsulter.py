@@ -22,7 +22,7 @@ class SQLite_consulter:
 
         self.connection.execute("CREATE TABLE IF NOT EXISTS patients (dni VARCHAR (9) PRIMARY KEY NOT NULL, name VARCHAR (40) NOT NULL, surname VARCHAR (40), height DOUBLE DEFAULT (1.0), weight INTEGER DEFAULT (50))")
         self.connection.execute("CREATE TABLE IF NOT EXISTS 'users' ('dni' TEXT NOT NULL, 'password' TEXT NOT NULL, PRIMARY KEY('dni'))")
-        self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) REFERENCES patients (dni) ON DELETE SET NULL ON UPDATE CASCADE NOT NULL, name VARCHAR (40) REFERENCES patients (name) ON UPDATE CASCADE, surname VARCHAR REFERENCES patients (surname) ON DELETE SET NULL ON UPDATE CASCADE, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, score INTEGER, status VARCHAR (10), anotations VARCHAR, user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE)")
+        self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) REFERENCES patients (dni) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, name VARCHAR (40) REFERENCES patients (name) ON DELETE CASCADE ON UPDATE CASCADE, surname VARCHAR REFERENCES patients (surname) ON DELETE CASCADE ON UPDATE CASCADE, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, score INTEGER, status VARCHAR (10), anotations VARCHAR, user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE)")
         
         self.user_count = self.connection.execute("SELECT count(dni) FROM users")
         
@@ -65,7 +65,7 @@ class SQLite_consulter:
         
         return rows
     #Insertem els pacients de alta_usuaris
-    def insert_patients(self, patient_name, patient_surname, patient_dni, patient_height, patient_weight):
+    def insert_patients(self, patient_dni, patient_name, patient_surname, patient_height, patient_weight):
 
         self.connection.execute("INSERT INTO patients (dni, name, surname, height, weight) VALUES (?, ?, ?, ?, ?)",(patient_dni, patient_name, patient_surname, patient_height, patient_weight))
         self.connection.commit()

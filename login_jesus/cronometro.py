@@ -17,7 +17,6 @@ playIcon = os.path.join(dirname, 'recursos/play.png')
 lapIcon = os.path.join(dirname, 'recursos/lapTimer.png')
 pauseIcon = os.path.join(dirname, 'recursos/pause.png')
 saveIcon = os.path.join(dirname, 'recursos/save.png')
-usersdb = os.path.join(dirname, 'users.db')
 
 # TO-DO: arreplegar el text del anotations i posar-lo a la base de dades
   
@@ -43,7 +42,10 @@ class Window(QWidget):
         self.setWindowTitle("Cronòmetre")
 
         # creating a messageBox to show alerts
-        self.showMessageBox = QMessageBox() 
+        self.showMessageBox = QMessageBox()
+        self.showMessageBox.setWindowTitle("Error")
+        self.showMessageBox.setIcon(QMessageBox.Critical)
+        self.showMessageBox.setText("\n\nSelecciona un pacient per a guardar la volta!")
 
         #status of the chronometer to swap between stages
         self.status = 0
@@ -225,8 +227,7 @@ class Window(QWidget):
             self.threadpool.start(self.lap_saver_thread)
 
         else:
-            self.showMessageBox.setIcon(QMessageBox.Critical)
-            self.showMessageBox.setText("\n\nSelecciona un pacient per a guardar la volta!")
+            
             retval = self.showMessageBox.exec_()
 
             

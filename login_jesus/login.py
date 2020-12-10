@@ -12,7 +12,6 @@ from sqliteConsulter import *
 #Relative paths
 dirname = os.path.dirname(__file__)
 loginui = os.path.join(dirname, 'login.ui')
-usersdb = os.path.join(dirname, 'users.db')
 
 class Login(QDialog):
     def __init__(self):
@@ -43,15 +42,6 @@ class Login(QDialog):
             print("User found!")
             #Si troba l´usuari, canviarà a la finestra següent
             self.windowCron = cronometro.Window(line_edit_dni)
-            
-            #Introduim un sleep per a que no pase tan rapid el validament
-            #time.sleep(1)
-
-            #Mostrem una finestra de benvinguda al iniciar sesió
-
-            #self.showMessageBox.setIcon(QMessageBox.Information)
-            #self.showMessageBox.setText("\n\nBenvigut")
-            #retval = self.showMessageBox.exec_()
 
             window.close()
         else:

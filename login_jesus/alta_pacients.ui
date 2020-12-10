@@ -26,8 +26,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>-300</y>
+     <x>10</x>
+     <y>-320</y>
      <width>271</width>
      <height>701</height>
     </rect>
@@ -42,64 +42,18 @@
     </font>
    </property>
    <property name="text">
-    <string>Alta Usuaris</string>
+    <string>Alta pacients</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>90</y>
-     <width>151</width>
-     <height>161</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="vlText">
-    <item>
-     <layout class="QHBoxLayout" name="hlNom">
-      <item>
-       <widget class="QLineEdit" name="textNom"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="hlCognom">
-      <item>
-       <widget class="QLineEdit" name="textCognom"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="hlDni">
-      <item>
-       <widget class="QLineEdit" name="textDni"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="textAltura"/>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="hlPes">
-      <item>
-       <widget class="QLineEdit" name="textPes"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="hlAltura"/>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_6">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>0</x>
      <y>270</y>
-     <width>261</width>
+     <width>294</width>
      <height>71</height>
     </rect>
    </property>
@@ -110,7 +64,7 @@
        <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
       </property>
       <property name="text">
-       <string>Inserir usuari</string>
+       <string>Inserir pacient</string>
       </property>
      </widget>
     </item>
@@ -120,7 +74,7 @@
        <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
       </property>
       <property name="text">
-       <string>Modificar usuari</string>
+       <string>Modificar pacient</string>
       </property>
      </widget>
     </item>
@@ -129,13 +83,26 @@
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>90</y>
-     <width>61</width>
-     <height>151</height>
+     <x>20</x>
+     <y>70</y>
+     <width>71</width>
+     <height>191</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="lDni">
+      <property name="styleSheet">
+       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Dni</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QLabel" name="lNom">
       <property name="styleSheet">
@@ -145,7 +112,7 @@
        <string>Nom</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -157,15 +124,8 @@
       <property name="text">
        <string>Cognom</string>
       </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="lDni">
-      <property name="styleSheet">
-       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Dni</string>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -177,6 +137,9 @@
       <property name="text">
        <string>Altura</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
      </widget>
     </item>
     <item>
@@ -187,9 +150,62 @@
       <property name="text">
        <string>Pes</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLineEdit" name="textNom">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>110</y>
+     <width>151</width>
+     <height>34</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textCognom">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>150</y>
+     <width>151</width>
+     <height>34</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textDni">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>70</y>
+     <width>151</width>
+     <height>34</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textPes">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>230</y>
+     <width>151</width>
+     <height>34</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textAltura">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>190</y>
+     <width>151</width>
+     <height>34</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

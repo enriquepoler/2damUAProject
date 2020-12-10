@@ -21,7 +21,6 @@ class AltaPacients(QDialog):
         loadUi(loginui, self)
         self.setWindowTitle("Alta Pacients")
 
-
         self.pbInserir.clicked.connect(self.inserirPacient)
         self.sqlite = SQLite_consulter()
 
@@ -35,7 +34,7 @@ class AltaPacients(QDialog):
         text_pes=self.textPes.text()
         
 
-        result = self.sqlite.insert_patients(text_nom, text_cognom, text_dni, text_altura, text_pes)
+        result = self.sqlite.insert_patients(text_dni, text_nom, text_cognom, text_altura, text_pes)
 
         print("Nom: " + text_nom + "\n" + "Cognom: " + text_cognom + "\n" + "Dni: " + text_dni + "\n"
         + "Altura: " + text_altura + "\n" + "Pes: " + text_pes)
