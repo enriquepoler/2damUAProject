@@ -11,13 +11,13 @@ from sqliteConsulter import *
 
 #Relative paths
 dirname = os.path.dirname(__file__)
-loginui = os.path.join(dirname, 'modificar_pacients.ui')
+modificar_pacients_ui = os.path.join(dirname, 'modificar_pacients.ui')
 
 class Modifica_pacients(QDialog):
     def __init__(self):
         super(Alta_pacients,self).__init__()
         #Carreguem el login.ui
-        loadUi(loginui, self)
+        loadUi(modificar_pacients_ui, self)
         self.setWindowTitle("Modificar pacients")
         self.showMessageBox = QMessageBox()
         self.showMessageBox.setWindowTitle("Done")
