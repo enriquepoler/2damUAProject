@@ -52,10 +52,6 @@ class SQLite_consulter:
         rows = cursor.fetchall()
         
         return rows
-
-    def insert_user(self, user_dni, user_passwd):
-
-        self.connection.execute("INSERT INTO users VALUES (?, ?)", (user_dni, user_passwd))
     
     def get_patient_info(self, patient_name_surname):
         patient = patient_name_surname.split()
@@ -70,4 +66,8 @@ class SQLite_consulter:
         self.connection.execute("INSERT INTO patients (dni, name, surname, height, weight) VALUES (?, ?, ?, ?, ?)",(patient_dni, patient_name, patient_surname, patient_height, patient_weight))
         self.connection.commit()
         
-    
+    # TODO: Delete patient, modify patient, delete user
+
+    def insert_user(self, user_dni, user_passwd):
+
+        self.connection.execute("INSERT INTO users VALUES (?, ?)", (user_dni, user_passwd))

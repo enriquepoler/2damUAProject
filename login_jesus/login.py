@@ -42,7 +42,7 @@ class Login(QDialog):
             print("User found!")
             #Si troba l´usuari, canviarà a la finestra següent
             self.windowCron = cronometro.Window(line_edit_dni)
-
+            self.sqlite.close_connection()
             window.close()
         else:
             print("User not found!")

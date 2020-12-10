@@ -18,9 +18,8 @@ class Alta_pacients(QDialog):
         super(Alta_pacients,self).__init__()
         #Carreguem el login.ui
         loadUi(loginui, self)
-        self.setWindowTitle("Alta Pacients")
+        self.setWindowTitle("Alta pacients")
         self.showMessageBox = QMessageBox()
-        self.showMessageBox.setWindowTitle("Done")
 
         self.pbInserir.clicked.connect(self.inserir_pacient)
 
@@ -39,25 +38,34 @@ class Alta_pacients(QDialog):
 
         try:
 
-            if(len(text_dni) == 9 and text_nom != "" and text_cognom != ""):
+            if(text_nom != "" and text_cognom != ""):
+                if(len(text_dni) == 9):
 
-                result = self.sqlite.insert_patients(text_dni, text_nom, text_cognom, text_altura, text_pes)
-                self.showMessageBox.setIcon(QMessageBox.Information)
-                self.showMessageBox.setText("\n\nPacient inserit correctament!")
-                
-                self.textDni.setText("")
-                self.textNom.setText("")
-                self.textCognom.setText("")
-                self.textAltura.setText("")
-                self.textPes.setText("")
+                    result = self.sqlite.insert_patients(text_dni, text_nom, text_cognom, text_altura, text_pes)
+                    self.showMessageBox.setWindowTitle("Done")
+                    self.showMessageBox.setIcon(QMessageBox.Information)
+                    self.showMessageBox.setText("\n\nPacient inserit correctament!")
+                    
+                    self.textDni.setText("")
+                    self.textNom.setText("")
+                    self.textCognom.setText("")
+                    self.textAltura.setText("")
+                    self.textPes.setText("")
 
-                retval = self.showMessageBox.exec_()
+                    retval = self.showMessageBox.exec_()
+                else:
+                    self.showMessageBox.setWindowTitle("Error")
+                    self.showMessageBox.setIcon(QMessageBox.Critical)
+                    self.showMessageBox.setText("\n\nPacient no inserit, format del DNI no valid.")
+                    retval = self.showMessageBox.exec_()
             else:
+                self.showMessageBox.setWindowTitle("Error")
                 self.showMessageBox.setIcon(QMessageBox.Critical)
                 self.showMessageBox.setText("\n\nPacient no inserit, completa tots els camps.")
                 retval = self.showMessageBox.exec_()
 
         except:
+            self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText("\n\nError al inserir el pacient en la base de dades.")
             retval = self.showMessageBox.exec_()
