@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="cbPatients">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="editBtn">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -124,7 +124,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="deleteBtn">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -140,7 +140,7 @@
     </font>
    </property>
    <property name="cursor">
-    <cursorShape>ForbiddenCursor</cursorShape>
+    <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="whatsThis">
     <string>Borrar pacient</string>
@@ -152,7 +152,7 @@
     <string>Borrar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="cancelBtn">
    <property name="geometry">
     <rect>
      <x>330</x>

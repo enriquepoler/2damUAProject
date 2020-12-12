@@ -196,6 +196,7 @@ class Window(QWidget):
             self.flag = False
             self.startStopSwitchBtn.setIcon(QIcon(playIcon))
             self.lap3 = float(self.text) - float(self.lap2) - float(self.lap1)
+            self.totalLap = self.text
             self.textLap = str(self.lap1) + "\n" + str(round(self.lap2, 1)) + "\n" + str(round(self.lap3, 1)) + "\n" + self.text
             self.labelLap.setText(self.textLap)
             

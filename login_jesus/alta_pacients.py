@@ -8,6 +8,7 @@ import cronometro
 import os
 import time
 from sqliteConsulter import *
+from modifcar_pacients import *
 
 #Relative paths
 dirname = os.path.dirname(__file__)
@@ -26,15 +27,17 @@ class Alta_pacients(QDialog):
         self.pbModificar.clicked.connect(self.modificar_pacient)
         self.sqlite = SQLite_consulter()
 
+        self.mod_patients_window = Modifica_pacients()
+
         self.show()
         
     def inserir_pacient(self):
         
         text_dni = self.textDni.text()
-        text_nom = self.textNom.text()
-        text_cognom = self.textCognom.text()
-        text_altura = self.textAltura.text()
-        text_pes = self.textPes.text()
+        text_nom = self.textName.text()
+        text_cognom = self.textSurname.text()
+        text_altura = self.textHeight.text()
+        text_pes = self.textWeight.text()
 
         try:
 
@@ -47,10 +50,10 @@ class Alta_pacients(QDialog):
                     self.showMessageBox.setText("\n\nPacient inserit correctament!")
                     
                     self.textDni.setText("")
-                    self.textNom.setText("")
-                    self.textCognom.setText("")
-                    self.textAltura.setText("")
-                    self.textPes.setText("")
+                    self.textName.setText("")
+                    self.textSurname.setText("")
+                    self.textHeight.setText("")
+                    self.textWeight.setText("")
 
                     retval = self.showMessageBox.exec_()
                 else:
@@ -75,7 +78,8 @@ class Alta_pacients(QDialog):
         + "Altura: " + text_altura + "\n" + "Pes: " + text_pes)
 
     def modificar_pacient(self):
-        pass
+        self.mod_patients_window.show()
+        self.close()
 
 '''app = QApplication(sys.argv)
 window = AltaUsuaris()

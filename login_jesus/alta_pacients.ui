@@ -80,132 +80,73 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="verticalLayoutWidget_2">
+  <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>70</y>
-     <width>71</width>
-     <height>191</height>
+     <x>10</x>
+     <y>60</y>
+     <width>271</width>
+     <height>201</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="lDni">
-      <property name="styleSheet">
-       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
-      </property>
+   <layout class="QFormLayout" name="formLayout">
+    <property name="labelAlignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>Dni</string>
+       <string>DNI</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QLabel" name="lNom">
-      <property name="styleSheet">
-       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
-      </property>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>Nom</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <string>NOM</string>
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QLabel" name="lCognom">
-      <property name="styleSheet">
-       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
-      </property>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>Cognom</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <string>COGNOM</string>
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QLabel" name="lAltura">
-      <property name="styleSheet">
-       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
-      </property>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_5">
       <property name="text">
-       <string>Altura</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <string>ALTURA</string>
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QLabel" name="lPes">
-      <property name="styleSheet">
-       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
-      </property>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_6">
       <property name="text">
-       <string>Pes</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <string>PES</string>
       </property>
      </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="textDni"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="textName"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="textSurname"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="textHeight"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="textWeight"/>
     </item>
    </layout>
-  </widget>
-  <widget class="QLineEdit" name="textNom">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>110</y>
-     <width>151</width>
-     <height>34</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="textCognom">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>150</y>
-     <width>151</width>
-     <height>34</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="textDni">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>70</y>
-     <width>151</width>
-     <height>34</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="textPes">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>230</y>
-     <width>151</width>
-     <height>34</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="textAltura">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>190</y>
-     <width>151</width>
-     <height>34</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <resources/>
