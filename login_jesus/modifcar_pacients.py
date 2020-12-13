@@ -1,6 +1,8 @@
 import sys
-from PyQt5 import QtWidgets, QtSql
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QWidget, QMessageBox
+from PyQt5.QtWidgets import * 
+from PyQt5 import QtCore, QtGui 
+from PyQt5.QtGui import * 
+from PyQt5.QtCore import * 
 from PyQt5.uic import loadUi
 import hashlib
 import sqlite3
@@ -12,6 +14,7 @@ from sqliteConsulter import *
 #Relative paths
 dirname = os.path.dirname(__file__)
 modificar_pacients_ui = os.path.join(dirname, 'modificar_pacients.ui')
+refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 
 class Modifica_pacients(QDialog):
     def __init__(self):
@@ -31,12 +34,14 @@ class Modifica_pacients(QDialog):
         self.deleteBtn.setText("Borrar")
         self.deleteBtn.setEnabled(False)
         self.deleteBtn.setStyleSheet("")
+        self.refresh_combo_box_btn.setIcon(QIcon(refresh_icon))
 
         self.cancelBtn.hide()
 
         self.editBtn.pressed.connect(self.edit_patient)
         self.cancelBtn.pressed.connect(self.cancel_edit_patient)
         self.deleteBtn.pressed.connect(self.delete_patient)
+        self.refresh_combo_box_btn.pressed.connect(self.fill_cb_patients)
 
         self.fill_cb_patients()
 
@@ -45,7 +50,7 @@ class Modifica_pacients(QDialog):
     def fill_cb_patients(self):
         
         # TODO: ARREGLAAAAAAAAAAAAAAAAAR
-        self.cbPatients.currentIndexChanged.connect(self.nothing)
+        
         self.cbPatients.clear()
         self.cbPatients.addItem("Selecciona un pacient")
         for patient in self.sqlite.ask_for_patients_to_fill_combo_box():
@@ -54,12 +59,9 @@ class Modifica_pacients(QDialog):
             
         self.cbPatients.currentIndexChanged.connect(self.selection_change_patient)
 
-    def nothing(self):
-        pass
-
     def selection_change_patient(self):
 		
-        if(self.cbPatients.currentText() != "Selecciona un pacient"):
+        if(self.cbPatients.currentText() != "Selecciona un pacient" and self.cbPatients.currentText() != ""):
 
             info_patient = self.sqlite.get_patient_info(self.cbPatients.currentText())
             
@@ -112,6 +114,8 @@ class Modifica_pacients(QDialog):
             self.patient_new_info_weight = self.lineEditWeight.text()
 
             self.sqlite.modify_patient(self.patient_old_info_dni, self.patient_new_info_dni, self.patient_new_info_name, self.patient_new_info_surname, float(self.patient_new_info_height), int(self.patient_new_info_weight))
+
+            self.fill_cb_patients()
         else:
             self.editMode = not self.editMode
             self.editBtn.setText("Guardar")
@@ -130,7 +134,7 @@ class Modifica_pacients(QDialog):
             self.lineEditHeight.setReadOnly(False)
             self.lineEditWeight.setReadOnly(False)
         
-        self.fill_cb_patients()
+        
 
     def cancel_edit_patient(self):
         
