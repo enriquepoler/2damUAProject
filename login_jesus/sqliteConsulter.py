@@ -9,7 +9,6 @@ class SQLite_consulter:
     
     def __init__(self):
         self.create_connection(parkingson_db)
-        self.db_exists = False
         self.user_count = 0
     
     def create_connection(self, db_file):
