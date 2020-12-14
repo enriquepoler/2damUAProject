@@ -17,6 +17,8 @@ import recursos
 dirname = os.path.dirname(__file__)
 #Icono per al cronòmetre
 icon_cronometro = os.path.join(dirname, 'recursos/reloj-de-pared.png')
+#Icono per a alta usuaris
+icon_alta_usuaris = os.path.join(dirname, 'recursos/add-user.png')
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -52,6 +54,8 @@ class MainWindow(QMainWindow):
         toolbar.addAction(button_action_cronometro)
         toolbar.addSeparator()
 
+        iconoAltaUsuaris = QtGui.QIcon(icon_alta_usuaris)
+
         #Botó Alta pacients
         button_action_AltaPacients = QAction("&Alta pacients", self)
         button_action_AltaPacients.setShortcut("CTRL+A")
@@ -78,10 +82,16 @@ class MainWindow(QMainWindow):
         menu = self.menuBar()
 
         file_menu = menu.addMenu("&Menu")
+        
+        #Afegim el icono al cronòmetre
         button_action_cronometro.setIcon(icon)
         file_menu.addAction(button_action_cronometro)
+
+        #Afegim el icono a alta usuaris
+        button_action_AltaPacients.setIcon(iconoAltaUsuaris)
         file_menu.addAction(button_action_AltaPacients)
         file_menu.addAction(button_action3)
+
 
         
 
