@@ -51,9 +51,7 @@ class Login(QDialog):
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText("\n\nUsuari o contrasenya incorrectes")
             retval = self.showMessageBox.exec_()
-
-        
-
+            
 app = QApplication(sys.argv)
 window = Login()
 window.show()
