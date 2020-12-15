@@ -21,7 +21,7 @@ icon_cronometro = os.path.join(dirname, 'recursos/reloj-de-pared.png')
 icon_alta_usuaris = os.path.join(dirname, 'recursos/add-user.png')
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, user):
         super().__init__()
 
         self.setWindowTitle("Menú Principal")
@@ -92,7 +92,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction(button_action_AltaPacients)
         file_menu.addAction(button_action3)
 
-
+        self.show()
         
 
         '''style = button_action_cronometro.style() # Get the QStyle object from the widget.

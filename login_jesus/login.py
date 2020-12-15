@@ -5,6 +5,7 @@ from PyQt5.uic import loadUi
 import hashlib
 import sqlite3
 import cronometro
+import menu
 import os
 import time
 from sqliteConsulter import *
@@ -41,7 +42,8 @@ class Login(QDialog):
         if(len(result.fetchall()) > 0):
             print("User found!")
             #Si troba l´usuari, canviarà a la finestra següent
-            self.windowCron = cronometro.Window(line_edit_dni)
+            #self.windowCron = cronometro.Window(line_edit_dni)
+            self.windowMenu = menu.MainWindow(line_edit_dni)
             self.sqlite.close_connection()
             window.close()
         else:
