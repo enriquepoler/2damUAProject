@@ -69,7 +69,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     #TO-DO Revisar perque no apareix la llegenda
-    #Mètode que li passem la velocitat la força el nom de la llegenda i el color
+    #Mètode que li passem la velocitat la força el nom de la llegenda i el colorr
     def plot(self, x, y, plotname, color):
         pen = pg.mkPen(color=color)
         self.graphWidget.plot(
