@@ -28,6 +28,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(300,200,700,700)
         label = QLabel("Benvingut!")
         label.setAlignment(Qt.AlignCenter)
+        self.user = user
 
         self.setCentralWidget(label)
 
@@ -113,7 +114,7 @@ class MainWindow(QMainWindow):
             self.buttonFunc3Check.setChecked(False)
 
         #Mostra la finestra del cronòmetre
-        self.windowCron = cronometro.Window("prova")
+        self.windowCron = cronometro.Window(self.user)
         
 
     def alta_pacients_finestra(self, s):
@@ -140,9 +141,9 @@ class MainWindow(QMainWindow):
         elif self.buttonFunc2Check.isChecked():
             self.buttonFunc2Check.setChecked(False)  
 
-app = QApplication(sys.argv)
+#app = QApplication(sys.argv)
 
-window = MainWindow()
-window.show()
+#window = MainWindow("user")
+#window.show()
 
-app.exec_()
+#app.exec_()

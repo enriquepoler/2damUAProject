@@ -8,7 +8,7 @@
             "name": "Python: Archivo actual",
             "type": "python",
             "request": "launch",
-            "program": "/home/alumne/2dam/DI/UAProject/2damUAProject/login_jesus/menu.py",
+            "program": "/home/alumne/2dam/DI/UAProject/2damUAProject/login_jesus/login.py",
             "console": "integratedTerminal"
         }
     ]
