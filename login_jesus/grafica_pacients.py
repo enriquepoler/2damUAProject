@@ -19,11 +19,22 @@ class MainWindow(QtWidgets.QMainWindow):
         loadUi(grafica_pacients_ui, self)
 
         self.plot([1,2,3,4,5,6,7,8,9,10], [30,32,34,32,33,31,29,32,35,45])
+        # Per a canviar el color de fondo
+        #self.graphWidget.setBackground("w")
+
+        self.graphWidget.setTitle("Gràfica Pacients", color='w', size="15pt")
+
+
+        self.graphWidget.setLabel('left', "<span style=\"color:white;fontsize:30px\">Força (N/Kg)</span>")
+        self.graphWidget.setLabel('bottom', "<span style=\"color:white;fontsize:30px\">Velocitat (m/s)</span>")
 
     #Creem una funció per a fer un gràfic simple de X, Y y dades.
-    #Agreguem el mètode plot() que accepta dos matrius, temp temperature i hour
-    def plot(self, hour, temperature):
-        self.graphWidget.plot(hour, temperature)
+    #Agreguem el mètode plot() que accepta dos matrius (el self.plot de dalt), velocitat i força
+    def plot(self, velocitat, temperature):
+        
+        # Afegir a .plot() si ens interesa senyalar les marques -> ,symbol='+'
+        # Canviar temperature
+        self.graphWidget.plot(velocitat, temperature,symbol='+')
 
 
 def main():
