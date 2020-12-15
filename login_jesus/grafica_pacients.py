@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, uic
 from PyQt5.uic import loadUi
 #Instalar pip3 install pyqtgraph 
-from pyqtgraph import PlotWidget
+from pyqtgraph import PlotWidget, plot
 import pyqtgraph as pg
 import sys
 import os
@@ -18,30 +18,70 @@ class MainWindow(QtWidgets.QMainWindow):
         #Carreguem el grafica_pacients.ui
         loadUi(grafica_pacients_ui, self)
 
-        self.plot([1,2,3,4,5,6,7,8,9,10], [30,32,34,32,33,31,29,32,35,45])
+        #Perfil Medit
+        self.velocitatMedit = 8
+        self.forçaMedit = 62
+
+        self.velocitat = [0,self.velocitatMedit]
+        self.força = [0,self.forçaMedit]
+
+        #Perfil Òptim
+        self.velocitatOptim = 6
+        self.forçaOptim = 47
+
+        self.velocitatDos = [0,self.velocitatOptim]
+        self.forçaDos = [0,self.forçaOptim]
+
         # Per a canviar el color de fondo
-        #self.graphWidget.setBackground("w")
+        self.graphWidget.setBackground("w")
 
-        self.graphWidget.setTitle("Gràfica Pacients", color='w', size="15pt")
+        #Afegim titol i color
+        self.graphWidget.setTitle("Gràfica Pacients", color='k', size="15pt")
 
+        #Afegim Força (N/kg) i Velocitat (m/s)
+        self.graphWidget.setLabel('left', "<span style=\"color:black;fontsize:30px\">Força (N/Kg)</span>")
+        self.graphWidget.setLabel('bottom', "<span style=\"color:black;fontsize:30px\">Velocitat (m/s)</span>")
 
-        self.graphWidget.setLabel('left', "<span style=\"color:white;fontsize:30px\">Força (N/Kg)</span>")
-        self.graphWidget.setLabel('bottom', "<span style=\"color:white;fontsize:30px\">Velocitat (m/s)</span>")
+        #Afegim una cuadrícula a la gràfica
+        self.graphWidget.showGrid(x=True, y=True)
 
-    #Creem una funció per a fer un gràfic simple de X, Y y dades.
-    #Agreguem el mètode plot() que accepta dos matrius (el self.plot de dalt), velocitat i força
-    def plot(self, velocitat, temperature):
+        #Afegim el rango
+        self.graphWidget.setXRange(0, 10, padding=0)
+        self.graphWidget.setYRange(0, 100, padding=0)
+
+        #Color roig de la línia de la gràfica
+        pen = pg.mkPen(color=(255, 0, 0))
+
+        self.plot(self.velocitat, self.força, "Perfil Medit", "r")
+        self.plot(self.velocitatDos, self.forçaDos, "Perfil Òptim", "b")
+
+        f_0_Label=self.f0Label.text()
+        v_0_Label=self.v0Label.text()
         
-        # Afegir a .plot() si ens interesa senyalar les marques -> ,symbol='+'
-        # Canviar temperature
-        self.graphWidget.plot(velocitat, temperature,symbol='+')
+        print("f0:", self.forçaOptim)
+        print("v0:", self.velocitatOptim)
+
+        #Soles es mostra el òptim a la part de baix
+        f_0Label = self.forçaOptim
+        v_0_Label = self.velocitatOptim
 
 
-def main():
+        self.show()
+
+    #TO-DO Revisar perque no apareix la llegenda
+    #Mètode que li passem la velocitat la força el nom de la llegenda i el colorr
+    def plot(self, x, y, plotname, color):
+        pen = pg.mkPen(color=color)
+        self.graphWidget.plot(
+            x, y, name=plotname, pen=pen, symbol="+", symbolSize=20,
+            symbolBrush=(color)
+        )
+
+'''def main():
     app = QtWidgets.QApplication(sys.argv)
     main = MainWindow()
     main.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':         
-    main()
+    main()'''
