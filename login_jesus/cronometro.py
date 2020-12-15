@@ -18,7 +18,7 @@ lapIcon = os.path.join(dirname, 'recursos/lapTimer.png')
 pauseIcon = os.path.join(dirname, 'recursos/pause.png')
 saveIcon = os.path.join(dirname, 'recursos/save.png')
 
-# TO-DO: arreplegar el text del anotations i posar-lo a la base de dades
+# TODO: boto de ajustes per a canviar el temps parcial y total vinculat a l'usuari
   
 class Window(QWidget): 
   
