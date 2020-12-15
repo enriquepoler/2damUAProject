@@ -59,6 +59,7 @@ class SQLite_consulter:
         rows = cursor.fetchall()
         
         return rows
+        
     #Insertem els pacients de alta_usuaris
     def insert_patients(self, patient_dni, patient_name, patient_surname, patient_height, patient_weight):
 

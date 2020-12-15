@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
 
         #Mostra la finestra de alta pacients
         self.alta_pacients_window = alta_pacients.Alta_pacients()
-        
+        self.alta_pacients_window.show()
 
     def button3(self, s):
         print("click", s)

@@ -27,10 +27,6 @@ class Alta_pacients(QDialog):
         self.pbModificar.clicked.connect(self.modificar_pacient)
         self.sqlite = SQLite_consulter()
 
-        self.mod_patients_window = Modifica_pacients()
-
-        self.show()
-        
     def inserir_pacient(self):
         
         text_dni = self.textDni.text()
@@ -78,6 +74,7 @@ class Alta_pacients(QDialog):
         + "Altura: " + text_altura + "\n" + "Pes: " + text_pes)
 
     def modificar_pacient(self):
+        self.mod_patients_window = Modifica_pacients()
         self.mod_patients_window.show()
         self.close()
 
