@@ -10,6 +10,7 @@ import recursos
 import os
 import cronometro
 import alta_pacients
+import grafica_pacients
 import time
 import recursos
 
@@ -68,13 +69,14 @@ class MainWindow(QMainWindow):
         self.buttonFunc2Check.setCheckable(True)
 
 
-        #Botó 3
-        button_action3 = QAction("&Boto3", self)
-        button_action3.setStatusTip("Boto3")
-        button_action3.triggered.connect(self.button3)
-        toolbar.addAction(button_action3)
+        #Botó Gràfica Pacients
+        button_action_GraficaPacients = QAction("&Grafica pacients", self)
+        button_action_GraficaPacients.setShortcut("CTRL+G")
+        button_action_GraficaPacients.setStatusTip("Grafica pacients")
+        button_action_GraficaPacients.triggered.connect(self.grafica_pacients_finestra)
+        toolbar.addAction(button_action_GraficaPacients)
 
-        self.buttonFunc3Check = button_action3 
+        self.buttonFunc3Check = button_action_GraficaPacients 
         self.buttonFunc3Check.setCheckable(True)
 
         self.setStatusBar(QStatusBar(self))
@@ -92,6 +94,10 @@ class MainWindow(QMainWindow):
         button_action_AltaPacients.setIcon(iconoAltaUsuaris)
         file_menu.addAction(button_action_AltaPacients)
         file_menu.addAction(button_action3)
+        
+        #TO-DO: Afegir el icono a grafica pacients
+        #button_action_GraficaPacients.setIcon(iconoAltaUsuaris)
+        file_menu.addAction(button_action_GraficaPacients)
 
         self.show()
         
@@ -131,7 +137,7 @@ class MainWindow(QMainWindow):
         self.alta_pacients_window = alta_pacients.Alta_pacients()
         self.alta_pacients_window.show()
 
-    def button3(self, s):
+    def grafica_pacients_finestra(self, s):
         print("click", s)
 
         self.buttonFunc3Check.setChecked(True)
@@ -140,6 +146,9 @@ class MainWindow(QMainWindow):
             self.buttonCronometroCheck.setChecked(False)
         elif self.buttonFunc2Check.isChecked():
             self.buttonFunc2Check.setChecked(False)  
+
+        #Mostra la finestra de la grafica pacients
+        self.grafica_pacients_window = grafica_pacients.MainWindow()  
 
 #app = QApplication(sys.argv)
 
