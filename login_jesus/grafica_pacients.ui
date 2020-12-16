@@ -42,29 +42,11 @@
      <string>Perfil de velocitat</string>
     </property>
    </widget>
-   <widget class="QLabel" name="f0Label">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>490</y>
-      <width>151</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>40</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="v0Label">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>540</y>
+      <x>290</x>
+      <y>510</y>
       <width>151</width>
       <height>51</height>
      </rect>
