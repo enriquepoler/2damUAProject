@@ -47,8 +47,8 @@
      <rect>
       <x>560</x>
       <y>490</y>
-      <width>158</width>
-      <height>34</height>
+      <width>151</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -57,7 +57,7 @@
      </font>
     </property>
     <property name="text">
-     <string>w</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="v0Label">
@@ -65,13 +65,13 @@
      <rect>
       <x>310</x>
       <y>540</y>
-      <width>111</width>
-      <height>31</height>
+      <width>151</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>25</pointsize>
+      <pointsize>40</pointsize>
      </font>
     </property>
     <property name="text">
