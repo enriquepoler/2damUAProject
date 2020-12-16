@@ -52,24 +52,26 @@ class MainWindow(QtWidgets.QMainWindow):
         #Color roig de la línia de la gràfica
         pen = pg.mkPen(color=(255, 0, 0))
 
-        self.plot(self.velocitat, self.força, "Perfil Medit", "r")
-        self.plot(self.velocitatDos, self.forçaDos, "Perfil Òptim", "b")
+        self.plot(self.velocitat, self.força, "Perfil Medit", "b")
+        self.plot(self.velocitatDos, self.forçaDos, "Perfil Òptim", "r")
 
         f_0_Label=self.f0Label.text()
         v_0_Label=self.v0Label.text()
-        
-        print("f0:", self.forçaOptim)
-        print("v0:", self.velocitatOptim)
 
-        #Soles es mostra el òptim a la part de baix
-        f_0Label = self.forçaOptim
-        v_0_Label = self.velocitatOptim
+        print("f0:", self.forçaMedit, "N/Kg")
+        print("v0:", self.velocitatMedit, "m/s")
 
+        #Soles es mostra el medit a la part de baix
+        f_0_Label = self.forçaMedit
+        v_0_Label = self.velocitatMedit
+
+        print("f0 label:", f_0_Label)
+        print("v0 label:", v_0_Label)
 
         self.show()
 
     #TO-DO Revisar perque no apareix la llegenda
-    #Mètode que li passem la velocitat la força el nom de la llegenda i el colorr
+    #Mètode que li passem la velocitat la força el nom de la llegenda i el color
     def plot(self, x, y, plotname, color):
         pen = pg.mkPen(color=color)
         self.graphWidget.plot(
