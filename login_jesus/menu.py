@@ -18,8 +18,10 @@ import recursos
 dirname = os.path.dirname(__file__)
 #Icono per al cronòmetre
 icon_cronometro = os.path.join(dirname, 'recursos/reloj-de-pared.png')
-#Icono per a alta usuaris
+#Icono per a alta pacients
 icon_alta_usuaris = os.path.join(dirname, 'recursos/add-user.png')
+#Icono per a la grafica dels pacients 
+icon_grafica_pacients = os.path.join(dirname, 'recursos/barra-grafica.png')
 
 class MainWindow(QMainWindow):
     def __init__(self, user):
@@ -37,7 +39,7 @@ class MainWindow(QMainWindow):
         toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(toolbar)
 
-        #Icono
+        #Icono cronòmetre
         icon = QtGui.QIcon(icon_cronometro)
 
         #Botó cronòmetre
@@ -56,6 +58,7 @@ class MainWindow(QMainWindow):
         toolbar.addAction(button_action_cronometro)
         toolbar.addSeparator()
 
+        #Icono alta pacients
         iconoAltaUsuaris = QtGui.QIcon(icon_alta_usuaris)
 
         #Botó Alta pacients
@@ -68,11 +71,16 @@ class MainWindow(QMainWindow):
         self.buttonFunc2Check = button_action_AltaPacients     
         self.buttonFunc2Check.setCheckable(True)
 
+        toolbar.addAction(button_action_AltaPacients)
+        toolbar.addSeparator()
+
+        #Icono grafica pacients
+        iconoGraficaPacients = QtGui.QIcon(icon_grafica_pacients)
 
         #Botó Gràfica Pacients
-        button_action_GraficaPacients = QAction("&Grafica pacients", self)
+        button_action_GraficaPacients = QAction("&Gràfica pacients", self)
         button_action_GraficaPacients.setShortcut("CTRL+G")
-        button_action_GraficaPacients.setStatusTip("Grafica pacients")
+        button_action_GraficaPacients.setStatusTip("Gràfica pacients")
         button_action_GraficaPacients.triggered.connect(self.grafica_pacients_finestra)
         toolbar.addAction(button_action_GraficaPacients)
 
@@ -93,10 +101,9 @@ class MainWindow(QMainWindow):
         #Afegim el icono a alta usuaris
         button_action_AltaPacients.setIcon(iconoAltaUsuaris)
         file_menu.addAction(button_action_AltaPacients)
-        #file_menu.addAction(button_action3)
         
         #TO-DO: Afegir el icono a grafica pacients
-        #button_action_GraficaPacients.setIcon(iconoAltaUsuaris)
+        button_action_GraficaPacients.setIcon(iconoGraficaPacients)
         file_menu.addAction(button_action_GraficaPacients)
 
         self.show()
