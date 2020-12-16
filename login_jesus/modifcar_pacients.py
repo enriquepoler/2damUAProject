@@ -55,8 +55,6 @@ class Modifica_pacients(QDialog):
 
     def fill_cb_patients(self):
         
-        # TODO: Desactivar el Combo box cuando está editando y si le da a refescar, o volver al modo sin edicion, o desactivar el refrescar mientras se edita, probar que pasa si mientras editas borras el usuario
-        
         self.cbPatients.clear()
         self.cbPatients.addItem("Selecciona un pacient")
         for patient in self.sqlite.ask_for_patients_to_fill_combo_box():

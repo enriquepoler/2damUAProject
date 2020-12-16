@@ -17,6 +17,8 @@ playIcon = os.path.join(dirname, 'recursos/play.png')
 lapIcon = os.path.join(dirname, 'recursos/lapTimer.png')
 pauseIcon = os.path.join(dirname, 'recursos/pause.png')
 saveIcon = os.path.join(dirname, 'recursos/save.png')
+refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
+settings_icon = os.path.join(dirname, 'recursos/settings.png')
 
 # TODO: boto de ajustes per a canviar el temps parcial y total vinculat a l'usuari
   
@@ -89,6 +91,7 @@ class Window(QWidget):
   
         # setting icon to the button 
         self.startStopSwitchBtn.setIcon(QIcon(playIcon))
+        
         # add action to the method 
         self.startStopSwitchBtn.pressed.connect(self.StartStopSwitch) 
   
@@ -98,7 +101,19 @@ class Window(QWidget):
         # add action to the method 
         self.saveLapBtn.pressed.connect(self.saveLap)
         self.saveLapBtn.setEnabled(False) 
-  
+
+        # setting icon to the button  
+        self.refresh_combo_box_btn.setIcon(QIcon(refresh_icon))
+        
+        # add action to the method 
+        self.refresh_combo_box_btn.pressed.connect(self.fill_cb_patients)
+
+        self.settings_btn.setIcon(QIcon(settings_icon))
+        
+        # add action to the method 
+        self.settings_btn.pressed.connect(self.change_settings)
+
+        self.fill_cb_patients()
         # creating a timer object 
         timer = QTimer(self) 
   
@@ -108,18 +123,21 @@ class Window(QWidget):
         # update the timer every tenth second 
         timer.start(100)
 
-        self.comboBoxPacientes.addItem("Selecciona un pacient")
+    def fill_cb_patients(self):
+    
+        self.combo_box_patients.clear()
+        self.combo_box_patients.addItem("Selecciona un pacient")
         for patient in self.sqlite.ask_for_patients_to_fill_combo_box():
             patient_name_surname = patient[0] + " " + patient[1]
-            self.comboBoxPacientes.addItem(patient_name_surname)
+            self.combo_box_patients.addItem(patient_name_surname)
             
-        self.comboBoxPacientes.currentIndexChanged.connect(self.selection_change_patient)
+        self.combo_box_patients.currentIndexChanged.connect(self.selection_change_patient)
         
 
     def selection_change_patient(self):
 		
-        self.selected_patient = self.comboBoxPacientes.currentText()
-        if(self.selected_patient != "Selecciona un pacient"):
+        self.selected_patient = self.combo_box_patients.currentText()
+        if(self.combo_box_patients.currentText() != "Selecciona un pacient" and self.combo_box_patients.currentText() != ""):
 
             info_patient = self.sqlite.get_patient_info(self.selected_patient)
             
@@ -127,7 +145,9 @@ class Window(QWidget):
             self.patient_name = info_patient[0][1]
             self.patient_surname = info_patient[0][2]
 
-  
+    def change_settings(self):
+        pass
+    
     # method called by timer 
     def showTime(self): 
   
@@ -214,7 +234,7 @@ class Window(QWidget):
   
     def saveLap(self): 
         
-        if(self.comboBoxPacientes.currentText() != "Selecciona un pacient"):
+        if(self.combo_box_patients.currentText() != "Selecciona un pacient"):
             
             # Read the text from QPlainTextEdit and save it
             self.patient_anotation = self.anotationsText.toPlainText()

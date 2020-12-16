@@ -22,12 +22,15 @@ class SQLite_consulter:
         self.connection.execute("CREATE TABLE IF NOT EXISTS patients (dni VARCHAR (9) PRIMARY KEY NOT NULL, name VARCHAR (40) NOT NULL, surname VARCHAR (40) NOT NULL, height DOUBLE DEFAULT (1.0), weight INTEGER DEFAULT (50))")
         self.connection.execute("CREATE TABLE IF NOT EXISTS 'users' ('dni' TEXT NOT NULL, 'password' TEXT NOT NULL, PRIMARY KEY('dni'))")
         self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) NOT NULL, name VARCHAR (40), surname VARCHAR, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, score INTEGER, status VARCHAR (10), anotations VARCHAR, user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY(patient, name, surname) REFERENCES patients (dni, name, surname) ON DELETE CASCADE ON UPDATE CASCADE)")
+        self.connection.execute("CREATE TABLE IF NOT EXISTS time (status_type VARCHAR NOT NULL, lap1 DOUBLE NOT NULL DEFAULT (15.5), lap2 DOUBLE NOT NULL DEFAULT (15.5), lap3 DOUBLE NOT NULL DEFAULT (15.5), total_time DOUBLE NOT NULL DEFAULT (15.5), PRIMARY KEY (status_type))")
         
         self.user_count = self.connection.execute("SELECT count(dni) FROM users")
         
         if(self.user_count != 0):
 
             self.connection.execute("INSERT INTO users SELECT 'admin', 'admin' WHERE NOT EXISTS (SELECT * FROM users WHERE dni = 'admin' AND password = 'admin')")
+            self.connection.execute("INSERT INTO time VALUES ('lleu-moderat', 17.16, 15.14, 10.43, 41.91)")
+            self.connection.execute("INSERT INTO time VALUES ('moderat-greu', 23.56, 25.90, 13.34, 60.32)")
             self.connection.commit()
 
     def close_connection(self):
@@ -76,9 +79,25 @@ class SQLite_consulter:
         self.connection.execute("UPDATE patients SET dni = ?, name = ?, surname = ?, height = ?, weight = ? WHERE dni = ?", (patient_dni, patient_name, patient_surname, patient_height, patient_weight, old_patient_dni))
         self.connection.commit()
 
+    def all_users(self):
+
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT dni FROM users")
+        rows = cursor.fetchall()
+        
+        return rows
+
     def insert_user(self, user_dni, user_passwd):
 
         self.connection.execute("INSERT INTO users VALUES (?, ?)", (user_dni, user_passwd))
         self.connection.commit()
 
         # TODO: delete user
+    
+    def ask_times_to_fill_combo_box(self):
+
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT status_type FROM time")
+        rows = cursor.fetchall()
+        
+        return rows
