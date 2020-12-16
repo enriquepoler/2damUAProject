@@ -52,8 +52,10 @@ class MainWindow(QtWidgets.QMainWindow):
         #Color roig de la línia de la gràfica
         pen = pg.mkPen(color=(255, 0, 0))
 
+        #El self.plot() del perfil medit el tenim repetir perquè sino no apareix
         self.plot(self.velocitat, self.força, "Perfil Medit", "b")
         self.plot(self.velocitatDos, self.forçaDos, "Perfil Òptim", "r")
+        self.plot(self.velocitat, self.força, "Perfil Medit", "b")
 
         f_0_Label=self.f0Label.text()
         v_0_Label=self.v0Label.text()
@@ -62,22 +64,23 @@ class MainWindow(QtWidgets.QMainWindow):
         print("v0:", self.velocitatMedit, "m/s")
 
         #Soles es mostra el medit a la part de baix
-        f_0_Label = self.forçaMedit
-        v_0_Label = self.velocitatMedit
+        self.f0Label.setText(str(self.forçaMedit) + " N/Kg")
+        self.v0Label.setText(str(self.velocitatMedit) + " m/s")
 
         print("f0 label:", f_0_Label)
         print("v0 label:", v_0_Label)
 
         self.show()
 
-    #TO-DO Revisar perque no apareix la llegenda
     #Mètode que li passem la velocitat la força el nom de la llegenda i el color
     def plot(self, x, y, plotname, color):
         pen = pg.mkPen(color=color)
         self.graphWidget.plot(
             x, y, name=plotname, pen=pen, symbol="+", symbolSize=20,
             symbolBrush=(color)
+        
         )
+        self.graphWidget.addLegend() 
 
 '''def main():
     app = QtWidgets.QApplication(sys.argv)
