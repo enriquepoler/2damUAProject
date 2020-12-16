@@ -93,7 +93,7 @@ class MainWindow(QMainWindow):
         #Afegim el icono a alta usuaris
         button_action_AltaPacients.setIcon(iconoAltaUsuaris)
         file_menu.addAction(button_action_AltaPacients)
-        file_menu.addAction(button_action3)
+        #file_menu.addAction(button_action3)
         
         #TO-DO: Afegir el icono a grafica pacients
         #button_action_GraficaPacients.setIcon(iconoAltaUsuaris)
