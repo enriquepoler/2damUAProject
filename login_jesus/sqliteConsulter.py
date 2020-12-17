@@ -91,6 +91,9 @@ class SQLite_consulter:
 
         self.connection.execute("INSERT INTO users VALUES (?, ?)", (user_dni, user_passwd))
         self.connection.commit()
+        
+    #get info from table laps
+    def get_patient_lap_info(self, patient_name_surname):
 
         # TODO: delete user
     
