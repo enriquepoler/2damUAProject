@@ -22,18 +22,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle("Gràfica Pacients")
 
         self.tempsTotal = 0
-        
         self.lap_total = 0
 
-        self.temps = 0
-
         #Perfil Medit
+        self.temps = 0
         self.tempsMedit = 0
-        print("tempsMedit -> " + str(self.tempsMedit))
+        
         self.temps = [0,self.tempsMedit]
 
         #Perfil Òptim
-        self.tempsOptim = 3.4
+        self.tempsDos = 0
+        self.tempsOptim = 0
 
         self.tempsDos = [0,self.tempsOptim]
 
@@ -44,7 +43,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graphWidget.setTitle("Gràfica Pacients", color='k', size="15pt")
 
         #temps (s)
-        self.graphWidget.setLabel('left', "<span style=\"color:black;fontsize:30px\">temps (s)</span>")
+        self.graphWidget.setLabel('left', "<span style=\"color:black;fontsize:30px\">Temps (s)</span>")
 
         #Afegim una cuadrícula a la gràfica
         self.graphWidget.showGrid(x=True, y=True)
@@ -55,16 +54,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #Color roig de la línia de la gràfica
         pen = pg.mkPen(color=(255, 0, 0))
-
-        #El self.plot() del perfil medit el tenim repetir perquè sino no apareix
-        self.plot(self.temps, "Perfil Medit", "b")
-        self.plot(self.tempsDos, "Perfil Òptim", "r")
-        self.plot(self.temps, "Perfil Medit", "b")
-
-        v_0_Label=self.v0Label.text()
-
-        #print("v0:", self.tempsMedit, "s")
-
         
 
         #Connecting to class to connect to database
@@ -77,6 +66,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.cBPacients.addItem(patient_name_surname)
             
         self.cBPacients.currentIndexChanged.connect(self.selection_change_patient)
+
+        v_0_Label=self.v0Label.text()
+
+
+        #Push Button Temps Òptim
+        self.pbTempsOptim.clicked.connect(self.tempsOptimFunction)
         
 
         self.show()
@@ -89,7 +84,7 @@ class MainWindow(QtWidgets.QMainWindow):
             symbolBrush=(color)
         
         )
-        self.graphWidget.addLegend()
+        
 
     def selection_change_patient(self):
 		
@@ -104,13 +99,40 @@ class MainWindow(QtWidgets.QMainWindow):
 
             #Per a obtenir el temps total de la volta
             self.lap_total = self.sqlite.get_patient_lap_info(self.selected_patient)
-            self.tempsTotal = self.lap_total
+            self.tempsTotal = self.lap_total[0]
+            
+            #Temps medit dins de la gràfica
+            self.tempsMedit = self.lap_total[0]
+            self.temps = [0,self.tempsMedit]
 
             #Soles es mostra el medit a la part de baix
             self.v0Label.setText(str(self.tempsTotal) + " s totals")
+
+            #El self.plot() del perfil medit el tenim repetit perquè sino no apareix (la llegenda)
+            self.plot(self.temps, "", "b")
+            
+
+            #self.graphWidget.addLegend()
+
+            print("\n")
+            print("tempsMedit -> " + str(self.tempsMedit))
             print("v0Label.setText -> ", self.tempsTotal)
             print("lap_total",self.lap_total)
             print("tempsTotal",self.lap_total)
+
+    def tempsOptimFunction(self):
+        self.line_edit_tempsOptim=self.leTempsOptim.text()
+        
+        self.tempsOptim = self.line_edit_tempsOptim
+        self.tempsDos = [0,self.tempsOptim]
+
+        self.plot(self.tempsDos, "", "r")
+
+        print("\n")
+        print("line edit tempsOptim: " + self.line_edit_tempsOptim)
+
+
+
 
 '''def main():
     app = QtWidgets.QApplication(sys.argv)
