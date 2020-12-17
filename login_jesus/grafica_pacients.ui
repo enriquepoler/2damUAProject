@@ -23,6 +23,49 @@
       <height>391</height>
      </rect>
     </property>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>160</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="vlLlegenda">
+      <item>
+       <widget class="QLabel" name="lTempsOptim">
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(252, 45, 45);</string>
+        </property>
+        <property name="text">
+         <string>+ Temps Òptim</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lTempsMedit">
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(30, 36, 255);
+</string>
+        </property>
+        <property name="text">
+         <string>+ Temps Medit</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QLabel" name="pVelocitatLabel">
     <property name="geometry">
@@ -45,20 +88,59 @@
    <widget class="QLabel" name="v0Label">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>510</y>
-      <width>151</width>
+      <x>310</x>
+      <y>560</y>
+      <width>311</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>40</pointsize>
+      <pointsize>30</pointsize>
      </font>
     </property>
     <property name="text">
      <string/>
     </property>
+   </widget>
+   <widget class="QComboBox" name="cBPacients">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>510</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>480</y>
+      <width>291</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="hlTempsOptim">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Temps Òptim</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leTempsOptim"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbTempsOptim">
+       <property name="text">
+        <string>Aceptar</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
