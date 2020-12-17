@@ -92,10 +92,16 @@ class SQLite_consulter:
         self.connection.execute("INSERT INTO users VALUES (?, ?)", (user_dni, user_passwd))
         self.connection.commit()
         
+    # TODO: delete user
+    
     #get info from table laps
     def get_patient_lap_info(self, patient_name_surname):
 
-        # TODO: delete user
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT totalTime FROM laps")
+        row = cursor.fetchone()
+        
+        return row
     
     def ask_times_to_fill_combo_box(self):
 
