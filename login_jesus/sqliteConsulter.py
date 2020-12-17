@@ -97,11 +97,12 @@ class SQLite_consulter:
     #get info from table laps
     def get_patient_lap_info(self, patient_name_surname):
 
+        patient = patient_name_surname.split()
         cursor = self.connection.cursor()
-        cursor.execute("SELECT totalTime FROM laps")
-        row = cursor.fetchone()
+        cursor.execute("SELECT totalTime FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        rows = cursor.fetchone()
         
-        return row
+        return rows
     
     def ask_times_to_fill_combo_box(self):
 
