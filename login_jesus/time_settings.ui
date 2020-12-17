@@ -77,16 +77,16 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lap1"/>
+     <widget class="QLineEdit" name="lap1_text_edit"/>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="lap2"/>
+     <widget class="QLineEdit" name="lap2_text_edit"/>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="lap3"/>
+     <widget class="QLineEdit" name="lap3_text_edit"/>
     </item>
     <item row="3" column="1">
-     <widget class="QLineEdit" name="total_lap"/>
+     <widget class="QLineEdit" name="total_lap_text_edit"/>
     </item>
    </layout>
   </widget>
@@ -144,6 +144,12 @@
      <height>34</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string>Editar</string>
    </property>
@@ -168,6 +174,19 @@
    </property>
    <property name="text">
     <string>Cancelar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="return_btn">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

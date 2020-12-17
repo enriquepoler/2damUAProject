@@ -9,6 +9,7 @@ import decimal
 import os
 import time
 from sqliteConsulter import *
+import time_settings
 
 #Relative paths
 dirname = os.path.dirname(__file__)
@@ -20,9 +21,9 @@ saveIcon = os.path.join(dirname, 'recursos/save.png')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 settings_icon = os.path.join(dirname, 'recursos/settings.png')
 
-# TODO: boto de ajustes per a canviar el temps parcial y total vinculat a l'usuari
+# TODO: Calcular puntuacions segons temps de tall dels ajustaments
   
-class Window(QWidget): 
+class Chron(QWidget): 
   
     def __init__(self, user): 
         
@@ -146,7 +147,10 @@ class Window(QWidget):
             self.patient_surname = info_patient[0][2]
 
     def change_settings(self):
-        pass
+
+        self.settings = time_settings.Time_settings(self.user)
+        self.settings.show()
+        self.close()
     
     # method called by timer 
     def showTime(self): 

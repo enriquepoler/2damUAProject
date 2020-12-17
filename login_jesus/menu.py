@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
             self.buttonFunc3Check.setChecked(False)
 
         #Mostra la finestra del cronòmetre
-        self.windowCron = cronometro.Window(self.user)
+        self.windowCron = cronometro.Chron(self.user)
         
 
     def alta_pacients_finestra(self, s):

@@ -5,8 +5,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import * 
 from PyQt5.uic import loadUi
 from sqliteConsulter import *
-import hashlib
-import sqlite3
 import cronometro
 import os
 import time
@@ -28,6 +26,7 @@ class Modifica_pacients(QDialog):
         self.deleteDialogBox = QMessageBox()
         self.cancelDialogBox = QMessageBox()
         self.editDialogBox = QMessageBox()
+        self.showMessageBox = QMessageBox()
 
         self.sqlite = SQLite_consulter()
 
@@ -51,6 +50,8 @@ class Modifica_pacients(QDialog):
 
         self.fill_cb_patients()
 
+        self.text_read_only()
+
         # self.show()
 
     def fill_cb_patients(self):
@@ -70,6 +71,7 @@ class Modifica_pacients(QDialog):
         self.deleteBtn.setStyleSheet("")
         self.editBtn.setText("Editar")
         self.editBtn.setStyleSheet("")
+        self.cbPatients.setEnabled(True)
 
     def selection_change_patient(self):
 		
@@ -127,6 +129,7 @@ class Modifica_pacients(QDialog):
             self.editBtn.setText("Guardar")
             self.editBtn.setStyleSheet("color: #008000;")
             self.cancelBtn.show()
+            self.cbPatients.setEnabled(False)
 
             self.patient_old_info_dni = self.lineEditDni.text()
             self.patient_old_info_name = self.lineEditName.text()
@@ -141,22 +144,38 @@ class Modifica_pacients(QDialog):
         self.contador += 1
         if(self.contador == 1):
             if(selection.text() == "&Yes"):
-                self.editMode = not self.editMode
-                self.editBtn.setText("Editar")
-                self.editBtn.setStyleSheet("")
-                self.cancelBtn.hide()
-
-                self.text_read_only()
+                
 
                 self.patient_new_info_dni = self.lineEditDni.text()
                 self.patient_new_info_name = self.lineEditName.text()
                 self.patient_new_info_surname = self.lineEditSurname.text()
                 self.patient_new_info_height = self.lineEditHeight.text()
                 self.patient_new_info_weight = self.lineEditWeight.text()
+                
+                if(self.patient_new_info_name != "" and self.patient_new_info_surname != ""):
+                    if(len(self.patient_new_info_dni) == 9):
 
-                self.sqlite.modify_patient(self.patient_old_info_dni, self.patient_new_info_dni, self.patient_new_info_name, self.patient_new_info_surname, float(self.patient_new_info_height), int(self.patient_new_info_weight))
+                        self.sqlite.modify_patient(self.patient_old_info_dni, self.patient_new_info_dni, self.patient_new_info_name, self.patient_new_info_surname, float(self.patient_new_info_height), int(self.patient_new_info_weight))
 
-                self.fill_cb_patients()        
+                        self.editMode = not self.editMode
+                        self.editBtn.setText("Editar")
+                        self.editBtn.setStyleSheet("")
+                        self.cancelBtn.hide()
+
+                        self.text_read_only()
+                        self.cbPatients.setEnabled(True)
+                        self.fill_cb_patients()
+                    else:
+                        self.showMessageBox.setWindowTitle("Error")
+                        self.showMessageBox.setIcon(QMessageBox.Critical)
+                        self.showMessageBox.setText("\n\nPacient no inserit, format del DNI no valid.")
+                        retval = self.showMessageBox.exec_()
+                else:
+                    self.showMessageBox.setWindowTitle("Error")
+                    self.showMessageBox.setIcon(QMessageBox.Critical)
+                    self.showMessageBox.setText("\n\nPacient no inserit, completa tots els camps.")
+                    retval = self.showMessageBox.exec_()
+                     
 
     def cancel_edit_patient(self):
         
@@ -179,7 +198,7 @@ class Modifica_pacients(QDialog):
                 self.editBtn.setStyleSheet("")
 
                 self.text_read_only()
-
+                self.cbPatients.setEnabled(True)
                 self.lineEditDni.setText(self.patient_old_info_dni)
                 self.lineEditName.setText(self.patient_old_info_name)
                 self.lineEditSurname.setText(self.patient_old_info_surname)
@@ -210,6 +229,7 @@ class Modifica_pacients(QDialog):
                 self.editBtn.setEnabled(False)
                 self.editMode = False
                 self.cancelBtn.hide()
+                self.cbPatients.setEnabled(True)
 
     def text_edit_only(self):
 

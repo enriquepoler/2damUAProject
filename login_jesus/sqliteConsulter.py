@@ -26,11 +26,11 @@ class SQLite_consulter:
         
         self.user_count = self.connection.execute("SELECT count(dni) FROM users")
         
-        if(self.user_count != 0):
+        if(self.user_count == 0):
 
             self.connection.execute("INSERT INTO users SELECT 'admin', 'admin' WHERE NOT EXISTS (SELECT * FROM users WHERE dni = 'admin' AND password = 'admin')")
-            self.connection.execute("INSERT INTO time VALUES ('lleu-moderat', 17.16, 15.14, 10.43, 41.91)")
-            self.connection.execute("INSERT INTO time VALUES ('moderat-greu', 23.56, 25.90, 13.34, 60.32)")
+            self.connection.execute("INSERT INTO time SELECT 'lleu-moderat', 17.16, 15.14, 10.43, 41.91 WHERE NOT EXISTS (SELECT status_type FROM time WHERE status_type = 'lleu-moderat')")
+            self.connection.execute("INSERT INTO time SELECT 'moderat-greu', 23.56, 25.9, 13.34, 60.32 WHERE NOT EXISTS (SELECT status_type FROM time WHERE status_type = 'moderat-greu')")
             self.connection.commit()
 
     def close_connection(self):
@@ -101,3 +101,16 @@ class SQLite_consulter:
         rows = cursor.fetchall()
         
         return rows
+
+    def get_status_info(self, status_type):
+
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM time WHERE status_type = ?", ([status_type]))
+        rows = cursor.fetchall()
+        
+        return rows
+
+    def modify_status(self, status, lap1, lap2, lap3, total_time):
+
+        self.connection.execute("UPDATE time SET lap1 = ?, lap2 = ?, lap3 = ?, total_time = ? WHERE status_type = ?", (lap1, lap2, lap3, total_time, status))
+        self.connection.commit()
