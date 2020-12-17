@@ -80,5 +80,15 @@ class SQLite_consulter:
 
         self.connection.execute("INSERT INTO users VALUES (?, ?)", (user_dni, user_passwd))
         self.connection.commit()
+        
+    #get info from table laps
+    def get_patient_lap_info(self, patient_name_surname):
 
-        # TODO: delete user
+        patient = patient_name_surname.split()
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT totalTime FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        rows = cursor.fetchone()
+        
+        return rows
+    
+    # TODO: delete user
