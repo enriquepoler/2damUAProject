@@ -1,8 +1,8 @@
 import sys
-from PyQt5.QtWidgets import * 
-from PyQt5 import QtCore, QtGui 
-from PyQt5.QtGui import * 
-from PyQt5.QtCore import * 
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
 from sqliteConsulter import *
 import cronometro
@@ -10,17 +10,18 @@ import os
 import time
 import alta_pacients
 
-#Relative paths
+# Relative paths
 dirname = os.path.dirname(__file__)
 modificar_pacients_ui = os.path.join(dirname, 'modificar_pacients.ui')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 
+
 class Modifica_pacients(QDialog):
     def __init__(self):
-        super(Modifica_pacients,self).__init__()
-        
-        #Carreguem el login.ui
+        super(Modifica_pacients, self).__init__()
+
+        # Carreguem el login.ui
         loadUi(modificar_pacients_ui, self)
         self.setWindowTitle("Modificar pacients")
         self.deleteDialogBox = QMessageBox()
@@ -55,14 +56,15 @@ class Modifica_pacients(QDialog):
         # self.show()
 
     def fill_cb_patients(self):
-        
+
         self.cbPatients.clear()
         self.cbPatients.addItem("Selecciona un pacient")
         for patient in self.sqlite.ask_for_patients_to_fill_combo_box():
             patient_name_surname = patient[0] + " " + patient[1]
             self.cbPatients.addItem(patient_name_surname)
-            
-        self.cbPatients.currentIndexChanged.connect(self.selection_change_patient)
+
+        self.cbPatients.currentIndexChanged.connect(
+            self.selection_change_patient)
 
         self.editBtn.setEnabled(False)
         self.editMode = False
@@ -74,11 +76,12 @@ class Modifica_pacients(QDialog):
         self.cbPatients.setEnabled(True)
 
     def selection_change_patient(self):
-		
+
         if(self.cbPatients.currentText() != "Selecciona un pacient" and self.cbPatients.currentText() != ""):
 
-            info_patient = self.sqlite.get_patient_info(self.cbPatients.currentText())
-            
+            info_patient = self.sqlite.get_patient_info(
+                self.cbPatients.currentText())
+
             self.patient_dni = info_patient[0][0]
             self.patient_name = info_patient[0][1]
             self.patient_surname = info_patient[0][2]
@@ -94,7 +97,7 @@ class Modifica_pacients(QDialog):
             self.deleteBtn.setEnabled(True)
             self.deleteBtn.setStyleSheet("color: red;")
             self.editBtn.setEnabled(True)
-        
+
         else:
 
             self.lineEditDni.setText("")
@@ -112,14 +115,16 @@ class Modifica_pacients(QDialog):
             self.editBtn.setStyleSheet("")
 
             self.text_read_only()
-        
+
     def edit_patient(self):
         if(self.editMode):
-            
-            self.editDialogBox.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
+
+            self.editDialogBox.setStandardButtons(
+                QMessageBox.Yes | QMessageBox.No)
             self.editDialogBox.setDefaultButton(QMessageBox.No)
             self.editDialogBox.setIcon(QMessageBox.Information)
-            self.editDialogBox.setText("\n\nEstas segur de que vols guardar la modificacio del pacient " + self.patient_name + " " + self.patient_surname + "?")
+            self.editDialogBox.setText("\n\nEstas segur de que vols guardar la modificacio del pacient " +
+                                       self.patient_name + " " + self.patient_surname + "?")
             self.editDialogBox.buttonClicked.connect(self.sure_to_save)
             self.contador = 0
             retval = self.editDialogBox.exec_()
@@ -137,25 +142,25 @@ class Modifica_pacients(QDialog):
             self.patient_old_info_height = self.lineEditHeight.text()
             self.patient_old_info_weight = self.lineEditWeight.text()
 
-            self.text_edit_only() 
+            self.text_edit_only()
 
     def sure_to_save(self, selection):
 
         self.contador += 1
         if(self.contador == 1):
             if(selection.text() == "&Yes"):
-                
 
                 self.patient_new_info_dni = self.lineEditDni.text()
                 self.patient_new_info_name = self.lineEditName.text()
                 self.patient_new_info_surname = self.lineEditSurname.text()
                 self.patient_new_info_height = self.lineEditHeight.text()
                 self.patient_new_info_weight = self.lineEditWeight.text()
-                
+
                 if(self.patient_new_info_name != "" and self.patient_new_info_surname != ""):
                     if(len(self.patient_new_info_dni) == 9):
 
-                        self.sqlite.modify_patient(self.patient_old_info_dni, self.patient_new_info_dni, self.patient_new_info_name, self.patient_new_info_surname, float(self.patient_new_info_height), int(self.patient_new_info_weight))
+                        self.sqlite.modify_patient(self.patient_old_info_dni, self.patient_new_info_dni, self.patient_new_info_name,
+                                                   self.patient_new_info_surname, float(self.patient_new_info_height), int(self.patient_new_info_weight))
 
                         self.editMode = not self.editMode
                         self.editBtn.setText("Editar")
@@ -168,21 +173,24 @@ class Modifica_pacients(QDialog):
                     else:
                         self.showMessageBox.setWindowTitle("Error")
                         self.showMessageBox.setIcon(QMessageBox.Critical)
-                        self.showMessageBox.setText("\n\nPacient no inserit, format del DNI no valid.")
+                        self.showMessageBox.setText(
+                            "\n\nPacient no inserit, format del DNI no valid.")
                         retval = self.showMessageBox.exec_()
                 else:
                     self.showMessageBox.setWindowTitle("Error")
                     self.showMessageBox.setIcon(QMessageBox.Critical)
-                    self.showMessageBox.setText("\n\nPacient no inserit, completa tots els camps.")
+                    self.showMessageBox.setText(
+                        "\n\nPacient no inserit, completa tots els camps.")
                     retval = self.showMessageBox.exec_()
-                     
 
     def cancel_edit_patient(self):
-        
-        self.cancelDialogBox.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
+
+        self.cancelDialogBox.setStandardButtons(
+            QMessageBox.Yes | QMessageBox.No)
         self.cancelDialogBox.setDefaultButton(QMessageBox.No)
         self.cancelDialogBox.setIcon(QMessageBox.Information)
-        self.cancelDialogBox.setText("\n\nEstas segur de que vols cancelar la modificacio del pacient " + self.patient_name + " " + self.patient_surname + "?")
+        self.cancelDialogBox.setText("\n\nEstas segur de que vols cancelar la modificacio del pacient " +
+                                     self.patient_name + " " + self.patient_surname + "?")
         self.cancelDialogBox.buttonClicked.connect(self.sure_to_cancel)
         self.contador = 0
         retval = self.cancelDialogBox.exec_()
@@ -209,18 +217,20 @@ class Modifica_pacients(QDialog):
 
         if(self.cbPatients.currentText() != "Selecciona un pacient"):
 
-            self.deleteDialogBox.setStandardButtons(QMessageBox.Yes|QMessageBox.Cancel)
+            self.deleteDialogBox.setStandardButtons(
+                QMessageBox.Yes | QMessageBox.Cancel)
             self.deleteDialogBox.setDefaultButton(QMessageBox.Cancel)
             self.deleteDialogBox.setIcon(QMessageBox.Critical)
-            self.deleteDialogBox.setText("\n\nEstas segur de que vols eliminar el pacient " + self.patient_name + " " + self.patient_surname + "?")
+            self.deleteDialogBox.setText(
+                "\n\nEstas segur de que vols eliminar el pacient " + self.patient_name + " " + self.patient_surname + "?")
             self.deleteDialogBox.buttonClicked.connect(self.sure_to_delete)
             self.contador = 0
             retval = self.deleteDialogBox.exec_()
-            
-            #self.sqlite.delete_patient(self.patient_dni)
+
+            # self.sqlite.delete_patient(self.patient_dni)
 
     def sure_to_delete(self, selection):
-        
+
         self.contador += 1
         if(self.contador == 1):
             if(selection.text() == "&Yes"):

@@ -8,77 +8,69 @@ import cronometro
 import os
 import time
 from sqliteConsulter import *
-from modifcar_pacients import *
+from modifcar_usuaris import *
 
 # Relative paths
 dirname = os.path.dirname(__file__)
-alta_pacients_ui = os.path.join(dirname, 'alta_pacients.ui')
+alta_usuaris = os.path.join(dirname, 'alta_usuaris.ui')
 
 
-class Alta_pacients(QDialog):
+class Alta_usuaris(QDialog):
     def __init__(self):
-        super(Alta_pacients, self).__init__()
+        super(Alta_usuaris, self).__init__()
         # Carreguem el login.ui
-        loadUi(alta_pacients_ui, self)
-        self.setWindowTitle("Alta pacients")
+        loadUi(alta_usuaris, self)
+        self.setWindowTitle("Alta usuaris")
         self.showMessageBox = QMessageBox()
 
-        self.pbInserir.clicked.connect(self.inserir_pacient)
+        self.pbInserir.clicked.connect(self.inserir_usuaris)
 
-        self.pbModificar.clicked.connect(self.modificar_pacient)
+        self.pbModificar.clicked.connect(self.modificar_usuaris)
         self.sqlite = SQLite_consulter()
 
-    def inserir_pacient(self):
+    def inserir_usuaris(self):
 
         text_dni = self.textDni.text()
-        text_nom = self.textName.text()
-        text_cognom = self.textSurname.text()
-        text_altura = self.textHeight.text()
-        text_pes = self.textWeight.text()
-
+        text_passwd = self.textPasswd.text()
+        
         try:
 
-            if(text_nom != "" and text_cognom != ""):
+            if(text_passwd != ""):
                 if(len(text_dni) == 9):
 
-                    result = self.sqlite.insert_patients(
-                        text_dni, text_nom, text_cognom, text_altura, text_pes)
+                    result = self.sqlite.insert_user(text_dni, text_passwd)
                     self.showMessageBox.setWindowTitle("Done")
                     self.showMessageBox.setIcon(QMessageBox.Information)
-                    self.showMessageBox.setText(
-                        "\n\nPacient inserit correctament!")
+                    self.showMessageBox.setText("\n\nUsuari inserit correctament!")
 
                     self.textDni.setText("")
-                    self.textName.setText("")
-                    self.textSurname.setText("")
-                    self.textHeight.setText("")
-                    self.textWeight.setText("")
+                    self.textPasswd.setText("")
+                    
 
                     retval = self.showMessageBox.exec_()
                 else:
                     self.showMessageBox.setWindowTitle("Error")
                     self.showMessageBox.setIcon(QMessageBox.Critical)
-                    self.showMessageBox.setText(
-                        "\n\nPacient no inserit, format del DNI no valid.")
+                    self.showMessageBox.setText("\n\nUsuari no inserit, format del DNI no valid.")
                     retval = self.showMessageBox.exec_()
             else:
                 self.showMessageBox.setWindowTitle("Error")
                 self.showMessageBox.setIcon(QMessageBox.Critical)
                 self.showMessageBox.setText(
-                    "\n\nPacient no inserit, completa tots els camps.")
+                    "\n\nUsuari no inserit, completa tots els camps.")
                 retval = self.showMessageBox.exec_()
 
         except:
             self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText(
-                "\n\nError al inserir el pacient en la base de dades.")
+                "\n\nError al inserir el usuari en la base de dades.")
             retval = self.showMessageBox.exec_()
 
         
 
-    def modificar_pacient(self):
-        self.mod_patients_window = Modifica_pacients()
+    def modificar_usuaris(self):
+        self.mod_patients_window = Modifica_usuaris()
         self.mod_patients_window.show()
         self.close()
 
