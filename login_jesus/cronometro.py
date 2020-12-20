@@ -13,7 +13,7 @@ import time_settings
 
 # Relative paths
 dirname = os.path.dirname(__file__)
-chronoui = os.path.join(dirname, 'cronometre.ui')
+chronoui = os.path.join(dirname, 'ui/cronometre.ui')
 playIcon = os.path.join(dirname, 'recursos/play.png')
 lapIcon = os.path.join(dirname, 'recursos/lapTimer.png')
 pauseIcon = os.path.join(dirname, 'recursos/pause.png')

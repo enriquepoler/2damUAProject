@@ -13,6 +13,7 @@ import alta_pacients
 import grafica_pacients
 import time
 import recursos
+import pacients_usuaris
 
 # Relative paths
 dirname = os.path.dirname(__file__)
@@ -142,8 +143,8 @@ class MainWindow(QMainWindow):
             self.buttonFunc3Check.setChecked(False)
 
         # Mostra la finestra de alta pacients
-        self.alta_pacients_window = alta_pacients.Alta_pacients()
-        self.alta_pacients_window.show()
+        self.pacients_usuaris = pacients_usuaris.Pacients_usuaris()
+        self.pacients_usuaris.show()
 
     def grafica_pacients_finestra(self, s):
         print("click", s)

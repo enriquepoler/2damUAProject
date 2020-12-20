@@ -13,60 +13,33 @@
   <property name="windowTitle">
    <string>Login Timerson</string>
   </property>
-  <widget class="QLabel" name="labelDni">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>150</y>
-     <width>40</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Dni</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelCon">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>190</y>
-     <width>121</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Contraseña</string>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="lineEditDni">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>150</y>
-     <width>125</width>
+     <x>130</x>
+     <y>140</y>
+     <width>161</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>DNI</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEditCon">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>130</x>
      <y>190</y>
-     <width>125</width>
+     <width>161</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="placeholderText">
+    <string>CONTRASENYA</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButtonLogin">
@@ -75,9 +48,9 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>140</x>
      <y>240</y>
-     <width>113</width>
+     <width>141</width>
      <height>32</height>
     </rect>
    </property>
@@ -87,15 +60,15 @@
     </font>
    </property>
    <property name="text">
-    <string>Login</string>
+    <string>Iniciar sessió</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>10</x>
      <y>30</y>
-     <width>231</width>
+     <width>401</width>
      <height>71</height>
     </rect>
    </property>
@@ -105,7 +78,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Login</string>
+    <string>Inici de sessió</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

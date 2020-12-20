@@ -27,10 +27,13 @@ class SQLite_consulter:
         self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) NOT NULL, name VARCHAR (40), surname VARCHAR, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, total_status VARCHAR (10), lap1_status VARCHAR (10), lap2_status VARCHAR (10), lap3_status VARCHAR (10), anotations VARCHAR, user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY(patient, name, surname) REFERENCES patients (dni, name, surname) ON DELETE CASCADE ON UPDATE CASCADE)")
         self.connection.execute("CREATE TABLE IF NOT EXISTS time (status_type VARCHAR NOT NULL, lap1 DOUBLE NOT NULL DEFAULT (15.5), lap2 DOUBLE NOT NULL DEFAULT (15.5), lap3 DOUBLE NOT NULL DEFAULT (15.5), total_time DOUBLE NOT NULL DEFAULT (15.5), PRIMARY KEY (status_type))")
 
-        self.user_count = self.connection.execute(
-            "SELECT count(dni) FROM users")
+        cursor = self.connection.cursor()
 
-        if(self.user_count == 0):
+        cursor.execute("SELECT count(dni) FROM users")
+
+        self.user_count = cursor.fetchone()
+
+        if(self.user_count[0] == 0):
 
             self.connection.execute(
                 "INSERT INTO users SELECT 'admin', 'admin' WHERE NOT EXISTS (SELECT * FROM users WHERE dni = 'admin' AND password = 'admin')")

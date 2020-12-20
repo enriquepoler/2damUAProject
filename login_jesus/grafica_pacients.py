@@ -9,7 +9,7 @@ from sqliteConsulter import *
 
 #Relative paths
 dirname = os.path.dirname(__file__)
-grafica_pacients_ui = os.path.join(dirname, 'grafica_pacients.ui')
+grafica_pacients_ui = os.path.join(dirname, 'ui/grafica_pacients.ui')
 
 class MainWindow(QtWidgets.QMainWindow):
 

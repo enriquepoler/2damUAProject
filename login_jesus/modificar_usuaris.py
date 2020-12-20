@@ -12,7 +12,7 @@ import alta_usuaris
 
 # Relative paths
 dirname = os.path.dirname(__file__)
-modificar_usuaris_ui = os.path.join(dirname, 'modificar_usuaris.ui')
+modificar_usuaris_ui = os.path.join(dirname, 'ui/modificar_usuaris.ui')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 

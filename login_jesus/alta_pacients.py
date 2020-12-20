@@ -1,18 +1,22 @@
 import sys
-from PyQt5 import QtWidgets, QtSql
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QWidget, QMessageBox
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
 import hashlib
 import sqlite3
 import cronometro
 import os
 import time
-from sqliteConsulter import *
-from modifcar_pacients import *
+from sqliteConsulter import SQLite_consulter
+import modificar_pacients
+import pacients_usuaris
 
 # Relative paths
 dirname = os.path.dirname(__file__)
-alta_pacients_ui = os.path.join(dirname, 'alta_pacients.ui')
+alta_pacients_ui = os.path.join(dirname, 'ui/alta_pacients.ui')
+back_icon = os.path.join(dirname, 'recursos/back.png')
 
 
 class Alta_pacients(QDialog):
@@ -27,6 +31,9 @@ class Alta_pacients(QDialog):
 
         self.pbModificar.clicked.connect(self.modificar_pacient)
         self.sqlite = SQLite_consulter()
+
+        self.return_btn.setIcon(QIcon(back_icon))
+        self.return_btn.pressed.connect(self.back)
 
     def inserir_pacient(self):
 
@@ -77,13 +84,12 @@ class Alta_pacients(QDialog):
 
         
 
-    def modificar_pacient(self):
-        self.mod_patients_window = Modifica_pacients()
+    def modificar_pacient(self): 
+        self.mod_patients_window = modificar_pacients.Modifica_pacients()
         self.mod_patients_window.show()
         self.close()
 
-
-'''app = QApplication(sys.argv)
-window = AltaUsuaris()
-window.show()
-sys.exit(app.exec_())'''
+    def back(self):
+        self.pacients_usuaris = pacients_usuaris.Pacients_usuaris()
+        self.pacients_usuaris.show()
+        self.close()

@@ -8,11 +8,11 @@ import cronometro
 import menu
 import os
 import time
-from sqliteConsulter import *
+from sqliteConsulter import SQLite_consulter
 
 # Relative paths
 dirname = os.path.dirname(__file__)
-loginui = os.path.join(dirname, 'login.ui')
+loginui = os.path.join(dirname, 'ui/login.ui')
 
 
 class Login(QDialog):
@@ -21,11 +21,13 @@ class Login(QDialog):
         # Carreguem el login.ui
         loadUi(loginui, self)
 
+        # Clase per a fer les consultes Sqlite
+        self.sqlite = SQLite_consulter()
+
         self.pushButtonLogin.clicked.connect(self.loginFunction)
         self.showMessageBox = QMessageBox()
 
-        # Clase per a fer les consultes Sqlite
-        self.sqlite = SQLite_consulter()
+        
 
     def loginFunction(self):
         line_edit_dni = self.lineEditDni.text()

@@ -12,7 +12,7 @@ import alta_pacients
 
 # Relative paths
 dirname = os.path.dirname(__file__)
-modificar_pacients_ui = os.path.join(dirname, 'modificar_pacients.ui')
+modificar_pacients_ui = os.path.join(dirname, 'ui/modificar_pacients.ui')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 

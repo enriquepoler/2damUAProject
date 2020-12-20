@@ -11,7 +11,7 @@ from sqliteConsulter import *
 
 # Relative paths
 dirname = os.path.dirname(__file__)
-time_settings_ui = os.path.join(dirname, 'time_settings.ui')
+time_settings_ui = os.path.join(dirname, 'ui/time_settings.ui')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 
