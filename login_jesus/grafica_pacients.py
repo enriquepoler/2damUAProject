@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QWidget, QMessageBox
 from PyQt5.uic import loadUi
 #Instalar pip3 install pyqtgraph 
 from pyqtgraph import PlotWidget, plot
@@ -11,6 +12,7 @@ from sqliteConsulter import *
 dirname = os.path.dirname(__file__)
 grafica_pacients_ui = os.path.join(dirname, 'ui/grafica_pacients.ui')
 
+
 class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, *args, **kwargs):
@@ -20,7 +22,7 @@ class MainWindow(QtWidgets.QMainWindow):
         loadUi(grafica_pacients_ui, self)
 
         self.setWindowTitle("Gràfica Pacients")
-
+        self.showMessageBox = QMessageBox()
         self.tempsTotal = 0
         self.lap_total = 0
 
@@ -53,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graphWidget.setYRange(0, 100, padding=0)
 
         #Color roig de la línia de la gràfica
-        pen = pg.mkPen(color=(255, 0, 0))
+        #pen = pg.mkPen(color=(255, 0, 0))
         
 
         #Connecting to class to connect to database
@@ -80,12 +82,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     #Mètode que li passem la temps la força el nom de la llegenda i el color
-    def plot(self, x, plotname, color):
+    def plot(self, x,y, plotname, color):
         pen = pg.mkPen(color=color)
         self.graphWidget.plot(
-            x, name=plotname, pen=pen, symbol="+", symbolSize=20,
+            x, pen=pen, symbol="+", symbolSize=20,
             symbolBrush=(color)
-        
+        )
+    
+    def plotRoig(self, roig,y, plotname, color):
+        pen = pg.mkPen(color=color)
+        self.graphWidget.plot(
+            roig, name=plotname, pen=pen, symbol="+", symbolSize=20,
+            symbolBrush=(color)
         )
 
     #Funció per a la sel·lecció del pacient
@@ -112,7 +120,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.v0Label.setText(str(self.tempsTotal) + " s totals")
 
             #El self.plot() del perfil medit el tenim repetit perquè sino no apareix (la llegenda)
-            self.plot(self.temps, "", "b")
+            print("TEMPS->" , self.temps)
+            self.plot(self.temps, "", "","b")
 
             #self.graphWidget.addLegend()
 
@@ -129,22 +138,27 @@ class MainWindow(QtWidgets.QMainWindow):
         self.tempsOptim = self.line_edit_tempsOptim
         self.tempsDos = [0,self.tempsOptim]
 
-        if float(self.tempsOptim) < self.tempsMedit:
-            self.lResultat.setText("El pacient deuria millorar")
-        elif float(self.tempsOptim) > self.tempsMedit:
-            self.lResultat.setText("El pacient ha superat el temps")
+        print("TEMPS OPTIM ->" , self.tempsOptim)
+        print("TEMPS DOS ->" , self.tempsDos)
+
+        if self.tempsOptim != "":
+            if float(self.tempsOptim) < float(self.tempsMedit):
+                self.lResultat.setText("El pacient deuria millorar")
+            elif float(self.tempsOptim) > float(self.tempsMedit):
+                self.lResultat.setText("El pacient ha superat el temps")
+            
+            self.plot(self.tempsDos,"","", "r")
+            
+        else:
+            self.showMessageBox.setWindowTitle("Error")
+            self.showMessageBox.setIcon(QMessageBox.Critical)
+            self.showMessageBox.setText("\n\nDeus inserir el temps òptim")
+            retval = self.showMessageBox.exec_()
+
 
         print("tempsOptimFuncio -> "+self.tempsOptim)
         print("tempsMeditFuncio -> ",self.tempsMedit)
 
-        self.plot(self.tempsDos,"", "r")
-
-        #if self.tempsOptim > self.tempsMedit:
-         #   print("Es major")
-
-        
-
-        
 
 '''def main():
     app = QtWidgets.QApplication(sys.argv)
