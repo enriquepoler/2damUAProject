@@ -20,6 +20,7 @@ pauseIcon = os.path.join(dirname, 'recursos/pause.png')
 saveIcon = os.path.join(dirname, 'recursos/save.png')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 settings_icon = os.path.join(dirname, 'recursos/settings.png')
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
 # TODO: Calcular puntuacions segons temps de tall dels ajustaments
 
@@ -35,6 +36,7 @@ class Chron(QWidget):
 
         # Loading the ui
         loadUi(chronoui, self)
+        self.setWindowIcon(QIcon(app_icon))
 
         # setting window center on screen
         qtRectangle = self.frameGeometry()
@@ -150,9 +152,9 @@ class Chron(QWidget):
 
     def change_settings(self):
 
-        self.settings = time_settings.Time_settings(self.user)
+        self.settings = time_settings.Time_settings()
         self.settings.show()
-        self.close()
+        
 
     # method called by timer
     def showTime(self):
@@ -291,7 +293,7 @@ class Chron(QWidget):
 
         else:
 
-            retval = self.showMessageBox.exec_()
+            self.showMessageBox.exec_()
 
 
 class Lap_saver_thread(QRunnable):

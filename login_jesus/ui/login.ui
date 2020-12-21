@@ -25,6 +25,9 @@
    <property name="text">
     <string/>
    </property>
+   <property name="maxLength">
+    <number>9</number>
+   </property>
    <property name="placeholderText">
     <string>DNI</string>
    </property>
@@ -37,6 +40,9 @@
      <width>161</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
    </property>
    <property name="placeholderText">
     <string>CONTRASENYA</string>

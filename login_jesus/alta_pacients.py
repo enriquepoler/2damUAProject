@@ -17,13 +17,14 @@ import pacients_usuaris
 dirname = os.path.dirname(__file__)
 alta_pacients_ui = os.path.join(dirname, 'ui/alta_pacients.ui')
 back_icon = os.path.join(dirname, 'recursos/back.png')
-
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
 class Alta_pacients(QDialog):
     def __init__(self):
         super(Alta_pacients, self).__init__()
         # Carreguem el login.ui
         loadUi(alta_pacients_ui, self)
+        self.setWindowIcon(QIcon(app_icon))
         self.setWindowTitle("Alta pacients")
         self.showMessageBox = QMessageBox()
 
@@ -61,26 +62,26 @@ class Alta_pacients(QDialog):
                     self.textHeight.setText("")
                     self.textWeight.setText("")
 
-                    retval = self.showMessageBox.exec_()
+                    self.showMessageBox.exec_()
                 else:
                     self.showMessageBox.setWindowTitle("Error")
                     self.showMessageBox.setIcon(QMessageBox.Critical)
                     self.showMessageBox.setText(
                         "\n\nPacient no inserit, format del DNI no valid.")
-                    retval = self.showMessageBox.exec_()
+                    self.showMessageBox.exec_()
             else:
                 self.showMessageBox.setWindowTitle("Error")
                 self.showMessageBox.setIcon(QMessageBox.Critical)
                 self.showMessageBox.setText(
                     "\n\nPacient no inserit, completa tots els camps.")
-                retval = self.showMessageBox.exec_()
+                self.showMessageBox.exec_()
 
         except:
             self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText(
                 "\n\nError al inserir el pacient en la base de dades.")
-            retval = self.showMessageBox.exec_()
+            self.showMessageBox.exec_()
 
         
 

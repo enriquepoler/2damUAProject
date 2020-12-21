@@ -7,31 +7,34 @@ from PyQt5.uic import loadUi
 import os
 import time
 import cronometro
-from sqliteConsulter import *
+from sqliteConsulter import SQLite_consulter
 
 # Relative paths
 dirname = os.path.dirname(__file__)
 time_settings_ui = os.path.join(dirname, 'ui/time_settings.ui')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
 
 class Time_settings(QDialog):
 
-    def __init__(self, user):
+    def __init__(self):
 
         super(Time_settings, self).__init__()
-        self.user = user
+        
         # Carreguem el login.ui
         loadUi(time_settings_ui, self)
         self.setWindowTitle("Ajustaments")
+        self.setWindowIcon(QIcon(app_icon))
 
         self.cancelDialogBox = QMessageBox()
         self.editDialogBox = QMessageBox()
         self.parameterDialogBox = QMessageBox()
 
         self.sqlite = SQLite_consulter()
-
+        
+        self.return_btn.hide()
         self.edit_btn.setText("Editar")
         self.edit_btn.setEnabled(False)
         self.editMode = False
@@ -75,10 +78,10 @@ class Time_settings(QDialog):
             status_info = self.sqlite.get_status_info(
                 self.combo_box_status.currentText())
 
-            self.lap1 = status_info[0][1]
-            self.lap2 = status_info[0][2]
-            self.lap3 = status_info[0][3]
-            self.total_lap = status_info[0][4]
+            self.lap1 = status_info[1]
+            self.lap2 = status_info[2]
+            self.lap3 = status_info[3]
+            self.total_lap = status_info[4]
 
             self.lap1_text_edit.setText(str(self.lap1))
             self.lap2_text_edit.setText(str(self.lap2))
@@ -113,7 +116,7 @@ class Time_settings(QDialog):
                 "\n\nEstas segur de que vols guardar la modificacio del estat " + self.status + "?")
             self.editDialogBox.buttonClicked.connect(self.sure_to_save)
             self.contador = 0
-            retval = self.editDialogBox.exec_()
+            self.editDialogBox.exec_()
 
         else:
 
@@ -172,7 +175,7 @@ class Time_settings(QDialog):
                     self.parameterDialogBox.setIcon(QMessageBox.Critical)
                     self.parameterDialogBox.setText(
                         "\n\nTemps no modificat, no deixes ningun camp buit.")
-                    retval = self.parameterDialogBox.exec_()
+                    self.parameterDialogBox.exec_()
 
     def cancel_edit_patient(self):
 
@@ -184,7 +187,7 @@ class Time_settings(QDialog):
             "\n\nEstas segur de que vols cancelar la modificacio del estat " + self.status + "?")
         self.cancelDialogBox.buttonClicked.connect(self.sure_to_cancel)
         self.contador = 0
-        retval = self.cancelDialogBox.exec_()
+        self.cancelDialogBox.exec_()
 
     def sure_to_cancel(self, selection):
 

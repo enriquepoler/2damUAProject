@@ -17,15 +17,17 @@ import pacients_usuaris
 dirname = os.path.dirname(__file__)
 alta_usuaris = os.path.join(dirname, 'ui/alta_usuaris.ui')
 back_icon = os.path.join(dirname, 'recursos/back.png')
-
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
 class Alta_usuaris(QDialog):
     def __init__(self):
         super(Alta_usuaris, self).__init__()
         # Carreguem el login.ui
         loadUi(alta_usuaris, self)
+        self.setWindowIcon(QIcon(app_icon))
         self.setWindowTitle("Alta usuaris")
         self.showMessageBox = QMessageBox()
+        self.passwdDoesntMatchMessage = QMessageBox()
 
         self.pbInserir.clicked.connect(self.inserir_usuaris)
 
@@ -39,40 +41,52 @@ class Alta_usuaris(QDialog):
 
         text_dni = self.textDni.text()
         text_passwd = self.textPasswd.text()
+        text_passwd2 = self.textPasswd2.text()
         
         try:
 
             if(text_passwd != ""):
-                if(len(text_dni) == 9):
+                if(text_passwd == text_passwd2):
 
-                    result = self.sqlite.insert_user(text_dni, text_passwd)
-                    self.showMessageBox.setWindowTitle("Done")
-                    self.showMessageBox.setIcon(QMessageBox.Information)
-                    self.showMessageBox.setText("\n\nUsuari inserit correctament!")
+                    if(len(text_dni) == 9):
 
-                    self.textDni.setText("")
-                    self.textPasswd.setText("")
-                    
+                        result = self.sqlite.insert_user(text_dni, text_passwd)
+                        self.showMessageBox.setWindowTitle("Done")
+                        self.showMessageBox.setIcon(QMessageBox.Information)
+                        self.showMessageBox.setText("\n\nUsuari inserit correctament!")
 
-                    retval = self.showMessageBox.exec_()
+                        self.textDni.setText("")
+                        self.textPasswd.setText("")
+                        self.textPasswd2.setText("")
+                        
+
+                        self.showMessageBox.exec_()
+                    else:
+                        self.showMessageBox.setWindowTitle("Error")
+                        self.showMessageBox.setIcon(QMessageBox.Critical)
+                        self.showMessageBox.setText("\n\nUsuari no inserit, format del DNI no valid.")
+                        self.showMessageBox.exec_()
                 else:
-                    self.showMessageBox.setWindowTitle("Error")
-                    self.showMessageBox.setIcon(QMessageBox.Critical)
-                    self.showMessageBox.setText("\n\nUsuari no inserit, format del DNI no valid.")
-                    retval = self.showMessageBox.exec_()
+
+                    self.passwdDoesntMatchMessage.setWindowTitle("Error")
+                    self.passwdDoesntMatchMessage.setIcon(QMessageBox.Critical)
+                    self.passwdDoesntMatchMessage.setText("\n\nUsuari no inserit, les contrasenyes no coincideixen.")
+                    self.passwdDoesntMatchMessage.exec_()
+
+
             else:
                 self.showMessageBox.setWindowTitle("Error")
                 self.showMessageBox.setIcon(QMessageBox.Critical)
                 self.showMessageBox.setText(
                     "\n\nUsuari no inserit, completa tots els camps.")
-                retval = self.showMessageBox.exec_()
+                self.showMessageBox.exec_()
 
         except:
             self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText(
                 "\n\nError al inserir el usuari en la base de dades.")
-            retval = self.showMessageBox.exec_()
+            self.showMessageBox.exec_()
 
         
 

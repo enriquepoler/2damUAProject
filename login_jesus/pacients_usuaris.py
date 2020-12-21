@@ -1,6 +1,8 @@
 import sys
-from PyQt5 import QtWidgets, QtSql
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QWidget, QMessageBox
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
 import hashlib
 import sqlite3
@@ -13,6 +15,7 @@ import alta_usuaris
 # Relative paths
 dirname = os.path.dirname(__file__)
 pacients_usuaris = os.path.join(dirname, 'ui/pacients_usuaris.ui')
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
 class Pacients_usuaris(QDialog):
     def __init__(self):
@@ -20,6 +23,7 @@ class Pacients_usuaris(QDialog):
         super(Pacients_usuaris, self).__init__()
         # Carreguem el login.ui
         loadUi(pacients_usuaris, self)
+        self.setWindowIcon(QIcon(app_icon))
         self.setWindowTitle("Administracio de pacients i usuaris")
         self.showMessageBox = QMessageBox()
 

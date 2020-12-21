@@ -23,6 +23,7 @@ icon_cronometro = os.path.join(dirname, 'recursos/reloj-de-pared.png')
 icon_alta_usuaris = os.path.join(dirname, 'recursos/add-user.png')
 # Icono per a la grafica dels pacients
 icon_grafica_pacients = os.path.join(dirname, 'recursos/barra-grafica.png')
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
 
 class MainWindow(QMainWindow):
@@ -30,12 +31,15 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Menú Principal")
-        self.setGeometry(300, 200, 700, 700)
-        label = QLabel("Benvingut!")
-        label.setAlignment(Qt.AlignCenter)
+        self.setWindowIcon(QIcon(app_icon))
+        self.setFixedSize(900, 700)
+        # setting window center on screen
+        qtRectangle = self.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
         self.user = user
-
-        self.setCentralWidget(label)
+        widget = cronometro.Chron(self.user)
+        self.setCentralWidget(widget)
 
         toolbar = QToolBar("Toolbar")
         toolbar.setIconSize(QSize(16, 16))

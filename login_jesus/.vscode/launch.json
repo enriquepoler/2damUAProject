@@ -8,7 +8,7 @@
             "name": "Python: Archivo actual",
             "type": "python",
             "request": "launch",
-            "program": "C:\\Mis cosas\\Estudios\\GradoSuperior\\2DAM\\DI\\2damUAProject\\login_jesus\\login.py",
+            "program": "C:\\Mis cosas\\Estudios\\GradoSuperior\\2DAM\\DI\\2damUAProject\\login_jesus\\main.py",
             "console": "integratedTerminal"
         }
     ]

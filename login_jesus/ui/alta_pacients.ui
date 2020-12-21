@@ -132,7 +132,11 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="textDni"/>
+     <widget class="QLineEdit" name="textDni">
+      <property name="maxLength">
+       <number>9</number>
+      </property>
+     </widget>
     </item>
     <item row="1" column="1">
      <widget class="QLineEdit" name="textName"/>

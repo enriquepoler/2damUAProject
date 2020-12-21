@@ -1,23 +1,28 @@
-from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
 #Instalar pip3 install pyqtgraph 
 from pyqtgraph import PlotWidget, plot
 import pyqtgraph as pg
 import sys
 import os
-from sqliteConsulter import *
+from sqliteConsulter import SQLite_consulter
 
 #Relative paths
 dirname = os.path.dirname(__file__)
 grafica_pacients_ui = os.path.join(dirname, 'ui/grafica_pacients.ui')
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
-class MainWindow(QtWidgets.QMainWindow):
+class MainWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         
         #Carreguem el grafica_pacients.ui
         loadUi(grafica_pacients_ui, self)
+        self.setWindowIcon(QIcon(app_icon))
 
         self.setWindowTitle("Gràfica Pacients")
 
@@ -112,7 +117,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.v0Label.setText(str(self.tempsTotal) + " s totals")
 
             #El self.plot() del perfil medit el tenim repetit perquè sino no apareix (la llegenda)
-            self.plot(self.temps, "", "b")
+            #self.plot(self.temps, "", "b")
 
             #self.graphWidget.addLegend()
 

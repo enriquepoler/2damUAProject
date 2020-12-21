@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
-from sqliteConsulter import *
+from sqliteConsulter import SQLite_consulter
 import cronometro
 import os
 import time
@@ -15,7 +15,7 @@ dirname = os.path.dirname(__file__)
 modificar_usuaris_ui = os.path.join(dirname, 'ui/modificar_usuaris.ui')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
-
+app_icon = os.path.join(dirname, 'recursos/python.png')
 
 class Modifica_usuaris(QDialog):
     def __init__(self):
@@ -23,6 +23,7 @@ class Modifica_usuaris(QDialog):
 
         # Carreguem el login.ui
         loadUi(modificar_usuaris_ui, self)
+        self.setWindowIcon(QIcon(app_icon))
         self.setWindowTitle("Modificar usuaris")
         self.deleteDialogBox = QMessageBox()
         self.cancelDialogBox = QMessageBox()
@@ -120,7 +121,7 @@ class Modifica_usuaris(QDialog):
                                        self.user_dni + "?")
             self.editDialogBox.buttonClicked.connect(self.sure_to_save)
             self.contador = 0
-            retval = self.editDialogBox.exec_()
+            self.editDialogBox.exec_()
 
         else:
             self.editMode = not self.editMode
@@ -163,13 +164,13 @@ class Modifica_usuaris(QDialog):
                         self.showMessageBox.setIcon(QMessageBox.Critical)
                         self.showMessageBox.setText(
                             "\n\nusuari no inserit, format del DNI no valid.")
-                        retval = self.showMessageBox.exec_()
+                        self.showMessageBox.exec_()
                 else:
                     self.showMessageBox.setWindowTitle("Error")
                     self.showMessageBox.setIcon(QMessageBox.Critical)
                     self.showMessageBox.setText(
                         "\n\nusuari no inserit, completa tots els camps.")
-                    retval = self.showMessageBox.exec_()
+                    self.showMessageBox.exec_()
 
     def cancel_edit_user(self):
 
@@ -181,7 +182,7 @@ class Modifica_usuaris(QDialog):
                                      self.user_dni + "?")
         self.cancelDialogBox.buttonClicked.connect(self.sure_to_cancel)
         self.contador = 0
-        retval = self.cancelDialogBox.exec_()
+        self.cancelDialogBox.exec_()
 
     def sure_to_cancel(self, selection):
 
@@ -211,7 +212,7 @@ class Modifica_usuaris(QDialog):
                 "\n\nEstas segur de que vols eliminar el usuari " + self.user_dni + "?")
             self.deleteDialogBox.buttonClicked.connect(self.sure_to_delete)
             self.contador = 0
-            retval = self.deleteDialogBox.exec_()
+            self.deleteDialogBox.exec_()
 
             # self.sqlite.delete_user(self.user_dni)
 

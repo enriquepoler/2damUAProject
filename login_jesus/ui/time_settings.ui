@@ -177,6 +177,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="return_btn">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>

@@ -70,10 +70,10 @@
    <widget class="QLabel" name="pVelocitatLabel">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>440</y>
-      <width>311</width>
-      <height>41</height>
+      <x>270</x>
+      <y>430</y>
+      <width>421</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -170,7 +170,7 @@
      <x>0</x>
      <y>0</y>
      <width>961</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
