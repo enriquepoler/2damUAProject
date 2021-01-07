@@ -137,6 +137,39 @@ class SQLite_consulter:
         rows = cursor.fetchone()
 
         return rows
+    
+    # get info lap 1 from table laps
+    def get_patient_lap1_info(self, patient_name_surname):
+
+        patient = patient_name_surname.split()
+        cursor = self.connection.cursor()
+        cursor.execute(
+            "SELECT lap1 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        rows = cursor.fetchone()
+
+        return rows
+
+    # get info lap 2 from table laps
+    def get_patient_lap2_info(self, patient_name_surname):
+
+        patient = patient_name_surname.split()
+        cursor = self.connection.cursor()
+        cursor.execute(
+            "SELECT lap2 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        rows = cursor.fetchone()
+
+        return rows
+
+    # get info lap 3 from table laps
+    def get_patient_lap3_info(self, patient_name_surname):
+
+        patient = patient_name_surname.split()
+        cursor = self.connection.cursor()
+        cursor.execute(
+            "SELECT lap3 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        rows = cursor.fetchone()
+
+        return rows
 
     def ask_times_to_fill_combo_box(self):
 
