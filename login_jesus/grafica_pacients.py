@@ -19,7 +19,6 @@ app_icon = os.path.join(dirname, 'recursos/python.png')
 
 class MainWindow(QMainWindow):
 
-
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         
@@ -30,20 +29,24 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Gràfica Pacients")
         self.showMessageBox = QMessageBox()
         self.tempsTotal = 0
+        self.tempsVoltaUno = 0
+        self.tempsVoltaDos = 0
+        self.tempsVoltaTres = 0
         self.lap_total = 0
+        self.lap1 = 0
 
         #Perfil Medit
         self.temps = 0
+        self.temps1 = 0
+        self.temps2 = 0
+        self.temps3 = 0
         self.tempsMedit = 0
+        self.tempsMeditVoltaUno = 0
+        self.tempsMeditVoltaDos = 0
+        self.tempsMeditVoltaTres = 0
         
         self.temps = [0,self.tempsMedit]
-
-        #Perfil Òptim
-        self.tempsDos = 0
-        self.tempsOptim = 0
-
-        self.tempsDos = [0,self.tempsOptim]
-
+        
         # Per a canviar el color de fondo
         self.graphWidget.setBackground("w")
 
@@ -59,11 +62,7 @@ class MainWindow(QMainWindow):
         #Afegim el rango de la Y en aquest cas
         #self.graphWidget.setXRange(0, 10, padding=0)
         self.graphWidget.setYRange(0, 100, padding=0)
-
-        #Color roig de la línia de la gràfica
-        #pen = pg.mkPen(color=(255, 0, 0))
         
-
         #Connecting to class to connect to database
         self.sqlite = SQLite_consulter()
 
@@ -75,15 +74,6 @@ class MainWindow(QMainWindow):
             
         self.cBPacients.currentIndexChanged.connect(self.selection_change_patient)
 
-        #Label velocitat temps medit
-        v_0_Label=self.v0Label.text()
-
-        #Label resultat
-        resultatLabel = self.lResultat.text()
-
-        #Push Button Temps Òptim
-        self.pbTempsOptim.clicked.connect(self.tempsOptimFunction)
-
         #Mostrem la finestra
         self.show()
 
@@ -94,15 +84,10 @@ class MainWindow(QMainWindow):
             x, pen=pen, symbol="+", symbolSize=20,
             symbolBrush=(color)
         )
-    
-    def plotRoig(self, roig,y, plotname, color):
-        pen = pg.mkPen(color=color)
-        self.graphWidget.plot(
-            roig, name=plotname, pen=pen, symbol="+", symbolSize=20,
-            symbolBrush=(color)
-        )
 
     #Funció per a la sel·lecció del pacient
+
+    #self.plot.clear()
     def selection_change_patient(self):
 		
         self.selected_patient = self.cBPacients.currentText()
@@ -118,54 +103,55 @@ class MainWindow(QMainWindow):
             self.lap_total = self.sqlite.get_patient_lap_info(self.selected_patient)
             self.tempsTotal = self.lap_total[0]
             
+            #Per a obtenir el temps de la volta 1
+            self.lap1 = self.sqlite.get_patient_lap1_info(self.selected_patient)
+            self.tempsVoltaUno = self.lap1[0]
+
+            #Per a obtenir el temps de la volta 2
+            self.lap2 = self.sqlite.get_patient_lap2_info(self.selected_patient)
+            self.tempsVoltaDos = self.lap2[0]
+
+            #Per a obtenir el temps de la volta 3
+            self.lap3 = self.sqlite.get_patient_lap3_info(self.selected_patient)
+            self.tempsVoltaTres = self.lap3[0]
+
             #Temps medit dins de la gràfica
             self.tempsMedit = self.lap_total[0]
             self.temps = [0,self.tempsMedit]
 
-            #Soles es mostra el medit a la part de baix
-            self.v0Label.setText(str(self.tempsTotal) + " s totals")
+            #Temps medit volta 1
+            self.tempsMeditVoltaUno = self.lap1[0]
+            self.temps1 = [0,self.tempsMeditVoltaUno]
 
-            #El self.plot() del perfil medit el tenim repetit perquè sino no apareix (la llegenda)
+            #Temps medit volta 2
+            self.tempsMeditVoltaDos = self.lap2[0]
+            self.temps2 = [0,self.tempsMeditVoltaDos]
 
-            print("TEMPS->" , self.temps)
+            #Temps medit volta 3
+            self.tempsMeditVoltaTres = self.lap3[0]
+            self.temps3 = [0,self.tempsMeditVoltaTres]
+
+            #***Temps medit que es mostra a la part de baix***
+            #Temps volta 1
+            self.lSegmentUno.setText("Segment 1: " + str(self.tempsVoltaUno) + " s")
+            #Temps volta 2
+            self.lSegmentDos.setText("Segment 2: " + str(self.tempsVoltaDos) + " s")
+            #Temps volta 3
+            self.lSegmentTres.setText("Segment 3: " + str(self.tempsVoltaTres) + " s")
+            #Temps total
+            self.v0Label.setText("Total: " + str(self.tempsTotal) + " s ")
+            
+            #***Per a inseriro en la gràfica***
+            #Volta total
             self.plot(self.temps, "", "","b")
+            #Volta 1
+            self.plot(self.temps1, "", "","r")
+            #Volta 2
+            self.plot(self.temps2, "", "","g")
+            #Volta 3
+            self.plot(self.temps3, "", "","c")
 
-            #self.graphWidget.addLegend()
-
-            print("\n")
-            print("tempsMedit -> " + str(self.tempsMedit))
-            print("v0Label.setText -> ", self.tempsTotal)
-            print("lap_total",self.lap_total)
-            print("tempsTotal",self.lap_total)
-
-    #Funció per al temps Òptim
-    def tempsOptimFunction(self):
-        self.line_edit_tempsOptim=self.leTempsOptim.text()
-        
-        self.tempsOptim = self.line_edit_tempsOptim
-        self.tempsDos = [0,self.tempsOptim]
-
-        print("TEMPS OPTIM ->" , self.tempsOptim)
-        print("TEMPS DOS ->" , self.tempsDos)
-
-        if self.tempsOptim != "":
-            if float(self.tempsOptim) < float(self.tempsMedit):
-                self.lResultat.setText("El pacient deuria millorar")
-            elif float(self.tempsOptim) > float(self.tempsMedit):
-                self.lResultat.setText("El pacient ha superat el temps")
-            
-            self.plot(self.tempsDos,"","", "r")
-            
-        else:
-            self.showMessageBox.setWindowTitle("Error")
-            self.showMessageBox.setIcon(QMessageBox.Critical)
-            self.showMessageBox.setText("\n\nDeus inserir el temps òptim")
-            retval = self.showMessageBox.exec_()
-
-
-        print("tempsOptimFuncio -> "+self.tempsOptim)
-        print("tempsMeditFuncio -> ",self.tempsMedit)
-
+        #self.textField.setText('')
 
 '''def main():
     app = QtWidgets.QApplication(sys.argv)
