@@ -62,7 +62,6 @@ class MainWindow(QMainWindow):
         #Afegim el rango de la Y en aquest cas
         #self.graphWidget.setXRange(0, 10, padding=0)
         self.graphWidget.setYRange(0, 100, padding=0)
-        
         #Connecting to class to connect to database
         self.sqlite = SQLite_consulter()
 
@@ -77,17 +76,19 @@ class MainWindow(QMainWindow):
         #Mostrem la finestra
         self.show()
 
-    #Mètode que li passem la temps la força el nom de la llegenda i el color
+    #Mètode que li passem el temps i el color
     def plot(self, x,y, plotname, color):
         pen = pg.mkPen(color=color)
+        #barGraph = pg.BarGraphItem(color = color)
         self.graphWidget.plot(
             x, pen=pen, symbol="+", symbolSize=20,
             symbolBrush=(color)
         )
+        
+        #barGraph = pg.BarGraphItem(x = 5 , height = 5, width = 1, brush = 'g')
+        #plot.addItem(barGraph)
 
     #Funció per a la sel·lecció del pacient
-
-    #self.plot.clear()
     def selection_change_patient(self):
 		
         self.selected_patient = self.cBPacients.currentText()
@@ -133,16 +134,19 @@ class MainWindow(QMainWindow):
 
             #***Temps medit que es mostra a la part de baix***
             #Temps volta 1
-            self.lSegmentUno.setText("Segment 1: " + str(self.tempsVoltaUno) + " s")
+            self.lSegmentUno.setText("Segment 1: " + str(round(self.tempsVoltaUno,1)) + " s")
             #Temps volta 2
-            self.lSegmentDos.setText("Segment 2: " + str(self.tempsVoltaDos) + " s")
+            self.lSegmentDos.setText("Segment 2: " + str(round(self.tempsVoltaDos,1)) + " s")
             #Temps volta 3
-            self.lSegmentTres.setText("Segment 3: " + str(self.tempsVoltaTres) + " s")
+            self.lSegmentTres.setText("Segment 3: " + str(round(self.tempsVoltaTres,1)) + " s")
             #Temps total
-            self.v0Label.setText("Total: " + str(self.tempsTotal) + " s ")
+            self.v0Label.setText("Total: " + str(round(self.tempsTotal,1)) + " s ")
             
+
+            #self.graphPlot.clear()
             #***Per a inseriro en la gràfica***
             #Volta total
+            self.graphWidget.clear()
             self.plot(self.temps, "", "","b")
             #Volta 1
             self.plot(self.temps1, "", "","r")
@@ -150,8 +154,6 @@ class MainWindow(QMainWindow):
             self.plot(self.temps2, "", "","g")
             #Volta 3
             self.plot(self.temps3, "", "","c")
-
-        #self.textField.setText('')
 
 '''def main():
     app = QtWidgets.QApplication(sys.argv)
