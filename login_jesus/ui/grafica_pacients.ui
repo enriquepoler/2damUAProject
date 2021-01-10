@@ -26,33 +26,73 @@
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>30</y>
+       <x>50</x>
+       <y>40</y>
        <width>160</width>
-       <height>80</height>
+       <height>98</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="vlLlegenda">
       <item>
-       <widget class="QLabel" name="lTempsOptim">
+       <widget class="QLabel" name="lSegment1">
         <property name="font">
          <font>
-          <pointsize>15</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
          <string notr="true">color: rgb(252, 45, 45);</string>
         </property>
         <property name="text">
-         <string>+ Temps Òptim</string>
+         <string>+  Segment 1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="lTempsMedit">
+       <widget class="QLabel" name="lSegment2">
         <property name="font">
          <font>
-          <pointsize>15</pointsize>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(49, 225, 23);</string>
+        </property>
+        <property name="text">
+         <string>+ Segment 2</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lSegment3">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(40, 224, 222);
+</string>
+        </property>
+        <property name="text">
+         <string>+ Segment 3</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lTempsTotal">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -60,7 +100,10 @@
 </string>
         </property>
         <property name="text">
-         <string>+ Temps Medit</string>
+         <string>+ Temps Total</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -70,7 +113,7 @@
    <widget class="QLabel" name="pVelocitatLabel">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>320</x>
       <y>430</y>
       <width>421</width>
       <height>51</height>
@@ -84,6 +127,9 @@
     <property name="text">
      <string>Perfil de velocitat</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QComboBox" name="cBPacients">
     <property name="geometry">
@@ -95,69 +141,73 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>480</y>
-      <width>291</width>
-      <height>81</height>
+      <x>280</x>
+      <y>500</y>
+      <width>491</width>
+      <height>145</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="hlTempsOptim">
+    <layout class="QVBoxLayout" name="vlTemps">
      <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Temps Òptim</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="leTempsOptim"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pbTempsOptim">
-       <property name="text">
-        <string>Aceptar</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>299</x>
-      <y>560</y>
-      <width>641</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="v0Label">
+      <widget class="QLabel" name="lSegmentUno">
        <property name="font">
         <font>
-         <pointsize>25</pointsize>
+         <pointsize>20</pointsize>
         </font>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lResultat">
+      <widget class="QLabel" name="lSegmentDos">
        <property name="font">
         <font>
-         <pointsize>25</pointsize>
+         <pointsize>20</pointsize>
         </font>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lSegmentTres">
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="v0Label">
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -170,7 +220,7 @@
      <x>0</x>
      <y>0</y>
      <width>961</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
