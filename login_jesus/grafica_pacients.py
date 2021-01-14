@@ -26,30 +26,9 @@ class MainWindow(QMainWindow):
         #Carreguem el grafica_pacients.ui
         loadUi(grafica_pacients_ui, self)
         self.setWindowIcon(QIcon(app_icon))
-        
-        self.comboBox = QComboBox()
-        self.comboBox.setGeometry(50,50,400,35)
 
         self.setWindowTitle("Gràfica Pacients")
         self.showMessageBox = QMessageBox()
-        self.tempsTotal = 0
-        self.tempsVoltaUno = 0
-        self.tempsVoltaDos = 0
-        self.tempsVoltaTres = 0
-        self.lap_total = 0
-        self.lap1 = 0
-
-        #Perfil Medit
-        self.temps = 0
-        self.temps1 = 0
-        self.temps2 = 0
-        self.temps3 = 0
-        self.tempsMedit = 0
-        self.tempsMeditVoltaUno = 0
-        self.tempsMeditVoltaDos = 0
-        self.tempsMeditVoltaTres = 0
-
-        self.temps = [0,self.tempsMedit]
 
         # Per a canviar el color de fondo
         self.graphWidget.setBackground("w")
@@ -67,8 +46,8 @@ class MainWindow(QMainWindow):
         self.graphWidget.showGrid(x=True, y=True)
 
         #Afegim el rango de la X i la Y en aquest cas
-        self.graphWidget.setXRange(0, 10, padding=0)
-        self.graphWidget.setYRange(0, 50, padding=0)
+        self.graphWidget.setXRange(0,10, padding=0.001)
+        self.graphWidget.setYRange(0,50, padding=0.01)
 
         #Connecting to class to connect to database
         self.sqlite = SQLite_consulter()
