@@ -36,9 +36,37 @@ class Alta_pacients(QDialog):
         self.sqlite = SQLite_consulter()
 
         self.textDni.textChanged.connect(self.comprueba_dni)
+        self.fill_cb_gender()
+        self.fill_cb_phase()
 
         self.return_btn.setIcon(QIcon(back_icon))
         self.return_btn.pressed.connect(self.back)
+
+    def fill_cb_gender(self):
+        #self.cbGender.setPlaceHolderText("Selecciona genere")
+        self.cbGender.addItem("Home")
+        self.cbGender.addItem("Dona")
+        self.cbGender.currentIndexChanged.connect(
+            self.selection_change_gender)
+
+    def selection_change_gender(self):
+        self.text_genere = self.cbGender.currentText()
+
+    def fill_cb_phase(self):
+        #self.cbPhaseDisease.setPlaceHolderText("Selecciona fase")
+        self.cbPhaseDisease.addItem("Estadio 1")
+        self.cbPhaseDisease.addItem("Estadio 1.5")
+        self.cbPhaseDisease.addItem("Estadio 2")
+        self.cbPhaseDisease.addItem("Estadio 2.5")
+        self.cbPhaseDisease.addItem("Estadio 3")
+        self.cbPhaseDisease.addItem("Estadio 4")
+        self.cbPhaseDisease.addItem("Estadio 5")
+        self.cbPhaseDisease.currentIndexChanged.connect(
+            self.selection_change_phase)
+
+    def selection_change_phase(self):
+        
+        self.text_fase_enfermetat = float(self.cbPhaseDisease.currentText().split(" ")[1])
 
     def inserir_pacient(self):
 
@@ -49,9 +77,9 @@ class Alta_pacients(QDialog):
         text_pes = self.textWeight.text()
         text_data_naixement = self.textBirthDate.text()
         text_data_diagnostic_enfermetat = self.textDEDate.text()
-        text_genere = self.cbGender.text()
+        
         text_adresa = self.textAddress.text()
-        text_fase_enfermetat = self.cbPhaseDisease.text()
+        
         text_imc = self.textIMC.text()
         text_medicacio = self.textMP.text()
         text_mail = self.textMail.text()
@@ -66,7 +94,7 @@ class Alta_pacients(QDialog):
                     if(not es_correo_valido(text_mail)):
 
                         result = self.sqlite.insert_patients(
-                            text_dni, text_nom, text_cognom, text_altura, text_pes, text_data_naixement, text_data_diagnostic_enfermetat, text_genere, text_adresa, text_fase_enfermetat, text_imc, text_medicacio, text_mail, text_pgc, text_phone, text_sip)
+                            text_dni, text_nom, text_cognom, text_altura, text_pes, text_data_naixement, text_data_diagnostic_enfermetat, self.text_genere, text_adresa, self.text_fase_enfermetat, text_imc, text_medicacio, text_mail, text_pgc, text_phone, text_sip)
                         self.showMessageBox.setWindowTitle("Done")
                         self.showMessageBox.setIcon(QMessageBox.Information)
                         self.showMessageBox.setText(
@@ -130,10 +158,8 @@ class Alta_pacients(QDialog):
             palabra = 'TRWAGMYFPDXBNJZSQVHLCKE'
             letra = palabra[int(dni) % 23]
             if(nif[8] == letra):
-                print("DNI CORRECTO")
                 self.textDni.setStyleSheet("background-color: green;")
-            else:
-                print("DNI INCORRECTO, LETRA MAL")
+            else:                
                 self.textDni.setStyleSheet("background-color: red;")
         else:
             self.textDni.setStyleSheet("")
