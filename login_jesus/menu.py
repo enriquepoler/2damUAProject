@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Menú Principal")
         self.setWindowIcon(QIcon(app_icon))
-        self.setFixedSize(900, 700)
+        self.setFixedSize(900, 750)
         # setting window center on screen
         qtRectangle = self.frameGeometry()
         centerPoint = QDesktopWidget().availableGeometry().center()

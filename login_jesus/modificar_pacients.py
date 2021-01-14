@@ -83,17 +83,17 @@ class Modifica_pacients(QDialog):
             info_patient = self.sqlite.get_patient_info(
                 self.cbPatients.currentText())
 
-            self.patient_dni = info_patient[0][0]
-            self.patient_name = info_patient[0][1]
-            self.patient_surname = info_patient[0][2]
-            self.patient_height = info_patient[0][3]
-            self.patient_weight = info_patient[0][4]
+            self.patient_dni = info_patient[0]
+            self.patient_name = info_patient[1]
+            self.patient_surname = info_patient[2]
+            self.patient_height = info_patient[3]
+            self.patient_weight = info_patient[4]
 
-            self.lineEditDni.setText(self.patient_dni)
-            self.lineEditName.setText(self.patient_name)
-            self.lineEditSurname.setText(self.patient_surname)
-            self.lineEditHeight.setText(str(self.patient_height))
-            self.lineEditWeight.setText(str(self.patient_weight))
+            self.textDni.setText(self.patient_dni)
+            self.textName.setText(self.patient_name)
+            self.textSurname.setText(self.patient_surname)
+            self.textHeight.setText(str(self.patient_height))
+            self.textWeight.setText(str(self.patient_weight))
 
             self.deleteBtn.setEnabled(True)
             self.deleteBtn.setStyleSheet("color: red;")
@@ -101,11 +101,11 @@ class Modifica_pacients(QDialog):
 
         else:
 
-            self.lineEditDni.setText("")
-            self.lineEditName.setText("")
-            self.lineEditSurname.setText("")
-            self.lineEditHeight.setText("")
-            self.lineEditWeight.setText("")
+            self.textDni.setText("")
+            self.textName.setText("")
+            self.textSurname.setText("")
+            self.textHeight.setText("")
+            self.textWeight.setText("")
 
             self.editBtn.setEnabled(False)
             self.editMode = False
@@ -137,11 +137,11 @@ class Modifica_pacients(QDialog):
             self.cancelBtn.show()
             self.cbPatients.setEnabled(False)
 
-            self.patient_old_info_dni = self.lineEditDni.text()
-            self.patient_old_info_name = self.lineEditName.text()
-            self.patient_old_info_surname = self.lineEditSurname.text()
-            self.patient_old_info_height = self.lineEditHeight.text()
-            self.patient_old_info_weight = self.lineEditWeight.text()
+            self.patient_old_info_dni = self.textDni.text()
+            self.patient_old_info_name = self.textName.text()
+            self.patient_old_info_surname = self.textSurname.text()
+            self.patient_old_info_height = self.textHeight.text()
+            self.patient_old_info_weight = self.textWeight.text()
 
             self.text_edit_only()
 
@@ -151,11 +151,11 @@ class Modifica_pacients(QDialog):
         if(self.contador == 1):
             if(selection.text() == "&Yes"):
 
-                self.patient_new_info_dni = self.lineEditDni.text()
-                self.patient_new_info_name = self.lineEditName.text()
-                self.patient_new_info_surname = self.lineEditSurname.text()
-                self.patient_new_info_height = self.lineEditHeight.text()
-                self.patient_new_info_weight = self.lineEditWeight.text()
+                self.patient_new_info_dni = self.textDni.text()
+                self.patient_new_info_name = self.textName.text()
+                self.patient_new_info_surname = self.textSurname.text()
+                self.patient_new_info_height = self.textHeight.text()
+                self.patient_new_info_weight = self.textWeight.text()
 
                 if(self.patient_new_info_name != "" and self.patient_new_info_surname != ""):
                     if(len(self.patient_new_info_dni) == 9):
@@ -208,11 +208,11 @@ class Modifica_pacients(QDialog):
 
                 self.text_read_only()
                 self.cbPatients.setEnabled(True)
-                self.lineEditDni.setText(self.patient_old_info_dni)
-                self.lineEditName.setText(self.patient_old_info_name)
-                self.lineEditSurname.setText(self.patient_old_info_surname)
-                self.lineEditHeight.setText(self.patient_old_info_height)
-                self.lineEditWeight.setText(self.patient_old_info_weight)
+                self.textDni.setText(self.patient_old_info_dni)
+                self.textName.setText(self.patient_old_info_name)
+                self.textSurname.setText(self.patient_old_info_surname)
+                self.textHeight.setText(self.patient_old_info_height)
+                self.textWeight.setText(self.patient_old_info_weight)
 
     def delete_patient(self):
 
@@ -244,19 +244,19 @@ class Modifica_pacients(QDialog):
 
     def text_edit_only(self):
 
-        self.lineEditDni.setReadOnly(False)
-        self.lineEditName.setReadOnly(False)
-        self.lineEditSurname.setReadOnly(False)
-        self.lineEditHeight.setReadOnly(False)
-        self.lineEditWeight.setReadOnly(False)
+        self.textDni.setReadOnly(False)
+        self.textName.setReadOnly(False)
+        self.textSurname.setReadOnly(False)
+        self.textHeight.setReadOnly(False)
+        self.textWeight.setReadOnly(False)
 
     def text_read_only(self):
 
-        self.lineEditDni.setReadOnly(True)
-        self.lineEditName.setReadOnly(True)
-        self.lineEditSurname.setReadOnly(True)
-        self.lineEditHeight.setReadOnly(True)
-        self.lineEditWeight.setReadOnly(True)
+        self.textDni.setReadOnly(True)
+        self.textName.setReadOnly(True)
+        self.textSurname.setReadOnly(True)
+        self.textHeight.setReadOnly(True)
+        self.textWeight.setReadOnly(True)
 
     def back(self):
         self.alta_pacients_window = alta_pacients.Alta_pacients()

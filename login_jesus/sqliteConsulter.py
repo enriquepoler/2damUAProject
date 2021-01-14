@@ -21,10 +21,10 @@ class SQLite_consulter:
             self.connection = sqlite3.connect(db_file)
 
         self.connection.execute(
-            "CREATE TABLE IF NOT EXISTS patients (dni VARCHAR (9) PRIMARY KEY NOT NULL, name VARCHAR (40) NOT NULL, surname VARCHAR (40) NOT NULL, height DOUBLE DEFAULT (1.0), weight INTEGER DEFAULT (50))")
+            "CREATE TABLE IF NOT EXISTS patients (dni VARCHAR (9) PRIMARY KEY NOT NULL, name VARCHAR (40)  NOT NULL, surname VARCHAR (40)  NOT NULL, height DOUBLE, weight INTEGER, birth_date DATE, diagnose_disease DATE, gender VARCHAR (20), address VARCHAR (200), disease_phase VARCHAR (15), imc DOUBLE, medication VARCHAR (200), mail VARCHAR (60), pgc INTEGER, phone DOUBLE, sip VARCHAR (8));")
         self.connection.execute(
             "CREATE TABLE IF NOT EXISTS 'users' ('dni' TEXT NOT NULL, 'password' TEXT NOT NULL, PRIMARY KEY('dni'))")
-        self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) NOT NULL, name VARCHAR (40), surname VARCHAR, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, total_status VARCHAR (10), lap1_status VARCHAR (10), lap2_status VARCHAR (10), lap3_status VARCHAR (10), anotations VARCHAR, user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY(patient, name, surname) REFERENCES patients (dni, name, surname) ON DELETE CASCADE ON UPDATE CASCADE)")
+        self.connection.execute("CREATE TABLE IF NOT EXISTS laps (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, patient VARCHAR (9) NOT NULL, totalTime FLOAT, lap1 FLOAT, lap2 FLOAT, lap3 FLOAT, total_status VARCHAR (10), lap1_status VARCHAR (10), lap2_status VARCHAR (10), lap3_status VARCHAR (10), anotations VARCHAR, user VARCHAR (9) REFERENCES users (dni) ON DELETE SET NULL ON UPDATE CASCADE, FOREIGN KEY(patient) REFERENCES patients (dni) ON DELETE CASCADE ON UPDATE CASCADE)")
         self.connection.execute("CREATE TABLE IF NOT EXISTS time (status_type VARCHAR NOT NULL, lap1 DOUBLE NOT NULL DEFAULT (15.5), lap2 DOUBLE NOT NULL DEFAULT (15.5), lap3 DOUBLE NOT NULL DEFAULT (15.5), total_time DOUBLE NOT NULL DEFAULT (15.5), PRIMARY KEY (status_type))")
 
         cursor = self.connection.cursor()
@@ -69,16 +69,16 @@ class SQLite_consulter:
         patient = patient_name_surname.split()
         cursor = self.connection.cursor()
         cursor.execute(
-            "SELECT dni, name, surname, height, weight FROM patients WHERE name = ? and surname = ?", (patient[0], patient[1]))
-        rows = cursor.fetchall()
+            "SELECT dni, name, surname, height, weight, birth_date, diagnose_disease, gender, address, disease_phase, imc, medication, mail, pgc, phone, sip FROM patients WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        row = cursor.fetchone()
 
-        return rows
+        return row
 
     # Insertem els pacients de alta_usuaris
-    def insert_patients(self, patient_dni, patient_name, patient_surname, patient_height, patient_weight):
+    def insert_patients(self, patient_dni, patient_name, patient_surname, patient_height, patient_weight, patient_birth_date, patient_diagnose_disease, patient_gender, patient_address, patient_disease_phase, patient_imc, patient_medication, patient_mail, patient_pgc, patient_phone, patient_sip):
 
-        self.connection.execute("INSERT INTO patients (dni, name, surname, height, weight) VALUES (?, ?, ?, ?, ?)",
-                                (patient_dni, patient_name, patient_surname, patient_height, patient_weight))
+        self.connection.execute("INSERT INTO patients (dni, name, surname, height, weight, birth_date, diagnose_disease, gender, address, disease_phase, imc, medication, mail, pgc, phone, sip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                (patient_dni, patient_name, patient_surname, patient_height, patient_weight, patient_birth_date, patient_diagnose_disease, patient_gender, patient_address, patient_disease_phase, patient_imc, patient_medication, patient_mail, patient_pgc, patient_phone, patient_sip))
         self.connection.commit()
 
     def delete_patient(self, patient_dni):
@@ -87,10 +87,10 @@ class SQLite_consulter:
             "DELETE FROM patients WHERE dni = ?", ([patient_dni]))
         self.connection.commit()
 
-    def modify_patient(self, old_patient_dni, patient_dni, patient_name, patient_surname, patient_height, patient_weight):
+    def modify_patient(self, old_patient_dni, patient_dni, patient_name, patient_surname, patient_height, patient_weight, patient_birth_date, patient_diagnose_disease, patient_gender, patient_address, patient_disease_phase, patient_imc, patient_medication, patient_mail, patient_pgc, patient_phone, patient_sip):
 
-        self.connection.execute("UPDATE patients SET dni = ?, name = ?, surname = ?, height = ?, weight = ? WHERE dni = ?", (
-            patient_dni, patient_name, patient_surname, patient_height, patient_weight, old_patient_dni))
+        self.connection.execute("UPDATE patients SET dni = ?, name = ?, surname = ?, height = ?, weight = ?, birth_date = ?, diagnose_disease = ?, gender = ?, address = ?, disease_phase = ?, imc = ?, medication = ?, mail = ?, pgc = ?, phone = ?, sip = ? WHERE dni = ?", (
+            patient_dni, patient_name, patient_surname, patient_height, patient_weight, patient_birth_date, patient_diagnose_disease, patient_gender, patient_address, patient_disease_phase, patient_imc, patient_medication, patient_mail, patient_pgc, patient_phone, patient_sip, old_patient_dni))
         self.connection.commit()
 
     def all_users(self):
@@ -111,7 +111,6 @@ class SQLite_consulter:
         self.connection.execute(
             "DELETE FROM users WHERE dni = ?", ([user_dni]))
         self.connection.commit()
-    # TODO: delete user
 
     def modify_user(self, old_user_dni, user_dni, user_passwd):
 
