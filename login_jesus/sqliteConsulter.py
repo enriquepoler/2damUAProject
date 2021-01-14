@@ -133,7 +133,7 @@ class SQLite_consulter:
         cursor = self.connection.cursor()
         cursor.execute(
             "SELECT totalTime FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
-        rows = cursor.fetchone()
+        rows = cursor.fetchall()
 
         return rows
     
@@ -144,7 +144,7 @@ class SQLite_consulter:
         cursor = self.connection.cursor()
         cursor.execute(
             "SELECT lap1 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
-        rows = cursor.fetchone()
+        rows = cursor.fetchall()
 
         return rows
 
@@ -155,7 +155,7 @@ class SQLite_consulter:
         cursor = self.connection.cursor()
         cursor.execute(
             "SELECT lap2 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
-        rows = cursor.fetchone()
+        rows = cursor.fetchall()
 
         return rows
 
@@ -166,7 +166,7 @@ class SQLite_consulter:
         cursor = self.connection.cursor()
         cursor.execute(
             "SELECT lap3 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
-        rows = cursor.fetchone()
+        rows = cursor.fetchall()
 
         return rows
 

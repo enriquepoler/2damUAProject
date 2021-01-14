@@ -20,194 +20,79 @@
       <x>10</x>
       <y>30</y>
       <width>941</width>
-      <height>391</height>
+      <height>581</height>
      </rect>
-    </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>40</y>
-       <width>160</width>
-       <height>98</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="vlLlegenda">
-      <item>
-       <widget class="QLabel" name="lSegment1">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(252, 45, 45);</string>
-        </property>
-        <property name="text">
-         <string>+  Segment 1</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="lSegment2">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(49, 225, 23);</string>
-        </property>
-        <property name="text">
-         <string>+ Segment 2</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="lSegment3">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(40, 224, 222);
-</string>
-        </property>
-        <property name="text">
-         <string>+ Segment 3</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="lTempsTotal">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(30, 36, 255);
-</string>
-        </property>
-        <property name="text">
-         <string>+ Temps Total</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="pVelocitatLabel">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>430</y>
-      <width>421</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>40</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Perfil de velocitat</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QComboBox" name="cBPacients">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>510</y>
-      <width>191</width>
+      <x>680</x>
+      <y>630</y>
+      <width>211</width>
       <height>31</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>500</y>
-      <width>491</width>
-      <height>145</height>
+      <x>10</x>
+      <y>630</y>
+      <width>661</width>
+      <height>31</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="vlTemps">
+    <layout class="QHBoxLayout" name="lLlegenda">
      <item>
-      <widget class="QLabel" name="lSegmentUno">
-       <property name="font">
-        <font>
-         <pointsize>20</pointsize>
-        </font>
+      <widget class="QLabel" name="lVoltaUno">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(252, 4, 30);</string>
        </property>
        <property name="text">
-        <string/>
+        <string>- Volta 1</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lSegmentDos">
-       <property name="font">
-        <font>
-         <pointsize>20</pointsize>
-        </font>
+      <widget class="QLabel" name="lVoltaDos">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(38, 0, 255);</string>
        </property>
        <property name="text">
-        <string/>
+        <string>- Volta 2</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lSegmentTres">
-       <property name="font">
-        <font>
-         <pointsize>20</pointsize>
-        </font>
+      <widget class="QLabel" name="lVoltaTres">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(252, 0, 229);</string>
        </property>
        <property name="text">
-        <string/>
+        <string>- Volta 3</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="v0Label">
-       <property name="font">
-        <font>
-         <pointsize>20</pointsize>
-        </font>
+      <widget class="QLabel" name="lVoltaTotal">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(39, 203, 22);</string>
        </property>
        <property name="text">
-        <string/>
+        <string>- Total</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
