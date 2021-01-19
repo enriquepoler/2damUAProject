@@ -77,7 +77,7 @@ class SQLite_consulter:
     # Insertem els pacients de alta_usuaris
     def insert_patients(self, patient_dni, patient_name, patient_surname, patient_height, patient_weight, patient_birth_date, patient_diagnose_disease, patient_gender, patient_address, patient_disease_phase, patient_imc, patient_medication, patient_mail, patient_pgc, patient_phone, patient_sip):
 
-        self.connection.execute("INSERT INTO patients (dni, name, surname, height, weight, birth_date, diagnose_disease, gender, address, disease_phase, imc, medication, mail, pgc, phone, sip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        self.connection.execute("INSERT INTO patients (dni, name, surname, height, weight, birth_date, diagnose_disease, gender, address, disease_phase, imc, medication, mail, pgc, phone, sip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                                 (patient_dni, patient_name, patient_surname, patient_height, patient_weight, patient_birth_date, patient_diagnose_disease, patient_gender, patient_address, patient_disease_phase, patient_imc, patient_medication, patient_mail, patient_pgc, patient_phone, patient_sip))
         self.connection.commit()
 

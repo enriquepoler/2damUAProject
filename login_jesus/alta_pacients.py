@@ -38,6 +38,9 @@ class Alta_pacients(QDialog):
         self.textDni.textChanged.connect(self.comprueba_dni)
         self.fill_cb_gender()
         self.fill_cb_phase()
+        self.text_fase_enfermetat = 1
+        self.text_genere = "Home"
+        self.dniValid = False
 
         self.return_btn.setIcon(QIcon(back_icon))
         self.return_btn.pressed.connect(self.back)
@@ -70,49 +73,52 @@ class Alta_pacients(QDialog):
 
     def inserir_pacient(self):
 
-        text_dni = self.textDni.text()
-        text_nom = self.textName.text()
-        text_cognom = self.textSurname.text()
-        text_altura = self.textHeight.text()
-        text_pes = self.textWeight.text()
-        text_data_naixement = self.textBirthDate.text()
-        text_data_diagnostic_enfermetat = self.textDEDate.text()
+        text_dni = str(self.textDni.text())
+        text_nom = str(self.textName.text())
+        text_cognom = str(self.textSurname.text())
+        text_altura = str(self.textHeight.text())
+        text_pes = str(self.textWeight.text())
+        text_data_naixement = str(self.textBirthDate.text())
+        text_data_diagnostic_enfermetat = str(self.textDEDate.text())
         
-        text_adresa = self.textAddress.text()
+        text_adresa = str(self.textAddress.text())
         
-        text_imc = self.textIMC.text()
-        text_medicacio = self.textMP.text()
-        text_mail = self.textMail.text()
-        text_pgc = self.textPGC.text()
-        text_phone = self.textPhone.text()
-        text_sip = self.textSIP.text()
+        text_imc = str(self.textIMC.text())
+        text_medicacio = str(self.textMP.text())
+        text_mail = str(self.textMail.text())
+        text_pgc = str(self.textPGC.text())
+        text_phone = str(self.textPhone.text())
+        text_sip = str(self.textSIP.text())
 
         try:
 
             if(text_nom != "" and text_cognom != ""):
-                if(len(text_dni) == 9):
-                    if(not es_correo_valido(text_mail)):
+                if(len(text_dni) == 9 and self.dniValid):
+                    
+                    result = self.sqlite.insert_patients(
+                        text_dni, text_nom, text_cognom, text_altura, text_pes, text_data_naixement, text_data_diagnostic_enfermetat, self.text_genere, text_adresa, self.text_fase_enfermetat, text_imc, text_medicacio, text_mail, text_pgc, text_phone, text_sip)
+                    self.showMessageBox.setWindowTitle("Done")
+                    self.showMessageBox.setIcon(QMessageBox.Information)
+                    self.showMessageBox.setText(
+                        "\n\nPacient inserit correctament!")
 
-                        result = self.sqlite.insert_patients(
-                            text_dni, text_nom, text_cognom, text_altura, text_pes, text_data_naixement, text_data_diagnostic_enfermetat, self.text_genere, text_adresa, self.text_fase_enfermetat, text_imc, text_medicacio, text_mail, text_pgc, text_phone, text_sip)
-                        self.showMessageBox.setWindowTitle("Done")
-                        self.showMessageBox.setIcon(QMessageBox.Information)
-                        self.showMessageBox.setText(
-                            "\n\nPacient inserit correctament!")
+                    self.textDni.setText("")
+                    self.textName.setText("")
+                    self.textSurname.setText("")
+                    self.textHeight.setText("")
+                    self.textWeight.setText("")
+                    #self.textBirthDate.setText("")
+                    #self.textDEDate.setText("")
+                    self.textAddress.setText("")
+                    self.textIMC.setText("")
+                    self.textMP.setText("")
+                    self.textMail.setText("")
+                    self.textPGC.setText("")
+                    self.textPhone.setText("")
+                    self.textSIP.setText("")
 
-                        self.textDni.setText("")
-                        self.textName.setText("")
-                        self.textSurname.setText("")
-                        self.textHeight.setText("")
-                        self.textWeight.setText("")
-
-                        self.showMessageBox.exec_()
-                    else:
-                        self.showMessageBox.setWindowTitle("Error")
-                        self.showMessageBox.setIcon(QMessageBox.Critical)
-                        self.showMessageBox.setText(
-                            "\n\nFormat correu electronic no valid.")
-                        self.showMessageBox.exec_()
+                    self.showMessageBox.exec_()
+                    
                 else:
                     self.showMessageBox.setWindowTitle("Error")
                     self.showMessageBox.setIcon(QMessageBox.Critical)
@@ -127,6 +133,22 @@ class Alta_pacients(QDialog):
                 self.showMessageBox.exec_()
 
         except:
+            print("dni: " + str(text_dni) + "\n" + 
+            "nom: " + str(text_nom) + "\n" +
+            "cognom: " + str(text_cognom) + "\n" +
+            "altura: " + str(text_altura) +
+            "\npes: " + str(text_pes) +
+            "\nnaiximent: " + str(text_data_naixement) +
+            "\ndiagnostic enf: " + str(text_data_diagnostic_enfermetat) +
+            "\nadressa: " + str(text_adresa) +
+            "\nimc: " + str(text_imc) +
+            "\nmedicacio: " + str(text_medicacio) +
+            "\nmail: " + str(text_mail) +
+            "\npercentGrasaCorp: " + str(text_pgc) +
+            "\nphone: " + str(text_phone) +
+            "\nsip: " + str(text_sip) +
+            "\ngenere: " + str(self.text_genere) +
+            "\nestadio: " + str(self.text_fase_enfermetat))
             self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText(
@@ -143,10 +165,6 @@ class Alta_pacients(QDialog):
         self.pacients_usuaris.show()
         self.close()
 
-    def es_correo_valido(self, correo):
-        expresion_regular = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
-        return re.match(expresion_regular, correo) is not None
-
     def comprueba_dni(self):
         nif = self.textDni.text()
 
@@ -159,7 +177,10 @@ class Alta_pacients(QDialog):
             letra = palabra[int(dni) % 23]
             if(nif[8] == letra):
                 self.textDni.setStyleSheet("background-color: green;")
+                self.dniValid = True
             else:                
                 self.textDni.setStyleSheet("background-color: red;")
+                self.dniValid = False
         else:
             self.textDni.setStyleSheet("")
+            self.dniValid = False
