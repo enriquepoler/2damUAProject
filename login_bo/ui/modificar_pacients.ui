@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1131</width>
+    <height>698</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QComboBox" name="cbPatients">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>10</y>
+     <width>341</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="editBtn">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>540</y>
+     <width>121</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Editar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="deleteBtn">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>540</y>
+     <width>111</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="whatsThis">
+    <string>Borrar pacient</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: red;</string>
+   </property>
+   <property name="text">
+    <string>Borrar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancelBtn">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>540</y>
+     <width>111</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="whatsThis">
+    <string>Cancelar modificacio</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #FFD300;</string>
+   </property>
+   <property name="text">
+    <string>Cancelar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="refresh_combo_box_btn">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>10</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="backButton">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>31</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>70</y>
+     <width>541</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_2">
+    <property name="labelAlignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>DNI</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>NOM</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>COGNOM</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>ALTURA</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>PES</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="textDni">
+      <property name="maxLength">
+       <number>9</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="textName"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="textSurname"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="textHeight"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="textWeight"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_17">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>GENERE</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_12">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>DATA NAIXEMENT</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="textBirthDate"/>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_11">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>DATA DIAGNOSTIC ENFERMETAT</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="textDEDate"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QComboBox" name="cbGender"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>70</y>
+     <width>733</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_3">
+    <property name="labelAlignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_13">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>DIRECCIO</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="textAddress"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_14">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>TELEFON</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="textPhone"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_15">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>MAIL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="textMail"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_16">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>SIP</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="textSIP">
+      <property name="maxLength">
+       <number>8</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_18">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>INDEX DE MASA CORPORAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="textIMC"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_19">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>PERCENTATGE DE GRASA CORPORAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_20">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>MEDICACIO QUE PREN</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="textPGC"/>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="textMP"/>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_21">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>FASE DE L'ENFERMETAT</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QComboBox" name="cbPhaseDisease"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

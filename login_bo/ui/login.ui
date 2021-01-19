@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>429</width>
+    <height>375</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Login Timerson</string>
+  </property>
+  <widget class="QLineEdit" name="lineEditDni">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>140</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>9</number>
+   </property>
+   <property name="placeholderText">
+    <string>DNI</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditCon">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>190</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+   <property name="placeholderText">
+    <string>CONTRASENYA</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonLogin">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>240</y>
+     <width>141</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Iniciar sessió</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>401</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>40</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Inici de sessió</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

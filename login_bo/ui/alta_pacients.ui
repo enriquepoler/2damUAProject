@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1124</width>
+    <height>701</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <weight>75</weight>
+    <italic>false</italic>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>10</y>
+     <width>271</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>25</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Alta pacients</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_6">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>550</y>
+     <width>421</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="hlButtons">
+    <item>
+     <widget class="QPushButton" name="pbInserir">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <italic>true</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Inserir pacient</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pbModificar">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <italic>true</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: italic 13pt &quot;Arial&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Modificar pacient</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>60</y>
+     <width>541</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <property name="labelAlignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>DNI</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>NOM</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>COGNOM</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>ALTURA</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>PES</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="textDni">
+      <property name="maxLength">
+       <number>9</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="textName"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="textSurname"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="textHeight"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="textWeight"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_17">
+      <property name="text">
+       <string>GENERE</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_12">
+      <property name="text">
+       <string>DATA NAIXEMENT</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="textBirthDate"/>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_11">
+      <property name="text">
+       <string>DATA DIAGNOSTIC ENFERMETAT</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="textDEDate"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QComboBox" name="cbGender"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="return_btn">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>60</y>
+     <width>571</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_2">
+    <property name="labelAlignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>DIRECCIO</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="textAddress"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>TELEFON</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="textPhone"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>MAIL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="textMail"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>SIP</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="textSIP">
+      <property name="maxLength">
+       <number>8</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_14">
+      <property name="text">
+       <string>INDEX DE MASA CORPORAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="textIMC"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_15">
+      <property name="text">
+       <string>PERCENTATGE DE GRASA CORPORAL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_16">
+      <property name="text">
+       <string>MEDICACIO QUE PREN</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="textPGC"/>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="textMP"/>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_13">
+      <property name="text">
+       <string>FASE DE L'ENFERMETAT</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QComboBox" name="cbPhaseDisease"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
