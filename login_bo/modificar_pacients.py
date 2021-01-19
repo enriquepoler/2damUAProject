@@ -10,7 +10,7 @@ import os
 import time
 import alta_pacients
 
-# Relative pathss
+# Relative pathsss
 dirname = os.path.dirname(__file__)
 modificar_pacients_ui = os.path.join(dirname, 'ui/modificar_pacients.ui')
 refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
