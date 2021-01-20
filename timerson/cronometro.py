@@ -284,7 +284,7 @@ class Chron(QWidget):
             # Read the text from QPlainTextEdit and save it
             self.patient_anotation = self.anotationsText.toPlainText()
             # save the lap with patient info
-            self.sqlite.insert_lap_into_db(self.patient_dni, self.patient_name, self.patient_surname, self.totalLap, self.lap1, self.lap2,
+            self.sqlite.insert_lap_into_db(self.patient_dni, self.totalLap, self.lap1, self.lap2,
                                            self.lap3, self.totalLap_status, self.lap1_status, self.lap2_status, self.lap3_status, self.patient_anotation, self.user)
             # MULTIFIL PER PODER ACTUALITZAR EL TEXT PASAT UNS SEGONS SENSE CONGELAR L'APP
             self.lap_saver_thread = Lap_saver_thread(

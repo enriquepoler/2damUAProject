@@ -51,10 +51,10 @@ class SQLite_consulter:
         if(self.connection != None):
             return self.connection.execute("SELECT dni FROM users WHERE dni=? AND password=?", (user, passwd))
 
-    def insert_lap_into_db(self, patient_dni, patient_name, patient_surname, total_time, lap1, lap2, lap3, total_status, lap1_status, lap2_status, lap3_status, anotations, user):
+    def insert_lap_into_db(self, patient_dni, total_time, lap1, lap2, lap3, total_status, lap1_status, lap2_status, lap3_status, anotations, user):
 
-        self.connection.execute("INSERT INTO laps (patient, name, surname, totalTime, lap1, lap2, lap3, total_status, lap1_status, lap2_status, lap3_status, anotations, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                (patient_dni, patient_name, patient_surname, total_time, lap1, lap2, lap3, total_status, lap1_status, lap2_status, lap3_status, anotations, user))
+        self.connection.execute("INSERT INTO laps (patient, totalTime, lap1, lap2, lap3, total_status, lap1_status, lap2_status, lap3_status, anotations, user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                (patient_dni, total_time, lap1, lap2, lap3, total_status, lap1_status, lap2_status, lap3_status, anotations, user))
         self.connection.commit()
 
     def ask_for_patients_to_fill_combo_box(self):
