@@ -247,9 +247,6 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="textBirthDate"/>
-    </item>
     <item row="7" column="0">
      <widget class="QLabel" name="label_11">
       <property name="font">
@@ -263,11 +260,28 @@
       </property>
      </widget>
     </item>
-    <item row="7" column="1">
-     <widget class="QLineEdit" name="textDEDate"/>
-    </item>
     <item row="5" column="1">
      <widget class="QComboBox" name="cbGender"/>
+    </item>
+    <item row="7" column="1">
+     <widget class="QDateEdit" name="textDEDate">
+      <property name="displayFormat">
+       <string>dd/MM/yyyy</string>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QDateEdit" name="textBirthDate">
+      <property name="displayFormat">
+       <string>dd/MM/yyyy</string>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -276,7 +290,7 @@
     <rect>
      <x>550</x>
      <y>70</y>
-     <width>733</width>
+     <width>571</width>
      <height>311</height>
     </rect>
    </property>

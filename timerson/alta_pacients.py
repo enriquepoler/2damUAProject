@@ -116,6 +116,8 @@ class Alta_pacients(QDialog):
                     self.textPGC.setText("")
                     self.textPhone.setText("")
                     self.textSIP.setText("")
+                    self.cbGender.setCurrentIndex(0)
+                    self.cbPhaseDisease.setCurrentIndex(0)
 
                     self.showMessageBox.exec_()
                     

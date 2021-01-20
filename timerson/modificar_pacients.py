@@ -42,6 +42,11 @@ class Modifica_pacients(QDialog):
         self.refresh_combo_box_btn.setIcon(QIcon(refresh_icon))
         self.backButton.setIcon(QIcon(back_icon))
 
+        self.text_fase_enfermetat = 1
+        self.text_genere = "Home"
+        self.dniValid = False
+        self.textDni.textChanged.connect(self.comprueba_dni)
+
         self.cancelBtn.hide()
 
         self.editBtn.pressed.connect(self.edit_patient)
@@ -52,9 +57,35 @@ class Modifica_pacients(QDialog):
 
         self.fill_cb_patients()
 
-        self.text_read_only()
+        self.block_ui(True)
 
         # self.show()
+
+    def fill_cb_gender(self):
+        #self.cbGender.setPlaceHolderText("Selecciona genere")
+        self.cbGender.addItem("Home")
+        self.cbGender.addItem("Dona")
+        self.cbGender.currentIndexChanged.connect(
+            self.selection_change_gender)
+
+    def selection_change_gender(self):
+        self.text_genere = self.cbGender.currentText()
+
+    def fill_cb_phase(self):
+        #self.cbPhaseDisease.setPlaceHolderText("Selecciona fase")
+        self.cbPhaseDisease.addItem("Estadio 1")
+        self.cbPhaseDisease.addItem("Estadio 1.5")
+        self.cbPhaseDisease.addItem("Estadio 2")
+        self.cbPhaseDisease.addItem("Estadio 2.5")
+        self.cbPhaseDisease.addItem("Estadio 3")
+        self.cbPhaseDisease.addItem("Estadio 4")
+        self.cbPhaseDisease.addItem("Estadio 5")
+        self.cbPhaseDisease.currentIndexChanged.connect(
+            self.selection_change_phase)
+
+    def selection_change_phase(self):
+        
+        self.text_fase_enfermetat = float(self.cbPhaseDisease.currentText().split(" ")[1])
 
     def fill_cb_patients(self):
 
@@ -88,12 +119,53 @@ class Modifica_pacients(QDialog):
             self.patient_surname = info_patient[2]
             self.patient_height = info_patient[3]
             self.patient_weight = info_patient[4]
+            self.patient_birth_date = info_patient[5]
+            self.patient_diagnose_disease = info_patient[6]
+            self.patient_gender = info_patient[7]
+            self.patient_address = info_patient[8]
+            self.patient_disease_phase = info_patient[9]
+            self.patient_imc = info_patient[10]
+            self.patient_medication = info_patient[11]
+            self.patient_mail = info_patient[12]
+            self.patient_pgc = info_patient[13]
+            self.patient_phone = info_patient[14]
+            self.patient_sip = info_patient[15]
 
             self.textDni.setText(self.patient_dni)
             self.textName.setText(self.patient_name)
             self.textSurname.setText(self.patient_surname)
             self.textHeight.setText(str(self.patient_height))
             self.textWeight.setText(str(self.patient_weight))
+            #self.textBirthDate.setDate(str(self.patient_birth_date))
+            #self.textDEDate.setDate(str(self.patient_diagnose_disease))
+            self.textAddress.setText(self.patient_address)
+            self.textIMC.setText(str(self.patient_imc))
+            self.textMP.setText(self.patient_medication)
+            self.textMail.setText(self.patient_mail)
+            self.textPGC.setText(str(self.patient_pgc))
+            self.textPhone.setText(str(self.patient_phone))
+            self.textSIP.setText(str(self.patient_sip))
+
+            if(self.patient_gender == "Home"):
+
+                self.cbGender.setCurrentIndex(0)
+            else:
+                self.cbGender.setCurrentIndex(1)
+
+            if(self.patient_disease_phase == "1"):
+                self.cbPhaseDisease.setCurrentIndex(0)
+            elif(self.patient_disease_phase == "1.5"):
+                self.cbPhaseDisease.setCurrentIndex(1)
+            elif(self.patient_disease_phase == "2"):
+                self.cbPhaseDisease.setCurrentIndex(2)
+            elif(self.patient_disease_phase == "2.5"):
+                self.cbPhaseDisease.setCurrentIndex(3)
+            elif(self.patient_disease_phase == "3"):
+                self.cbPhaseDisease.setCurrentIndex(4)
+            elif(self.patient_disease_phase == "4"):
+                self.cbPhaseDisease.setCurrentIndex(5)
+            elif(self.patient_disease_phase == "5"):
+                self.cbPhaseDisease.setCurrentIndex(6) 
 
             self.deleteBtn.setEnabled(True)
             self.deleteBtn.setStyleSheet("color: red;")
@@ -106,6 +178,18 @@ class Modifica_pacients(QDialog):
             self.textSurname.setText("")
             self.textHeight.setText("")
             self.textWeight.setText("")
+            #self.textBirthDate.setText("")
+            #self.textDEDate.setText("")
+            self.textAddress.setText("")
+            self.textIMC.setText("")
+            self.textMP.setText("")
+            self.textMail.setText("")
+            self.textPGC.setText("")
+            self.textPhone.setText("")
+            self.textSIP.setText("")
+
+            self.cbGender.setCurrentIndex(0)
+            self.cbPhaseDisease.setCurrentIndex(0)
 
             self.editBtn.setEnabled(False)
             self.editMode = False
@@ -115,7 +199,7 @@ class Modifica_pacients(QDialog):
             self.editBtn.setText("Editar")
             self.editBtn.setStyleSheet("")
 
-            self.text_read_only()
+            self.block_ui(True)
 
     def edit_patient(self):
         if(self.editMode):
@@ -142,8 +226,19 @@ class Modifica_pacients(QDialog):
             self.patient_old_info_surname = self.textSurname.text()
             self.patient_old_info_height = self.textHeight.text()
             self.patient_old_info_weight = self.textWeight.text()
-
-            self.text_edit_only()
+            self.patient_old_info_birth_date = self.textBirthDate.text()
+            self.patient_old_info_diagnose_disease = self.textDEDate.text()
+            self.patient_old_info_gender = self.text_genere
+            self.patient_old_info_address = self.textAddress.text()
+            self.patient_old_info_disease_phase = self.text_fase_enfermetat
+            self.patient_old_info_imc = self.textIMC.text()
+            self.patient_old_info_medication = self.textMP.text()
+            self.patient_old_info_mail = self.textMail.text()
+            self.patient_old_info_pgc = self.textPGC.text()
+            self.patient_old_info_phone = self.textPhone.text()
+            self.patient_old_info_sip = self.textSIP.text()
+            
+            self.block_ui(False)
 
     def sure_to_save(self, selection):
 
@@ -156,19 +251,30 @@ class Modifica_pacients(QDialog):
                 self.patient_new_info_surname = self.textSurname.text()
                 self.patient_new_info_height = self.textHeight.text()
                 self.patient_new_info_weight = self.textWeight.text()
+                self.patient_new_info_birth_date = self.textBirthDate.text()
+                self.patient_new_info_diagnose_disease = self.textDEDate.text()
+                self.patient_new_info_gender = self.text_genere
+                self.patient_new_info_address = self.textAddress.text()
+                self.patient_new_info_disease_phase = self.text_fase_enfermetat
+                self.patient_new_info_imc = self.textIMC.text()
+                self.patient_new_info_medication = self.textMP.text()
+                self.patient_new_info_mail = self.textMail.text()
+                self.patient_new_info_pgc = self.textPGC.text()
+                self.patient_new_info_phone = self.textPhone.text()
+                self.patient_new_info_sip = self.textSIP.text()
 
                 if(self.patient_new_info_name != "" and self.patient_new_info_surname != ""):
-                    if(len(self.patient_new_info_dni) == 9):
+                    if(len(self.patient_new_info_dni) == 9 and self.dniValid):
 
                         self.sqlite.modify_patient(self.patient_old_info_dni, self.patient_new_info_dni, self.patient_new_info_name,
-                                                   self.patient_new_info_surname, float(self.patient_new_info_height), int(self.patient_new_info_weight))
+                                                   self.patient_new_info_surname, float(self.patient_new_info_height), int(self.patient_new_info_weight), self.patient_new_info_birth_date, self.patient_new_info_diagnose_disease, self.patient_new_info_gender, self.patient_new_info_address, self.patient_new_info_disease_phase, self.patient_new_info_imc, self.patient_new_info_medication, self.patient_new_info_mail, self.patient_new_info_pgc, self.patient_new_info_phone, self.patient_new_info_sip)
 
                         self.editMode = not self.editMode
                         self.editBtn.setText("Editar")
                         self.editBtn.setStyleSheet("")
                         self.cancelBtn.hide()
 
-                        self.text_read_only()
+                        self.block_ui(True)
                         self.cbPatients.setEnabled(True)
                         self.fill_cb_patients()
                     else:
@@ -186,33 +292,14 @@ class Modifica_pacients(QDialog):
 
     def cancel_edit_patient(self):
 
-        self.cancelDialogBox.setStandardButtons(
-            QMessageBox.Yes | QMessageBox.No)
-        self.cancelDialogBox.setDefaultButton(QMessageBox.No)
-        self.cancelDialogBox.setIcon(QMessageBox.Information)
-        self.cancelDialogBox.setText("\n\nEstas segur de que vols cancelar la modificacio del pacient " +
-                                     self.patient_name + " " + self.patient_surname + "?")
-        self.cancelDialogBox.buttonClicked.connect(self.sure_to_cancel)
-        self.contador = 0
-        self.cancelDialogBox.exec_()
+        self.cancelBtn.hide()
+        self.editMode = not self.editMode
+        self.editBtn.setText("Editar")
+        self.editBtn.setStyleSheet("")
 
-    def sure_to_cancel(self, selection):
-
-        self.contador += 1
-        if(self.contador == 1):
-            if(selection.text() == "&Yes"):
-                self.cancelBtn.hide()
-                self.editMode = not self.editMode
-                self.editBtn.setText("Editar")
-                self.editBtn.setStyleSheet("")
-
-                self.text_read_only()
-                self.cbPatients.setEnabled(True)
-                self.textDni.setText(self.patient_old_info_dni)
-                self.textName.setText(self.patient_old_info_name)
-                self.textSurname.setText(self.patient_old_info_surname)
-                self.textHeight.setText(self.patient_old_info_height)
-                self.textWeight.setText(self.patient_old_info_weight)
+        self.block_ui(True)
+        self.cbPatients.setEnabled(True)
+        self.fill_cb_patients() 
 
     def delete_patient(self):
 
@@ -242,21 +329,44 @@ class Modifica_pacients(QDialog):
                 self.cancelBtn.hide()
                 self.cbPatients.setEnabled(True)
 
-    def text_edit_only(self):
+    def block_ui(self, value):
 
-        self.textDni.setReadOnly(False)
-        self.textName.setReadOnly(False)
-        self.textSurname.setReadOnly(False)
-        self.textHeight.setReadOnly(False)
-        self.textWeight.setReadOnly(False)
+        self.textDni.setReadOnly(value)
+        self.textName.setReadOnly(value)
+        self.textSurname.setReadOnly(value)
+        self.textHeight.setReadOnly(value)
+        self.textWeight.setReadOnly(value)
+        self.textBirthDate.setReadOnly(value)
+        self.textDEDate.setReadOnly(value)
+        self.textAddress.setReadOnly(value)
+        self.textIMC.setReadOnly(value)
+        self.textMP.setReadOnly(value)
+        self.textMail.setReadOnly(value)
+        self.textPGC.setReadOnly(value)
+        self.textPhone.setReadOnly(value)
+        self.textSIP.setReadOnly(value)
+        self.cbGender.setEnabled(not value)
+        self.cbPhaseDisease.setEnabled(not value)
 
-    def text_read_only(self):
+    def comprueba_dni(self):
+        nif = self.textDni.text()
 
-        self.textDni.setReadOnly(True)
-        self.textName.setReadOnly(True)
-        self.textSurname.setReadOnly(True)
-        self.textHeight.setReadOnly(True)
-        self.textWeight.setReadOnly(True)
+        if (len(nif) == 9):
+            dni = ""
+            for i in range(0, 8):
+                dni += nif[i]
+            
+            palabra = 'TRWAGMYFPDXBNJZSQVHLCKE'
+            letra = palabra[int(dni) % 23]
+            if(nif[8] == letra):
+                self.textDni.setStyleSheet("background-color: green;")
+                self.dniValid = True
+            else:                
+                self.textDni.setStyleSheet("background-color: red;")
+                self.dniValid = False
+        else:
+            self.textDni.setStyleSheet("")
+            self.dniValid = False
 
     def back(self):
         self.alta_pacients_window = alta_pacients.Alta_pacients()
