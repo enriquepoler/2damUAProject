@@ -89,11 +89,14 @@ class MainWindow(QMainWindow):
             self.llistaTempsLapUno = []
             
             for iVolta1 in self.lap_one:
+                #self.llistaTempsLapUno.append(iVolta1[0])
+                
                 for jVolta1 in iVolta1:
                     self.llistaTempsLapUno.append(jVolta1)
 
             xVolta1 = range(0, len(self.llistaTempsLapUno))
             lineVolta1 = self.graphWidget.plot(xVolta1, self.llistaTempsLapUno , pen ='r', symbol ='x', symbolPen ='r', symbolBrush = 0.5, name ='red')
+            
 
             #Per a obtenir el temps de la segona volta
             self.lap_two = self.sqlite.get_patient_lap2_info(self.selected_patient)

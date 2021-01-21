@@ -121,8 +121,7 @@ class MainWindow(QMainWindow):
         button_action_cronometro.setIcon(icon)'''
 
 
-    def cronometroWindow(self, s):
-        print("click", s)
+    def cronometroWindow(self, s):        
 
         # Quan fem click sobre el botó, es seleccionarà
         self.buttonCronometroCheck.setChecked(True)
@@ -145,7 +144,6 @@ class MainWindow(QMainWindow):
         self.grafica_pacients_window.close()
 
     def alta_pacients_finestra(self, s):
-        print("click", s)
 
         self.buttonFunc2Check.setChecked(True)
 
@@ -170,7 +168,6 @@ class MainWindow(QMainWindow):
         
 
     def grafica_pacients_finestra(self, s):
-        print("click", s)
 
         self.buttonFunc3Check.setChecked(True)
 

@@ -149,9 +149,9 @@ class Chron(QWidget):
 
             info_patient = self.sqlite.get_patient_info(self.selected_patient)
 
-            self.patient_dni = info_patient[0][0]
-            self.patient_name = info_patient[0][1]
-            self.patient_surname = info_patient[0][2]
+            self.patient_dni = info_patient[0]
+            self.patient_name = info_patient[1]
+            self.patient_surname = info_patient[2]
 
     def change_settings(self):
 

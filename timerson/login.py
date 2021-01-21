@@ -36,23 +36,19 @@ class Login(QDialog):
         line_edit_con = self.lineEditCon.text()
         # Encriptem el password introduit
         h = hashlib.new("sha1", line_edit_con.encode("UTF-8"))
-        print("")
-        print("Password encrypt:", h.digest())
-
-        print("Dni:", line_edit_dni, "\n", "Contraseña:", line_edit_con)
-
+        
         result = self.sqlite.ask_user_to_db(line_edit_dni, line_edit_con)
 
         # Comprobem si existeix l´usuari
         if(len(result.fetchall()) > 0):
-            print("User found!")
+            
             # Si troba l´usuari, canviarà a la finestra següent
             #self.windowCron = cronometro.Window(line_edit_dni)
             self.windowMenu = menu.MainWindow(line_edit_dni)
             self.sqlite.close_connection()
             window.close()
         else:
-            print("User not found!")
+            
             # Mostrem una finestra informant que l´usuari o contraseña introduit no es correcte
 
             self.showMessageBox.setIcon(QMessageBox.Critical)

@@ -132,8 +132,8 @@ class SQLite_consulter:
 
         patient = patient_name_surname.split()
         cursor = self.connection.cursor()
-        cursor.execute(
-            "SELECT totalTime FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        cursor.execute("SELECT laps.totalTime FROM patients LEFT JOIN laps ON patients.dni = laps.patient WHERE patients.name = ? AND patients.surname = ?", (patient[0], patient[1]))
+        
         rows = cursor.fetchall()
 
         return rows
@@ -143,8 +143,10 @@ class SQLite_consulter:
 
         patient = patient_name_surname.split()
         cursor = self.connection.cursor()
-        cursor.execute(
-            "SELECT lap1 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        #cursor.execute(
+         #   "SELECT laps.lap1, patients.dni, patients.name, patients.surname  FROM laps LEFT JOIN patients ON patients.dni = laps.patient", (patient[0], patient[1]))
+        '''cursor.execute("SELECT laps.lap1, patients.dni, patients.name, patients.surname FROM patients LEFT JOIN laps ON patients.dni = laps.patient WHERE patients.name = ? AND patients.surname = ?", (patient[0], patient[1]))'''
+        cursor.execute("SELECT laps.lap1 FROM patients LEFT JOIN laps ON patients.dni = laps.patient WHERE patients.name = ? AND patients.surname = ?", (patient[0], patient[1]))
         rows = cursor.fetchall()
 
         return rows
@@ -154,8 +156,9 @@ class SQLite_consulter:
 
         patient = patient_name_surname.split()
         cursor = self.connection.cursor()
-        cursor.execute(
-            "SELECT lap2 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        #cursor.execute(
+         #   "SELECT laps.lap2, patients.dni, patients.name, patients.surname  FROM laps LEFT JOIN patients ON patients.dni = laps.patient", (patient[0], patient[1]))
+        cursor.execute("SELECT laps.lap2 FROM patients LEFT JOIN laps ON patients.dni = laps.patient WHERE patients.name = ? AND patients.surname = ?", (patient[0], patient[1]))
         rows = cursor.fetchall()
 
         return rows
@@ -165,8 +168,9 @@ class SQLite_consulter:
 
         patient = patient_name_surname.split()
         cursor = self.connection.cursor()
-        cursor.execute(
-            "SELECT lap3 FROM laps WHERE name = ? and surname = ?", (patient[0], patient[1]))
+        #cursor.execute(
+         #   "SELECT laps.lap3, patients.dni, patients.name, patients.surname  FROM laps LEFT JOIN patients ON patients.dni = laps.patient", (patient[0], patient[1]))
+        cursor.execute("SELECT laps.lap3 FROM patients LEFT JOIN laps ON patients.dni = laps.patient WHERE patients.name = ? AND patients.surname = ?", (patient[0], patient[1]))
         rows = cursor.fetchall()
 
         return rows
