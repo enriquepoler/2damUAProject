@@ -87,6 +87,7 @@ class Time_settings(QDialog):
             self.lap2_text_edit.setText(str(self.lap2))
             self.lap3_text_edit.setText(str(self.lap3))
             self.total_lap_text_edit.setText(str(self.total_lap))
+            self.status = self.combo_box_status.currentText()
 
             self.edit_btn.setEnabled(True)
 
@@ -179,33 +180,18 @@ class Time_settings(QDialog):
 
     def cancel_edit_patient(self):
 
-        self.cancelDialogBox.setStandardButtons(
-            QMessageBox.Yes | QMessageBox.No)
-        self.cancelDialogBox.setDefaultButton(QMessageBox.No)
-        self.cancelDialogBox.setIcon(QMessageBox.Information)
-        self.cancelDialogBox.setText(
-            "\n\nEstas segur de que vols cancelar la modificacio del estat " + self.status + "?")
-        self.cancelDialogBox.buttonClicked.connect(self.sure_to_cancel)
-        self.contador = 0
-        self.cancelDialogBox.exec_()
+        self.cancel_btn.hide()
+        self.editMode = not self.editMode
+        self.edit_btn.setText("Editar")
+        self.edit_btn.setStyleSheet("")
 
-    def sure_to_cancel(self, selection):
-
-        self.contador += 1
-        if(self.contador == 1):
-            if(selection.text() == "&Yes"):
-                self.cancel_btn.hide()
-                self.editMode = not self.editMode
-                self.edit_btn.setText("Editar")
-                self.edit_btn.setStyleSheet("")
-
-                self.text_read_only()
-                self.combo_box_status.setEnabled(True)
-                self.lap1_text_edit.setText(str(self.lap1_old_info))
-                self.lap2_text_edit.setText(str(self.lap2_old_info))
-                self.lap3_text_edit.setText(str(self.lap3_old_info))
-                self.total_lap_text_edit.setText(str(self.total_lap_old_info))
-
+        self.text_read_only()
+        self.combo_box_status.setEnabled(True)
+        self.lap1_text_edit.setText(str(self.lap1_old_info))
+        self.lap2_text_edit.setText(str(self.lap2_old_info))
+        self.lap3_text_edit.setText(str(self.lap3_old_info))
+        self.total_lap_text_edit.setText(str(self.total_lap_old_info))
+                
     def text_edit(self):
 
         self.lap1_text_edit.setReadOnly(False)
