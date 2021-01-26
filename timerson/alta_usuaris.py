@@ -87,7 +87,7 @@ class Alta_usuaris(QDialog):
             self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText(
-                "\n\nError al inserir el usuari en la base de dades.")
+                "\n\nError al inserir el usuari en la base de dades. Es posible que ja estiga inserit el DNI del usuari.")
             self.showMessageBox.exec_()
 
         
