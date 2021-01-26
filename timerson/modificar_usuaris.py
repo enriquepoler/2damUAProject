@@ -26,7 +26,6 @@ class Modifica_usuaris(QDialog):
         self.setWindowIcon(QIcon(app_icon))
         self.setWindowTitle("Modificar usuaris")
         self.deleteDialogBox = QMessageBox()
-        self.cancelDialogBox = QMessageBox()
         self.editDialogBox = QMessageBox()
         self.showMessageBox = QMessageBox()
 
@@ -34,6 +33,7 @@ class Modifica_usuaris(QDialog):
 
         self.editBtn.setText("Editar")
         self.editBtn.setEnabled(False)
+        self.dniValid = False
         self.editMode = False
         self.cancelBtn.setText("Cancelar")
         self.deleteBtn.setText("Borrar")
@@ -49,6 +49,7 @@ class Modifica_usuaris(QDialog):
         self.deleteBtn.pressed.connect(self.delete_user)
         self.refresh_combo_box_btn.pressed.connect(self.fill_cb_users)
         self.backButton.pressed.connect(self.back)
+        self.lineEditDni.textChanged.connect(self.comprueba_dni)
 
         self.fill_cb_users()
 
@@ -147,7 +148,7 @@ class Modifica_usuaris(QDialog):
                 
 
                 if(self.user_new_info_passwd != ""):
-                    if(len(self.user_new_info_dni) == 9):
+                    if(len(self.user_new_info_dni) == 9 and self.dniValid):
 
                         self.sqlite.modify_user(self.user_old_info_dni, self.user_new_info_dni, self.user_new_info_passwd)
 
@@ -174,30 +175,17 @@ class Modifica_usuaris(QDialog):
 
     def cancel_edit_user(self):
 
-        self.cancelDialogBox.setStandardButtons(
-            QMessageBox.Yes | QMessageBox.No)
-        self.cancelDialogBox.setDefaultButton(QMessageBox.No)
-        self.cancelDialogBox.setIcon(QMessageBox.Information)
-        self.cancelDialogBox.setText("\n\nEstas segur de que vols cancelar la modificacio del usuari " +
-                                     self.user_dni + "?")
-        self.cancelDialogBox.buttonClicked.connect(self.sure_to_cancel)
-        self.contador = 0
-        self.cancelDialogBox.exec_()
+        self.cancelBtn.hide()
+        self.editMode = not self.editMode
+        self.editBtn.setText("Editar")
+        self.editBtn.setStyleSheet("")
 
-    def sure_to_cancel(self, selection):
+        self.text_read_only()
+        self.cbUsers.setEnabled(True)
+        self.lineEditDni.setText(self.user_old_info_dni)
+        self.lineEditPasswd.setText(self.user_old_info_passwd)
 
-        self.contador += 1
-        if(self.contador == 1):
-            if(selection.text() == "&Yes"):
-                self.cancelBtn.hide()
-                self.editMode = not self.editMode
-                self.editBtn.setText("Editar")
-                self.editBtn.setStyleSheet("")
-
-                self.text_read_only()
-                self.cbUsers.setEnabled(True)
-                self.lineEditDni.setText(self.user_old_info_dni)
-                self.lineEditPasswd.setText(self.user_old_info_passwd)
+                
                 
 
     def delete_user(self):
@@ -244,3 +232,23 @@ class Modifica_usuaris(QDialog):
         self.alta_usuaris_window = alta_usuaris.Alta_usuaris()
         self.alta_usuaris_window.show()
         self.close()
+
+    def comprueba_dni(self):
+        nif = self.lineEditDni.text()
+
+        if (len(nif) == 9):
+            dni = ""
+            for i in range(0, 8):
+                dni += nif[i]
+            
+            palabra = 'TRWAGMYFPDXBNJZSQVHLCKE'
+            letra = palabra[int(dni) % 23]
+            if(nif[8] == letra):
+                self.lineEditDni.setStyleSheet("background-color: green;")
+                self.dniValid = True
+            else:                
+                self.lineEditDni.setStyleSheet("background-color: red;")
+                self.dniValid = False
+        else:
+            self.lineEditDni.setStyleSheet("")
+            self.dniValid = False

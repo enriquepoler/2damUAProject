@@ -28,8 +28,10 @@ class Alta_usuaris(QDialog):
         self.setWindowTitle("Alta usuaris")
         self.showMessageBox = QMessageBox()
         self.passwdDoesntMatchMessage = QMessageBox()
+        self.dniValid = False
 
         self.pbInserir.clicked.connect(self.inserir_usuaris)
+        self.textDni.textChanged.connect(self.comprueba_dni)
 
         self.pbModificar.clicked.connect(self.modificar_usuaris)
         self.sqlite = SQLite_consulter()
@@ -48,7 +50,7 @@ class Alta_usuaris(QDialog):
             if(text_passwd != ""):
                 if(text_passwd == text_passwd2):
 
-                    if(len(text_dni) == 9):
+                    if(len(text_dni) == 9 and self.dniValid):
 
                         result = self.sqlite.insert_user(text_dni, text_passwd)
                         self.showMessageBox.setWindowTitle("Done")
@@ -85,7 +87,7 @@ class Alta_usuaris(QDialog):
             self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText(
-                "\n\nError al inserir el usuari en la base de dades.")
+                "\n\nError al inserir el usuari en la base de dades. Es posible que ja estiga inserit el DNI del usuari.")
             self.showMessageBox.exec_()
 
         
@@ -100,3 +102,23 @@ class Alta_usuaris(QDialog):
         self.pacients_usuaris = pacients_usuaris.Pacients_usuaris()
         self.pacients_usuaris.show()
         self.close()
+
+    def comprueba_dni(self):
+        nif = self.textDni.text()
+
+        if (len(nif) == 9):
+            dni = ""
+            for i in range(0, 8):
+                dni += nif[i]
+            
+            palabra = 'TRWAGMYFPDXBNJZSQVHLCKE'
+            letra = palabra[int(dni) % 23]
+            if(nif[8] == letra):
+                self.textDni.setStyleSheet("background-color: green;")
+                self.dniValid = True
+            else:                
+                self.textDni.setStyleSheet("background-color: red;")
+                self.dniValid = False
+        else:
+            self.textDni.setStyleSheet("")
+            self.dniValid = False

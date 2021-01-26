@@ -68,8 +68,9 @@ class Alta_pacients(QDialog):
             self.selection_change_phase)
 
     def selection_change_phase(self):
-        
-        self.text_fase_enfermetat = float(self.cbPhaseDisease.currentText().split(" ")[1])
+
+        self.text_fase_enfermetat = float(
+            self.cbPhaseDisease.currentText().split(" ")[1])
 
     def inserir_pacient(self):
 
@@ -80,9 +81,9 @@ class Alta_pacients(QDialog):
         text_pes = str(self.textWeight.text())
         text_data_naixement = str(self.textBirthDate.text())
         text_data_diagnostic_enfermetat = str(self.textDEDate.text())
-        
+
         text_adresa = str(self.textAddress.text())
-        
+
         text_imc = str(self.textIMC.text())
         text_medicacio = str(self.textMP.text())
         text_mail = str(self.textMail.text())
@@ -94,7 +95,7 @@ class Alta_pacients(QDialog):
 
             if(text_nom != "" and text_cognom != ""):
                 if(len(text_dni) == 9 and self.dniValid):
-                    
+
                     result = self.sqlite.insert_patients(
                         text_dni, text_nom, text_cognom, text_altura, text_pes, text_data_naixement, text_data_diagnostic_enfermetat, self.text_genere, text_adresa, self.text_fase_enfermetat, text_imc, text_medicacio, text_mail, text_pgc, text_phone, text_sip)
                     self.showMessageBox.setWindowTitle("Done")
@@ -107,8 +108,8 @@ class Alta_pacients(QDialog):
                     self.textSurname.setText("")
                     self.textHeight.setText("")
                     self.textWeight.setText("")
-                    #self.textBirthDate.setText("")
-                    #self.textDEDate.setText("")
+                    # self.textBirthDate.setText("")
+                    # self.textDEDate.setText("")
                     self.textAddress.setText("")
                     self.textIMC.setText("")
                     self.textMP.setText("")
@@ -120,7 +121,7 @@ class Alta_pacients(QDialog):
                     self.cbPhaseDisease.setCurrentIndex(0)
 
                     self.showMessageBox.exec_()
-                    
+
                 else:
                     self.showMessageBox.setWindowTitle("Error")
                     self.showMessageBox.setIcon(QMessageBox.Critical)
@@ -135,22 +136,22 @@ class Alta_pacients(QDialog):
                 self.showMessageBox.exec_()
 
         except:
-            print("dni: " + str(text_dni) + "\n" + 
-            "nom: " + str(text_nom) + "\n" +
-            "cognom: " + str(text_cognom) + "\n" +
-            "altura: " + str(text_altura) +
-            "\npes: " + str(text_pes) +
-            "\nnaiximent: " + str(text_data_naixement) +
-            "\ndiagnostic enf: " + str(text_data_diagnostic_enfermetat) +
-            "\nadressa: " + str(text_adresa) +
-            "\nimc: " + str(text_imc) +
-            "\nmedicacio: " + str(text_medicacio) +
-            "\nmail: " + str(text_mail) +
-            "\npercentGrasaCorp: " + str(text_pgc) +
-            "\nphone: " + str(text_phone) +
-            "\nsip: " + str(text_sip) +
-            "\ngenere: " + str(self.text_genere) +
-            "\nestadio: " + str(self.text_fase_enfermetat))
+            print("dni: " + str(text_dni) + "\n" +
+                  "nom: " + str(text_nom) + "\n" +
+                  "cognom: " + str(text_cognom) + "\n" +
+                  "altura: " + str(text_altura) +
+                  "\npes: " + str(text_pes) +
+                  "\nnaiximent: " + str(text_data_naixement) +
+                  "\ndiagnostic enf: " + str(text_data_diagnostic_enfermetat) +
+                  "\nadressa: " + str(text_adresa) +
+                  "\nimc: " + str(text_imc) +
+                  "\nmedicacio: " + str(text_medicacio) +
+                  "\nmail: " + str(text_mail) +
+                  "\npercentGrasaCorp: " + str(text_pgc) +
+                  "\nphone: " + str(text_phone) +
+                  "\nsip: " + str(text_sip) +
+                  "\ngenere: " + str(self.text_genere) +
+                  "\nestadio: " + str(self.text_fase_enfermetat))
             self.showMessageBox.setWindowTitle("Error")
             self.showMessageBox.setIcon(QMessageBox.Critical)
             self.showMessageBox.setText(
@@ -174,13 +175,13 @@ class Alta_pacients(QDialog):
             dni = ""
             for i in range(0, 8):
                 dni += nif[i]
-            
+
             palabra = 'TRWAGMYFPDXBNJZSQVHLCKE'
             letra = palabra[int(dni) % 23]
             if(nif[8] == letra):
                 self.textDni.setStyleSheet("background-color: green;")
                 self.dniValid = True
-            else:                
+            else:
                 self.textDni.setStyleSheet("background-color: red;")
                 self.dniValid = False
         else:
