@@ -63,6 +63,10 @@ class Chron(QWidget):
         self.lap3 = 0
         self.savedLap = True
         self.totalLap = 0
+        self.label_lap1_status.setText("")
+        self.label_lap2_status.setText("")
+        self.label_lap3_status.setText("")
+        self.label_total_lap_status.setText("")
 
         # Saving user information
         self.user = user
@@ -83,9 +87,9 @@ class Chron(QWidget):
         self.count = 0
 
         self.text = (self.count / 10)
-        self.textLap = "0.0 \n0.0 \n0.0\n0.0"
+        self.textLap = "0.0\n\n0.0\n\n0.0\n\n0.0"
         self.labelLap.setText(self.textLap)
-        self.staticTextLap = "Fase 1:\nFase 2:\nFase 3:\nTotal volta:"
+        self.staticTextLap = "Fase 1:\n\nFase 2:\n\nFase 3:\n\nTotal volta:"
         self.staticLap.setText(self.staticTextLap)
 
         # creating flag to set if timer is started or stopped
@@ -186,7 +190,7 @@ class Chron(QWidget):
             # start the timer with the flag
             # and switch to lap1 with status 1 and change textbutton to "Lap 1"
             self.savedLap = True
-            self.textLap = "0.0\n0.0\n0.0\n0.0"
+            self.textLap = "0.0\n\n0.0\n\n0.0\n\n0.0"
             self.lap1 = 0.0
             self.lap2 = 0.0
             self.lap3 = 0.0
@@ -194,6 +198,10 @@ class Chron(QWidget):
             self.flag = True
             self.status = 1
             self.startStopSwitchBtn.setIcon(QIcon(lapIcon))
+            self.label_lap1_status.setText("")
+            self.label_lap2_status.setText("")
+            self.label_lap3_status.setText("")
+            self.label_total_lap_status.setText("")
 
         elif(self.status == 1):
 
@@ -202,7 +210,7 @@ class Chron(QWidget):
             #self.startStopSwitchBtn.setText("Lap 2")
             self.status = 2
             self.lap1 = self.text
-            self.textLap = str(self.lap1) + "\n0.0\n0.0\n0.0"
+            self.textLap = str(self.lap1) + "\n\n0.0\n\n0.0\n\n0.0"
             self.labelLap.setText(self.textLap)
 
         elif(self.status == 2):
@@ -212,8 +220,8 @@ class Chron(QWidget):
             self.startStopSwitchBtn.setIcon(QIcon(pauseIcon))
             self.status = 3
             self.lap2 = float(self.text) - float(self.lap1)
-            self.textLap = str(self.lap1) + "\n" + \
-                str(round(self.lap2, 1)) + "\n0.0\n0.0"
+            self.textLap = str(self.lap1) + "\n\n" + \
+                str(round(self.lap2, 1)) + "\n\n0.0\n\n0.0"
             self.labelLap.setText(self.textLap)
 
         elif(self.status == 3):
@@ -229,8 +237,8 @@ class Chron(QWidget):
             self.startStopSwitchBtn.setIcon(QIcon(playIcon))
             self.lap3 = float(self.text) - float(self.lap2) - float(self.lap1)
             self.totalLap = self.text
-            self.textLap = str(self.lap1) + "\n" + str(round(self.lap2, 1)) + \
-                "\n" + str(round(self.lap3, 1)) + "\n" + self.text
+            self.textLap = str(self.lap1) + "\n\n" + str(round(self.lap2, 1)) + \
+                "\n\n" + str(round(self.lap3, 1)) + "\n\n" + self.text
             self.labelLap.setText(self.textLap)
 
             # reseeting the count
@@ -245,6 +253,62 @@ class Chron(QWidget):
 
             self.labelLap.setText(self.textLap)
 
+            self.lleu_moderat = self.sqlite.get_status_info("lleu-moderat")
+
+            self.moderat_greu = self.sqlite.get_status_info("moderat-greu")
+
+            if(float(self.lap1) < self.lleu_moderat[1]):
+                
+                self.label_lap1_status.setText("Lleu")
+                self.label_lap1_status.setStyleSheet("color: green;")
+            elif(float(self.lap1) < self.moderat_greu[1]):
+                
+                self.label_lap1_status.setText("Moderat")
+                self.label_lap1_status.setStyleSheet("color: #B88546;")
+            else:
+                
+                self.label_lap1_status.setText("Greu")
+                self.label_lap1_status.setStyleSheet("color: red;")
+
+            if(float(self.lap2) < self.lleu_moderat[2]):
+                
+                self.label_lap2_status.setText("Lleu")
+                self.label_lap2_status.setStyleSheet("color: green;")
+            elif(float(self.lap2) < self.moderat_greu[2]):
+                
+                self.label_lap2_status.setText("Moderat")
+                self.label_lap2_status.setStyleSheet("color: #B88546;")
+            else:
+               
+                self.label_lap2_status.setText("Greu")
+                self.label_lap2_status.setStyleSheet("color: red;")
+
+            if(float(self.lap3) < self.lleu_moderat[3]):
+                
+                self.label_lap3_status.setText("Lleu")
+                self.label_lap3_status.setStyleSheet("color: green;")
+            elif(float(self.lap3) < self.moderat_greu[3]):
+                
+                self.label_lap3_status.setText("Moderat")
+                self.label_lap3_status.setStyleSheet("color: #B88546;")
+            else:
+                
+                self.label_lap3_status.setText("Greu")
+                self.label_lap3_status.setStyleSheet("color: red;")
+
+            if(float(self.totalLap) < self.lleu_moderat[4]):
+                
+                self.label_total_lap_status.setText("Lleu")
+                self.label_total_lap_status.setStyleSheet("color: green;")
+            elif(float(self.totalLap) < self.moderat_greu[4]):
+                
+                self.label_total_lap_status.setText("Moderat")
+                self.label_total_lap_status.setStyleSheet("color: #B88546;")
+            else:
+                
+                self.label_total_lap_status.setText("Greu")
+                self.label_total_lap_status.setStyleSheet("color: red;")
+
     def saveLap(self):
 
         if(self.combo_box_patients.currentText() != "Selecciona un pacient"):
@@ -255,31 +319,43 @@ class Chron(QWidget):
 
             if(float(self.lap1) < self.lleu_moderat[1]):
                 self.lap1_status = "Lleu"
+                
             elif(float(self.lap1) < self.moderat_greu[1]):
                 self.lap1_status = "Moderat"
+                
             else:
                 self.lap1_status = "Greu"
+                
 
             if(float(self.lap2) < self.lleu_moderat[2]):
                 self.lap2_status = "Lleu"
+                
             elif(float(self.lap2) < self.moderat_greu[2]):
                 self.lap2_status = "Moderat"
+                
             else:
                 self.lap2_status = "Greu"
+                
 
             if(float(self.lap3) < self.lleu_moderat[3]):
                 self.lap3_status = "Lleu"
+                
             elif(float(self.lap3) < self.moderat_greu[3]):
                 self.lap3_status = "Moderat"
+                
             else:
                 self.lap3_status = "Greu"
+                
 
             if(float(self.totalLap) < self.lleu_moderat[4]):
                 self.totalLap_status = "Lleu"
+                
             elif(float(self.totalLap) < self.moderat_greu[4]):
                 self.totalLap_status = "Moderat"
+                
             else:
                 self.totalLap_status = "Greu"
+                
 
             # Read the text from QPlainTextEdit and save it
             self.patient_anotation = self.anotationsText.toPlainText()
