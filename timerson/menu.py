@@ -25,6 +25,14 @@ icon_alta_usuaris = os.path.join(dirname, 'recursos/add-user.png')
 icon_grafica_pacients = os.path.join(dirname, 'recursos/barra-grafica.png')
 app_icon = os.path.join(dirname, 'recursos/python.png')
 
+# TODO: En mac el fixed windows no es suficient, es pot ampliar la finestra, tornar a comprobar-ho
+# TODO: Cambiar tot a stacked Layout i que siga tot en la mateixa finestra
+# TODO: Alerta quan vuigues tancar l'aplicacio
+# TODO: status bar amb informacio de usuari
+# TODO: Posar dos botons, uno de pacients i altre d'usuaris (doctor)
+# TODO: Si no fem stackedlayout, no matar el qmainwindow
+# TODO: en modificacio pacients i alta, cambiar la medicacio per qline edit
+# TODO: Fer tot en layouts
 
 class MainWindow(QMainWindow):
     def __init__(self, user):

@@ -24,6 +24,10 @@ app_icon = os.path.join(dirname, 'recursos/python.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 
 # TODO: Calcular puntuacions segons temps de tall dels ajustaments
+# TODO: Arreglar la ui de cronometre amb lo de volta guardada
+# TODO: Cambiar el nom de les fases per els correctes (doble tasca, etc)
+# TODO: Actualitzar les fases del lleu, moderat, greu segons apretem cada vega al canvi de la fase
+# TODO: Poder visualitzar les voltes del pacient i les anotacions
 
 class Chron(QWidget):
 

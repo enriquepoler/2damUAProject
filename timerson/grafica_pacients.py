@@ -19,6 +19,9 @@ grafica_pacients_ui = os.path.join(dirname, 'ui/grafica_pacients.ui')
 app_icon = os.path.join(dirname, 'recursos/python.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 
+#TODO: Ampliada al maxim per a les voltes inserides
+#TODO: Fer amb layouts per a que es puga ampliar i es reescale la grafica
+
 class MainWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):

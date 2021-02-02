@@ -16,6 +16,8 @@ refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 app_icon = os.path.join(dirname, 'recursos/python.png')
 
+#TODO: Que no es puga inserir una lletra i comprove si inserixes una coma o un punt
+#TODO: Cambiar els cb de text a current index
 
 class Time_settings(QDialog):
 

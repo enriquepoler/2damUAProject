@@ -5,6 +5,8 @@ import os
 dirname = os.path.dirname(__file__)
 parkingson_db = os.path.join(dirname, 'parkingson.db')
 
+# TODO: Try except en mes llocs on bote error
+# TODO: cambiar els combo box per a que busquen per DNI o es guarden amb un array i despres busquen a l'array per index
 
 class SQLite_consulter:
 
@@ -66,6 +68,7 @@ class SQLite_consulter:
         return rows
 
     def get_patient_info(self, patient_name_surname):
+        #TODO: Arreglar consulta
         patient = patient_name_surname.split()
         cursor = self.connection.cursor()
         cursor.execute(

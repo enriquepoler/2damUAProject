@@ -20,6 +20,11 @@ alta_pacients_ui = os.path.join(dirname, 'ui/alta_pacients.ui')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 app_icon = os.path.join(dirname, 'recursos/python.png')
 
+# TODO: Cuan insertes pacient que torne al cronometre
+# TODO: Camps obligatoris amb asteriscos (*)
+# TODO: Alta i modificacio de pacients siguen les mateixes
+# TODO: Comprobacio de que no s'inserten lletres (spinbox)
+
 
 class Alta_pacients(QDialog):
     def __init__(self):

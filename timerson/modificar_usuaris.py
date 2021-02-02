@@ -17,6 +17,8 @@ refresh_icon = os.path.join(dirname, 'recursos/refresh.png')
 back_icon = os.path.join(dirname, 'recursos/back.png')
 app_icon = os.path.join(dirname, 'recursos/python.png')
 
+# TODO: al modificar un usuari demanar la contrasenya antigua
+
 class Modifica_usuaris(QDialog):
     def __init__(self):
         super(Modifica_usuaris, self).__init__()
